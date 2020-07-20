@@ -72,7 +72,7 @@ implements View.OnClickListener{
                 .load(dataList.get(position).getUrl())
                 .resize(500, 500)
                 .centerCrop()
-                .error(R.drawable.ic_launcher_background)
+                .error(R.drawable.image_background)
                 .into(holder.coverImage);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

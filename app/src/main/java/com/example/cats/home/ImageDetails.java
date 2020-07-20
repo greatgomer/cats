@@ -4,16 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.squareup.picasso.Picasso;
-
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 public class ImageDetails extends AppCompatActivity {
     @Override
