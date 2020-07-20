@@ -1,9 +1,8 @@
 package com.example.cats.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;

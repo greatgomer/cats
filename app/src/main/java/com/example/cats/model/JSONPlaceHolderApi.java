@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface JSONPlaceHolderApi {
-    @GET("images/search?limit=20")
+    @GET("images/search?limit=10")
     Call<List<Cat>> getAllData();
 }
