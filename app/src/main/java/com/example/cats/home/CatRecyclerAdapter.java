@@ -5,14 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.model.Cat;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -38,6 +37,7 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
         }
     }
 
+    @NotNull
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
