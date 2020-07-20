@@ -5,11 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.model.Cat;
+import com.google.android.material.shape.RoundedCornerTreatment;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,8 +52,8 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         Picasso.with(context)
                 .load(dataList.get(position).getUrl())
-                .placeholder(R.drawable.ic_launcher_background)
-                .fit()
+                .resize(500, 500)
+                .centerCrop()
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.coverImage);
     }
