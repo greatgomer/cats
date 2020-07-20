@@ -2,6 +2,8 @@ package com.example.cats.home;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +18,8 @@ import com.example.cats.R;
 import com.example.cats.model.JSONPlaceHolderApi;
 import com.example.cats.model.NetworkService;
 import com.example.cats.model.Cat;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +39,23 @@ public class CatsFragment extends Fragment {
     int firstVisibleItem, visibleItemCount, totalItemCount;
     List<Cat> resultCats = new ArrayList<>();
 
-    public CatsFragment() {
-        // Required empty public constructor
-    }
+    public CatsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cats, container, false);
-
         recyclerView = view.findViewById(R.id.catRecyclerView);
+        addMoreCatsInFragment();
+        return view;
+    }
+
+    private void addMoreCatsInFragment(){
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 visibleItemCount = recyclerView.getChildCount();
@@ -62,18 +68,15 @@ public class CatsFragment extends Fragment {
                         previousTotal = totalItemCount;
                     }
                 }
+
                 if (!loading && (totalItemCount - visibleItemCount)
                         <= (firstVisibleItem + visibleThreshold)) {
-
-                    // Do something
                     loadCats();
                     loading = true;
                 }
             }
         });
-
         loadCats();
-        return view;
     }
 
     private void loadCats(){
@@ -81,12 +84,12 @@ public class CatsFragment extends Fragment {
         Call<List<Cat>> call = service.getAllData("97a76886-9a72-4bb1-81a2-e730833ffbdb");
         call.enqueue(new Callback<List<Cat>>() {
             @Override
-            public void onResponse(Call<List<Cat>> call, Response<List<Cat>> response) {
+            public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
                 generateDataList(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Cat>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Cat>> call, @NotNull Throwable t) {
                 Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
 

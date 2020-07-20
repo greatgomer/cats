@@ -29,13 +29,11 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-
         private ImageView coverImage;
 
         CustomViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-
             coverImage = mView.findViewById(R.id.item_image);
         }
     }
@@ -60,5 +58,4 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     public int getItemCount() {
         return dataList.size();
     }
-
 }

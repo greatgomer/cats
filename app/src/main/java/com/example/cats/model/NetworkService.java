@@ -15,7 +15,6 @@ public class NetworkService {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-
         return retrofit;
     }
 }
