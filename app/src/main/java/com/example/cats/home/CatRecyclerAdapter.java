@@ -2,6 +2,7 @@ package com.example.cats.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,11 @@ import com.squareup.picasso.Transformation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Observable;
+
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.CustomViewHolder>
 implements View.OnClickListener{
@@ -32,6 +37,9 @@ implements View.OnClickListener{
     public CatRecyclerAdapter(Context context, List<Cat> dataList) {
         this.context = context;
         this.dataList = dataList;
+    }
+
+    public CatRecyclerAdapter() {
     }
 
     @Override
@@ -70,7 +78,10 @@ implements View.OnClickListener{
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, dataList.get(position).getUrl(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(context, ImageDetails.class);
+                intent.putExtra("url", dataList.get(position).getUrl());
+                context.startActivity(intent);
             }
         });
     }
