@@ -81,7 +81,7 @@ public class CatsFragment extends Fragment {
 
     private void loadCats(){
         JSONPlaceHolderApi service = NetworkService.getInstance().create(JSONPlaceHolderApi.class);
-        Call<List<Cat>> call = service.getAllData("97a76886-9a72-4bb1-81a2-e730833ffbdb");
+        Call<List<Cat>> call = service.getAllData();
         call.enqueue(new Callback<List<Cat>>() {
             @Override
             public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
