@@ -1,18 +1,24 @@
 package com.example.cats.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.cats.R;
+import com.example.cats.activities.FilterActivity;
 import com.example.cats.model.JSONPlaceHolderApi;
 import com.example.cats.model.NetworkService;
 import com.example.cats.model.Cat;
@@ -45,7 +51,25 @@ public class CatsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cats, container, false);
         recyclerView = view.findViewById(R.id.catRecyclerView);
         addMoreCatsInFragment();
+        setHasOptionsMenu(true);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_cat_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_filter) {
+            Intent intent = new Intent(getContext(), FilterActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void addMoreCatsInFragment(){
@@ -79,7 +103,7 @@ public class CatsFragment extends Fragment {
 
     private void loadCats(){
         JSONPlaceHolderApi service = NetworkService.getInstance().create(JSONPlaceHolderApi.class);
-        Call<List<Cat>> call = service.getAllData();
+        Call<List<Cat>> call = service.getAllData(FilterActivity.link);
         call.enqueue(new Callback<List<Cat>>() {
             @Override
             public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
