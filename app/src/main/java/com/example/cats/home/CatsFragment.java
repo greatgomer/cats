@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,12 +65,13 @@ public class CatsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_filter) {
-            Intent intent = new Intent(getContext(), FilterActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+        if (id != R.id.action_favorite) {
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        Intent intent = new Intent(getContext(), FilterActivity.class);
+        startActivity(intent);
+        Objects.requireNonNull(getActivity()).finish();
+        return true;
     }
 
     private void addMoreCatsInFragment(){
