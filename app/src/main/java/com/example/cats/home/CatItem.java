@@ -5,9 +5,7 @@ public class CatItem {
     public int id;
     public int id2;
 
-    public CatItem(){
-
-    }
+    public CatItem(){}
 
     public CatItem(String desc, int id, int id2) {
         this.desc = desc;

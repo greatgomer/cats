@@ -1,4 +1,4 @@
-package com.example.cats.home;
+package com.example.cats.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -16,6 +16,7 @@ public class ImageDetails extends AppCompatActivity {
         ActivityImageDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_image_details);
 
         Bundle arguments = getIntent().getExtras();
+        assert arguments != null;
         String url = (String) arguments.get("url");
         Picasso.with(this)
                 .load(url)

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     android:background="@color/colorBack"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <include
         layout="@layout/content_main"
