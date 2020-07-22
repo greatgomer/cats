@@ -19,13 +19,13 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     public void onButtonPressed(ActivityFilterBinding binding){
-        RxView.clicks(binding.button).subscribe(aVoid-> link = "images/search?limit=14").isDisposed();
-        RxView.clicks(binding.button2).subscribe(aVoid-> link = "images/search?category_ids=5&limit=14").isDisposed();
-        RxView.clicks(binding.button3).subscribe(aVoid-> link = "images/search?category_ids=15&limit=14").isDisposed();
-        RxView.clicks(binding.button4).subscribe(aVoid-> link = "images/search?category_ids=1&limit=14").isDisposed();
-        RxView.clicks(binding.button5).subscribe(aVoid-> link = "images/search?category_ids=14&limit=14").isDisposed();
-        RxView.clicks(binding.button6).subscribe(aVoid-> link = "images/search?category_ids=2&limit=14").isDisposed();
-        RxView.clicks(binding.button7).subscribe(aVoid-> link = "images/search?category_ids=4&limit=14").isDisposed();
-        RxView.clicks(binding.button8).subscribe(aVoid-> link = "images/search?category_ids=7&limit=14").isDisposed();
+        RxView.clicks(binding.filterBoxes).subscribe(aVoid-> link = "images/search?category_ids=5&limit=14").isDisposed();
+        RxView.clicks(binding.filterClothes).subscribe(aVoid-> link = "images/search?category_ids=15&limit=14").isDisposed();
+        RxView.clicks(binding.filterHats).subscribe(aVoid-> link = "images/search?category_ids=1&limit=14").isDisposed();
+        RxView.clicks(binding.filterSinks).subscribe(aVoid-> link = "images/search?category_ids=14&limit=14").isDisposed();
+        RxView.clicks(binding.filterSpace).subscribe(aVoid-> link = "images/search?category_ids=2&limit=14").isDisposed();
+        RxView.clicks(binding.filterSunglasses).subscribe(aVoid-> link = "images/search?category_ids=4&limit=14").isDisposed();
+        RxView.clicks(binding.filterTies).subscribe(aVoid-> link = "images/search?category_ids=7&limit=14").isDisposed();
+        RxView.clicks(binding.filterReset).subscribe(aVoid-> link = "images/search?limit=14").isDisposed();
     }
 }

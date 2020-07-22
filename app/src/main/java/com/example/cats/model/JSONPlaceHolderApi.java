@@ -9,4 +9,7 @@ import retrofit2.http.Url;
 public interface JSONPlaceHolderApi {
     @GET
     Call<List<Cat>> getAllData(@Url String anEmptyString);
+
+//    @GET("images/search")
+//    Call<List<Cat>> getAllData(@QueryMap Map<String, String> parameters);
 }

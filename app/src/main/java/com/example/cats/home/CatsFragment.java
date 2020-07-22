@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +44,7 @@ public class CatsFragment extends Fragment {
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     List<Cat> resultCats = new ArrayList<>();
+    public static String link = "images/search?limit=14";
 
     public CatsFragment() {}
 
@@ -54,6 +56,17 @@ public class CatsFragment extends Fragment {
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(!link.equals(FilterActivity.link)){
+            link = FilterActivity.link;
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, new CatsFragment()).commit();
+        }
     }
 
     @Override
@@ -70,7 +83,6 @@ public class CatsFragment extends Fragment {
         }
         Intent intent = new Intent(getContext(), FilterActivity.class);
         startActivity(intent);
-        Objects.requireNonNull(getActivity()).finish();
         return true;
     }
 
@@ -105,7 +117,7 @@ public class CatsFragment extends Fragment {
 
     private void loadCats(){
         JSONPlaceHolderApi service = NetworkService.getInstance().create(JSONPlaceHolderApi.class);
-        Call<List<Cat>> call = service.getAllData(FilterActivity.link);
+        Call<List<Cat>> call = service.getAllData(link);
         call.enqueue(new Callback<List<Cat>>() {
             @Override
             public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
