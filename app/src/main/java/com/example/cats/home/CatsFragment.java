@@ -5,34 +5,32 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.cats.R;
 import com.example.cats.activities.FilterActivity;
+import com.example.cats.dagger.MyApplication;
 import com.example.cats.model.JSONPlaceHolderApi;
-import com.example.cats.model.NetworkService;
 import com.example.cats.model.Cat;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import javax.inject.Inject;
 
 public class CatsFragment extends Fragment {
     private CatRecyclerAdapter adapter;
@@ -46,27 +44,34 @@ public class CatsFragment extends Fragment {
     List<Cat> resultCats = new ArrayList<>();
     public static String link = "images/search?limit=14";
 
+    @Inject JSONPlaceHolderApi service;
+
     public CatsFragment() {}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        MyApplication.appComponent.inject(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cats, container, false);
         recyclerView = view.findViewById(R.id.catRecyclerView);
+
+
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
+
+        HashMap<String, String> parameters = new HashMap<String, String>();
+        parameters.put("limit", "14");
+        parameters.put("page", "0");
+        service.getAllData(parameters).subscribe(
+                cats -> {
+                    Log.d("TAG", "cats");
+                });
         return view;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        if(!link.equals(FilterActivity.link)){
-            link = FilterActivity.link;
-
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayout, new CatsFragment()).commit();
-        }
     }
 
     @Override
@@ -84,6 +89,16 @@ public class CatsFragment extends Fragment {
         Intent intent = new Intent(getContext(), FilterActivity.class);
         startActivity(intent);
         return true;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(!link.equals(FilterActivity.link)){
+            link = FilterActivity.link;
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, new CatsFragment()).commit();
+        }
     }
 
     private void addMoreCatsInFragment(){
@@ -116,29 +131,31 @@ public class CatsFragment extends Fragment {
     }
 
     private void loadCats(){
-        JSONPlaceHolderApi service = NetworkService.getInstance().create(JSONPlaceHolderApi.class);
-        Call<List<Cat>> call = service.getAllData(link);
-        call.enqueue(new Callback<List<Cat>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
-                generateDataList(response.body());
-            }
+//        JSONPlaceHolderApi service = NetworkService.getInstance().create(JSONPlaceHolderApi.class);
+//        Call<List<Cat>> call = service.getAllData(link);
 
-            @Override
-            public void onFailure(@NotNull Call<List<Cat>> call, @NotNull Throwable t) {
-                Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
 
-        private void generateDataList (List<Cat> photoList) {
-                if(resultCats.isEmpty()){
-                    resultCats = new ArrayList<>(photoList);
-                    adapter = new CatRecyclerAdapter(getActivity(), resultCats);
-                    recyclerView.setAdapter(adapter);
-                }else{
-                    resultCats.addAll(photoList);
-                    adapter.notifyDataSetChanged();
-                }
-        }
-        });
+//        call.enqueue(new Callback<List<Cat>>() {
+//            @Override
+//            public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
+//                generateDataList(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull Call<List<Cat>> call, @NotNull Throwable t) {
+//                Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+//            }
+
+//        private void generateDataList (List<Cat> photoList) {
+//                if(resultCats.isEmpty()){
+//                    resultCats = new ArrayList<>(photoList);
+//                    adapter = new CatRecyclerAdapter(getActivity(), resultCats);
+//                    recyclerView.setAdapter(adapter);
+//                }else{
+//                    resultCats.addAll(photoList);
+//                    adapter.notifyDataSetChanged();
+//                }
+//        }
+//        });
     }
 }
