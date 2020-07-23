@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cats.R;
 import com.example.cats.FilterActivity;
@@ -32,6 +33,10 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CatsFragment extends Fragment {
     @Inject
     ImagesService service;
@@ -44,7 +49,7 @@ public class CatsFragment extends Fragment {
     private boolean loading = true;
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
-    List<Cat> resultCats;
+    List<Cat> resultCats = new ArrayList<>();
 //    public static String link = "images/search?limit=14";
 
     public CatsFragment() {}
@@ -117,14 +122,31 @@ public class CatsFragment extends Fragment {
         loadCats();
     }
 
+//    private void loadCats() {
+//        HashMap<String, String> parameters = new HashMap<>();
+//        parameters.put("limit", "14");
+//        parameters.put("page", "0");
+//        service.getAllData(parameters)
+//                .subscribe(this::generateDataList,
+//                        e -> Log.d("RETROFIT", String.valueOf(e)))
+//                .isDisposed();
+//    }
+
     private void loadCats() {
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put("limit", "14");
         parameters.put("page", "0");
         service.getAllData(parameters)
-                .subscribe(this::generateDataList,
-                        e -> Log.d("RETROFIT", String.valueOf(e)))
-                .isDisposed();
+                .enqueue(new Callback<List<Cat>>() {
+                    @Override
+                    public void onResponse(Call<List<Cat>> call, Response<List<Cat>> response) {
+                        generateDataList(response.body());
+                    }
+                    @Override
+                    public void onFailure(@NotNull Call<List<Cat>> call, @NotNull Throwable t) {
+                        Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void generateDataList(List<Cat> photoList) {
