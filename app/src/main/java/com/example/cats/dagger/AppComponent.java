@@ -1,7 +1,5 @@
 package com.example.cats.dagger;
 
-import android.app.Application;
-
 import com.example.cats.home.CatsFragment;
 import com.example.cats.model.NetworkService;
 

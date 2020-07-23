@@ -1,8 +1,5 @@
 package com.example.cats.model;
 
-import com.example.cats.activities.ImageDetails;
-import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
-
 import javax.inject.Singleton;
 
 import dagger.Module;

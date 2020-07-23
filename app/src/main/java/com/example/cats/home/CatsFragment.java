@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -59,18 +58,8 @@ public class CatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cats, container, false);
         recyclerView = view.findViewById(R.id.catRecyclerView);
-
-
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
-
-        HashMap<String, String> parameters = new HashMap<String, String>();
-        parameters.put("limit", "14");
-        parameters.put("page", "0");
-        service.getAllData(parameters).subscribe(
-                cats -> {
-                    Log.d("TAG", "cats");
-                });
         return view;
     }
 
@@ -96,6 +85,7 @@ public class CatsFragment extends Fragment {
         super.onResume();
         if(!link.equals(FilterActivity.link)){
             link = FilterActivity.link;
+            assert getFragmentManager() != null;
             getFragmentManager().beginTransaction()
                     .replace(R.id.frameLayout, new CatsFragment()).commit();
         }
@@ -130,7 +120,26 @@ public class CatsFragment extends Fragment {
         loadCats();
     }
 
-    private void loadCats(){
+        private void loadCats(){
+            HashMap<String, String> parameters = new HashMap<>();
+            parameters.put("limit", "14");
+            parameters.put("page", "0");
+            service.getAllData(parameters).subscribe(this::generateDataList, e ->{
+                    Log.d("RETROFIT", "error");
+            });
+        }
+
+    private void generateDataList (List<Cat> photoList) {
+        if(resultCats.isEmpty()){
+            resultCats = new ArrayList<>(photoList);
+            adapter = new CatRecyclerAdapter(getActivity(), resultCats);
+            recyclerView.setAdapter(adapter);
+        }else{
+            resultCats.addAll(photoList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+//    private void loadCats(){
 //        JSONPlaceHolderApi service = NetworkService.getInstance().create(JSONPlaceHolderApi.class);
 //        Call<List<Cat>> call = service.getAllData(link);
 
@@ -157,5 +166,5 @@ public class CatsFragment extends Fragment {
 //                }
 //        }
 //        });
-    }
+//    }
 }
