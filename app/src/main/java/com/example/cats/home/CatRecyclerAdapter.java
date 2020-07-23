@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
-import com.example.cats.activities.ImageDetails;
-import com.example.cats.model.Cat;
+import com.example.cats.ImageDetails;
+import com.example.cats.api.models.Cat;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.CustomViewHolder>
-implements View.OnClickListener{
+        implements View.OnClickListener{
 
     private List<Cat> dataList;
     private Context context;
@@ -74,4 +74,5 @@ implements View.OnClickListener{
     public int getItemCount() {
         return dataList.size();
     }
+
 }

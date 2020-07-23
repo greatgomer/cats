@@ -1,11 +1,9 @@
-package com.example.cats.activities;
+package com.example.cats;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
-
-import com.example.cats.R;
 import com.squareup.picasso.Picasso;
 
 public class ImageDetails extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.cats.model;
+package com.example.cats.api.interseptors;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,4 +18,5 @@ public class HeaderInterceptor implements Interceptor {
                 .build();
         return chain.proceed(request);
     }
+
 }

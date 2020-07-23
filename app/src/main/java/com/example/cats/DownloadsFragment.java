@@ -18,4 +18,5 @@ public class DownloadsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_downloads, container, false);
         return view;
     }
+
 }

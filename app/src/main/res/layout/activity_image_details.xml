@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.cats.activities.ImageDetails">
+    tools:context="com.example.cats.ImageDetails">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"

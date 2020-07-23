@@ -1,4 +1,4 @@
-package com.example.cats.model;
+package com.example.cats.api.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Cat {
 
-    @SerializedName("breeds")
-    private List<Object> breeds;
+//    @SerializedName("breeds")
+//    private List<Object> breeds;
     @SerializedName("id")
     private String id;
     @SerializedName("url")
@@ -17,21 +17,21 @@ public class Cat {
     @SerializedName("height")
     private int height;
 
-    public Cat(List<Object> breeds, String id, String url, int width, int height){
-        this.breeds = breeds;
+    public Cat( String id, String url, int width, int height) {
+//        this.breeds = breeds;
         this.id = id;
         this.url = url;
         this.width = width;
         this.height= height;
     }
 
-    public List<Object> getBreads() {
-        return breeds;
-    }
-
-    public void setBreads(List<Object> breeds) {
-            this.breeds = breeds;
-    }
+//    public List<Object> getBreads() {
+//        return breeds;
+//    }
+//
+//    public void setBreads(List<Object> breeds) {
+//        this.breeds = breeds;
+//    }
 
     public String getId() {
         return id;
@@ -64,4 +64,5 @@ public class Cat {
     public void setHeight(int height) {
         this.height = height;
     }
+
 }
