@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,6 @@ import com.example.cats.api.models.Cat;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,7 +48,6 @@ public class CatsFragment extends Fragment {
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     List<Cat> resultCats = new ArrayList<>();
-//    public static String link = "images/search?limit=14";
 
     public CatsFragment() {}
 
@@ -81,17 +78,12 @@ public class CatsFragment extends Fragment {
         startActivity(intent);
         return true;
     }
-//
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        if(!link.equals(FilterActivity.link)){
-//            link = FilterActivity.link;
-//            assert getFragmentManager() != null;
-//            getFragmentManager().beginTransaction()
-//                    .replace(R.id.frameLayout, new CatsFragment()).commit();
-//        }
-//    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
 
     private void addMoreCatsInFragment() {
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -123,23 +115,18 @@ public class CatsFragment extends Fragment {
     }
 
 //    private void loadCats() {
-//        HashMap<String, String> parameters = new HashMap<>();
-//        parameters.put("limit", "14");
-//        parameters.put("page", "0");
-//        service.getAllData(parameters)
+//        FilterActivity filterActivity = new FilterActivity();
+//        service.getAllData(filterActivity.parameters)
 //                .subscribe(this::generateDataList,
 //                        e -> Log.d("RETROFIT", String.valueOf(e)))
 //                .isDisposed();
 //    }
 
     private void loadCats() {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("limit", "14");
-        parameters.put("page", "0");
-        service.getAllData(parameters)
+        service.getAllData(FilterActivity.parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
-                    public void onResponse(Call<List<Cat>> call, Response<List<Cat>> response) {
+                    public void onResponse(@NotNull Call<List<Cat>> call, Response<List<Cat>> response) {
                         generateDataList(response.body());
                     }
                     @Override
