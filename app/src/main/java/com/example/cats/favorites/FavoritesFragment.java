@@ -31,7 +31,6 @@ import retrofit2.Response;
 
 public class FavoritesFragment extends Fragment {
 
-    private FavoritesRecyclerAdapter adapter;
     private RecyclerView recyclerView;
     LinearLayoutManager mLayoutManager;
 
@@ -58,12 +57,12 @@ public class FavoritesFragment extends Fragment {
         service.getAllFavorites()
                 .enqueue(new Callback<List<Favorites>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Favorites>> call, Response<List<Favorites>> response) {
+                    public void onResponse(@NotNull Call<List<Favorites>> call, @NotNull Response<List<Favorites>> response) {
                         generateDataList(response.body());
                     }
 
                     @Override
-                    public void onFailure(Call<List<Favorites>> call, Throwable t) {
+                    public void onFailure(@NotNull Call<List<Favorites>> call, Throwable t) {
                         Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -71,7 +70,7 @@ public class FavoritesFragment extends Fragment {
 
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
-        adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
+        FavoritesRecyclerAdapter adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
         recyclerView.setAdapter(adapter);
     }
 
