@@ -12,10 +12,10 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class ProviderService {
+public class ProviderCat {
     private static Retrofit retrofit;
 
-    public ProviderService(){
+    public ProviderCat(){
         retrofit = createProvider();
     }
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 
+import com.example.cats.favorites.FavoritesFragment;
 import com.example.cats.home.CatsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

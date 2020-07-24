@@ -1,10 +1,36 @@
+//package com.example.cats.api.models;
+//
+//import com.google.gson.annotations.SerializedName;
+//
+//public class FavoritesGET {
+//
+//    @SerializedName("id")
+//    private String id;
+//    @SerializedName("image")
+//    private FavoritesTest image;
+//
+//    public FavoritesGET( String id, FavoritesTest image) {
+//        this.id = id;
+//        this.image = image;
+//    }
+//
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public FavoritesTest getName() {
+//        return image;
+//    }
+//
+//}
+
 package com.example.cats.api.models;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Cat {
+public class FavoritesGET {
 
     @SerializedName("id")
     private String id;
@@ -15,7 +41,7 @@ public class Cat {
     @SerializedName("height")
     private int height;
 
-    public Cat( String id, String url, int width, int height) {
+    public FavoritesGET( String id, String url, int width, int height) {
         this.id = id;
         this.url = url;
         this.width = width;

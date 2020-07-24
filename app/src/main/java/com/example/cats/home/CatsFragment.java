@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.cats.R;
 import com.example.cats.FilterActivity;
+import com.example.cats.api.models.FavoritesGET;
+import com.example.cats.api.models.FavoritesPOST;
 import com.example.cats.di.MyApplication;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.api.models.Cat;
@@ -57,6 +60,9 @@ public class CatsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cats, container, false);
         recyclerView = view.findViewById(R.id.catRecyclerView);
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
+
+        service.postJson(new FavoritesPOST("9ccXTANkb"));
+
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
         return view;
@@ -123,7 +129,7 @@ public class CatsFragment extends Fragment {
 //    }
 
     private void loadCats() {
-        service.getAllData(FilterActivity.parameters)
+        service.getAllCats(FilterActivity.parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Cat>> call, Response<List<Cat>> response) {
