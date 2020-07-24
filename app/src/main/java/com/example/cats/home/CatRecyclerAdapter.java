@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.ImageDetails;
-import com.example.cats.api.models.Cat;
+import com.example.cats.api.models.res.Cat;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +42,7 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
         CustomViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            coverImage = mView.findViewById(R.id.item_image);
+            coverImage = mView.findViewById(R.id.cat_image);
         }
     }
 

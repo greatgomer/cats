@@ -2,14 +2,6 @@ package com.example.cats.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,13 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.cats.R;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cats.FilterActivity;
-import com.example.cats.api.models.FavoritesGET;
-import com.example.cats.api.models.FavoritesPOST;
-import com.example.cats.di.MyApplication;
+import com.example.cats.R;
+import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.ImagesService;
-import com.example.cats.api.models.Cat;
+import com.example.cats.di.MyApplication;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -60,9 +56,6 @@ public class CatsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cats, container, false);
         recyclerView = view.findViewById(R.id.catRecyclerView);
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
-
-        service.postJson(new FavoritesPOST("9ccXTANkb"));
-
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
         return view;
@@ -132,7 +125,7 @@ public class CatsFragment extends Fragment {
         service.getAllCats(FilterActivity.parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<Cat>> call, Response<List<Cat>> response) {
+                    public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
                         generateDataList(response.body());
                     }
                     @Override

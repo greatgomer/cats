@@ -14,7 +14,7 @@ public class ImageDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_details);
 
-        imageView = (ImageView) findViewById(R.id.fullCat);
+        imageView = findViewById(R.id.fullCat);
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;

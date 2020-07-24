@@ -22,7 +22,7 @@
             android:elevation="10dp">
 
             <ImageView
-                android:id="@+id/item_image2"
+                android:id="@+id/favourite_image"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="centerCrop"

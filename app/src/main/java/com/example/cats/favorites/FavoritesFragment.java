@@ -7,19 +7,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.cats.FilterActivity;
 import com.example.cats.R;
-import com.example.cats.api.models.Cat;
-import com.example.cats.api.models.FavoritesGET;
+import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.di.MyApplication;
-import com.example.cats.home.CatRecyclerAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +35,7 @@ public class FavoritesFragment extends Fragment {
     private RecyclerView recyclerView;
     LinearLayoutManager mLayoutManager;
 
-    List<FavoritesGET> resultFavorites = new ArrayList<>();
+    List<Favorites> resultFavorites = new ArrayList<>();
 
     @Inject
     ImagesService service;
@@ -60,23 +56,22 @@ public class FavoritesFragment extends Fragment {
 
     private void loadFavourites(){
         service.getAllFavorites()
-                .enqueue(new Callback<List<FavoritesGET>>() {
+                .enqueue(new Callback<List<Favorites>>() {
                     @Override
-                    public void onResponse(@NotNull Call<List<FavoritesGET>> call, Response<List<FavoritesGET>> response) {
+                    public void onResponse(@NotNull Call<List<Favorites>> call, Response<List<Favorites>> response) {
                         generateDataList(response.body());
                     }
 
                     @Override
-                    public void onFailure(Call<List<FavoritesGET>> call, Throwable t) {
+                    public void onFailure(Call<List<Favorites>> call, Throwable t) {
                         Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void generateDataList(List<FavoritesGET> photoList) {
+    private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
         adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
-        Log.d("TAG", String.valueOf(resultFavorites));
         recyclerView.setAdapter(adapter);
     }
 

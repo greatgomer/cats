@@ -1,8 +1,8 @@
 package com.example.cats.api.services;
 
-import com.example.cats.api.models.Cat;
-import com.example.cats.api.models.FavoritesGET;
-import com.example.cats.api.models.FavoritesPOST;
+import com.example.cats.api.models.res.Cat;
+import com.example.cats.api.models.res.Favorites;
+import com.example.cats.api.models.req.FavoritesParameters;
 
 import java.util.List;
 import java.util.Map;
@@ -19,9 +19,9 @@ public interface ImagesService {
     Call<List<Cat>> getAllCats(@QueryMap Map<String, String> parameters);
 
     @GET("images/search?limit=14")
-    Call<List<FavoritesGET>> getAllFavorites();
+    Call<List<Favorites>> getAllFavorites();
 
     @POST("favourites")
-    Call<FavoritesPOST> postJson(@Body FavoritesPOST body);
+    void postJson(@Body FavoritesParameters body);
 
 }
