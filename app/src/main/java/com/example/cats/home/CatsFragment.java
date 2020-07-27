@@ -2,6 +2,7 @@ package com.example.cats.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.FilterActivity;
 import com.example.cats.R;
+import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.di.MyApplication;
@@ -58,6 +60,8 @@ public class CatsFragment extends Fragment {
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
+
+        service.postJson(new FavoritesParameters("1ud"));
         return view;
     }
 

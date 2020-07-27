@@ -4,26 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Favorites {
 
-    @SerializedName("id")
-    private String id;
-    @SerializedName("url")
-    private String url;
+    @SerializedName("image")
+    private FavouritesImage image;
 
-    public Favorites(String id, String url) {
-        this.id = id;
-        this.url = url;
+    public Favorites(FavouritesImage image) {
+        this.image = image;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
+    public FavouritesImage getImage() {
+        return image;
     }
 
 }

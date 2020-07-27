@@ -22,6 +22,6 @@ public interface ImagesService {
     Call<List<Favorites>> getAllFavorites();
 
     @POST("favourites")
-    void postJson(@Body FavoritesParameters body);
+    Call<String> postJson(@Body FavoritesParameters body);
 
 }

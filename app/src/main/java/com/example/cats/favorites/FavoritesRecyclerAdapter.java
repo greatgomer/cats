@@ -1,6 +1,7 @@
 package com.example.cats.favorites;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
+import com.example.cats.api.models.res.FavouritesImage;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +22,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
 
     private List<Favorites> dataList;
     private Context context;
+    String test = null;
 
     public FavoritesRecyclerAdapter(Context context, List<Favorites> dataList) {
         this.context = context;
@@ -47,8 +50,14 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     }
 
     public void onBindViewHolder(CustomViewHolder holder, int position) {
+        try {
+            test = dataList.get(position).getImage().getUrl();
+        } catch (NullPointerException e) {
+            Log.d("TAG", "NO IMAGES");
+        }
+
         Picasso.with(context)
-                .load(dataList.get(position).getUrl())
+                .load(test)
                 .resize(500, 500)
                 .centerCrop()
                 .error(R.drawable.image_background)

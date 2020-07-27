@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".FilterActivity"></activity>
+        <activity android:name=".FilterActivity" />
         <activity android:name=".ImageDetails" />
 
         <meta-data
