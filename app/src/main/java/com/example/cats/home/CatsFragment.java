@@ -2,7 +2,6 @@ package com.example.cats.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,8 +59,7 @@ public class CatsFragment extends Fragment {
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
-
-        service.postJson(new FavoritesParameters("1"));
+        addCatInFavourites();
         return view;
     }
 
@@ -148,6 +146,22 @@ public class CatsFragment extends Fragment {
             resultCats.addAll(photoList);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private void addCatInFavourites(){
+        FavoritesParameters favoritesParameters = new FavoritesParameters("3");
+        Call<FavoritesParameters> call = service.postFavourites(favoritesParameters);
+        call.enqueue(new Callback<FavoritesParameters>() {
+            @Override
+            public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
+
+            }
+        });
     }
 
 }

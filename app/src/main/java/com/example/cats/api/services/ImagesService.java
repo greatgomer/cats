@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ImagesService {
@@ -22,6 +23,6 @@ public interface ImagesService {
     Call<List<Favorites>> getAllFavorites();
 
     @POST("favourites")
-    Call<String> postJson(@Body FavoritesParameters body);
+    Call<FavoritesParameters> postFavourites(@Body FavoritesParameters body);
 
 }

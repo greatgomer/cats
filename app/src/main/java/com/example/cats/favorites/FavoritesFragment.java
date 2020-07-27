@@ -63,7 +63,7 @@ public class FavoritesFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<List<Favorites>> call, Throwable t) {
+                    public void onFailure(@NotNull Call<List<Favorites>> call, @NotNull Throwable t) {
                         Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
