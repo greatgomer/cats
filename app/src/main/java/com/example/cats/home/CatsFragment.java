@@ -61,7 +61,7 @@ public class CatsFragment extends Fragment {
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
 
-        service.postJson(new FavoritesParameters("1ud"));
+        service.postJson(new FavoritesParameters("1"));
         return view;
     }
 

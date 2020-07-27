@@ -4,10 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Favorites {
 
-    @SerializedName("image")
+@SerializedName("image")
     private FavouritesImage image;
 
     public Favorites(FavouritesImage image) {
+
         this.image = image;
     }
 

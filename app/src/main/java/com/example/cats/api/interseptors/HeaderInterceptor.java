@@ -14,7 +14,7 @@ public class HeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request()
                 .newBuilder()
-                .addHeader("97a76886-9a72-4bb1-81a2-e730833ffbdb", "key")
+                .addHeader("x-api-key", "97a76886-9a72-4bb1-81a2-e730833ffbdb")
                 .build();
         return chain.proceed(request);
     }

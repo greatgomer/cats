@@ -18,7 +18,7 @@ public interface ImagesService {
 //    Observable<List<Cat>> getAllData(@QueryMap Map<String, String> parameters);
     Call<List<Cat>> getAllCats(@QueryMap Map<String, String> parameters);
 
-    @GET("images/search?limit=14")
+    @GET("favourites")
     Call<List<Favorites>> getAllFavorites();
 
     @POST("favourites")
