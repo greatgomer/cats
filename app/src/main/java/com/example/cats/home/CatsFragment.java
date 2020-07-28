@@ -149,8 +149,7 @@ public class CatsFragment extends Fragment {
 
     private void addCatInFavourites() {
 //        FavoritesParameters favoritesParameters = new FavoritesParameters("3");
-//        Call<FavoritesParameters> call = service.postFavourites(favoritesParameters);
-//        call.enqueue(new Callback<FavoritesParameters>() {
+//        service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
 //            @Override
 //            public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
 //

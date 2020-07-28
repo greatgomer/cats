@@ -1,19 +1,18 @@
 package com.example.cats.favorites;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.example.cats.R;
+import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.di.MyApplication;
@@ -32,13 +31,13 @@ import retrofit2.Response;
 
 public class FavoritesFragment extends Fragment {
 
+    @Inject
+    ImagesService service;
+
     private RecyclerView recyclerView;
     LinearLayoutManager mLayoutManager;
 
     List<Favorites> resultFavorites = new ArrayList<>();
-
-    @Inject
-    ImagesService service;
 
     public FavoritesFragment() {}
 
@@ -49,7 +48,7 @@ public class FavoritesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.favouritesRecyclerView);
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.favorites(this);
+        ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
         return view;
     }
@@ -73,6 +72,21 @@ public class FavoritesFragment extends Fragment {
         resultFavorites.addAll(photoList);
         FavoritesRecyclerAdapter adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void deleteFromFavourites(Integer id){
+        DeleteFromFavourites deleteFromFavourites = new DeleteFromFavourites(id);
+        service.deleteFromFavorites(deleteFromFavourites).enqueue(new Callback<DeleteFromFavourites>() {
+            @Override
+            public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
+
+            }
+        });
     }
 
 }

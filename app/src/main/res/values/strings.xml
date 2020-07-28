@@ -14,4 +14,8 @@
     <string name="filter_sunglasses">Sunglasses</string>
     <string name="filter_ties">Ties</string>
     <string name="filter_reset">Reset filter</string>
+    <string name="interface_ok">Delete</string>
+    <string name="interface_cancel">Exit</string>
+    <string name="dialog_title">Delete image</string>
+    <string name="dialog_message">Do you want to delete image from favourites?</string>
 </resources>

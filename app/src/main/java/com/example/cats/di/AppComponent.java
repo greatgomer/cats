@@ -12,5 +12,5 @@ import dagger.Component;
 @Component(modules = ProviderCat.class)
 public interface AppComponent {
     void inject(CatsFragment catsFragment);
-    void favorites(FavoritesFragment favoritesFragment);
+    void favourites(FavoritesFragment favoritesFragment);
 }
