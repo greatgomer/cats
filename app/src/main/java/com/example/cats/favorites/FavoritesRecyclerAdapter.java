@@ -74,6 +74,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.favourite_item, parent, false);
         dialogForFavorites();
+
         return new CustomViewHolder(view);
     }
 

@@ -16,6 +16,7 @@ public class DownloadsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_downloads, container, false);
+
         return view;
     }
 

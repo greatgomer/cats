@@ -16,6 +16,7 @@ public class HeaderInterceptor implements Interceptor {
                 .newBuilder()
                 .addHeader("x-api-key", "97a76886-9a72-4bb1-81a2-e730833ffbdb")
                 .build();
+
         return chain.proceed(request);
     }
 

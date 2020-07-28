@@ -49,6 +49,7 @@ public class FavoritesFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
+
         return view;
     }
 

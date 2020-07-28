@@ -33,8 +33,10 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="end"
+                android:clickable="true"
                 app:srcCompat="@drawable/ic_baseline_star_border_24"
                 tools:ignore="ContentDescription" />
+
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 

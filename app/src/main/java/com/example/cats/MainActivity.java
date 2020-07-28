@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 active = fragment3;
                 return true;
         }
+
         return false;
     };
 

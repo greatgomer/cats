@@ -58,7 +58,7 @@ public class CatsFragment extends Fragment {
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
-        addCatInFavourites();
+
         return view;
     }
 
@@ -76,13 +76,14 @@ public class CatsFragment extends Fragment {
         }
         Intent intent = new Intent(getContext(), FilterActivity.class);
         startActivity(intent);
+
         return true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        
+
     }
 
     private void addMoreCatsInFragment() {
@@ -112,6 +113,7 @@ public class CatsFragment extends Fragment {
             }
         });
         loadCats();
+
     }
 
 //    private void loadCats() {
@@ -139,26 +141,12 @@ public class CatsFragment extends Fragment {
     private void generateDataList(List<Cat> photoList) {
         if (resultCats.isEmpty()) {
             resultCats = new ArrayList<>(photoList);
-            adapter = new CatRecyclerAdapter(getActivity(), resultCats);
+            adapter = new CatRecyclerAdapter(service, getActivity(), resultCats);
             recyclerView.setAdapter(adapter);
         } else {
             resultCats.addAll(photoList);
             adapter.notifyDataSetChanged();
         }
-    }
-
-    private void addCatInFavourites() {
-//        FavoritesParameters favoritesParameters = new FavoritesParameters("3");
-//        service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
-//            @Override
-//            public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
-//            }
-//        });
     }
 
 }
