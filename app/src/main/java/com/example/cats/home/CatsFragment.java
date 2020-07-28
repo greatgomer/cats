@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.FilterActivity;
 import com.example.cats.R;
-import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.di.MyApplication;
@@ -148,20 +147,19 @@ public class CatsFragment extends Fragment {
         }
     }
 
-    private void addCatInFavourites(){
-        FavoritesParameters favoritesParameters = new FavoritesParameters("3");
-        Call<FavoritesParameters> call = service.postFavourites(favoritesParameters);
-        call.enqueue(new Callback<FavoritesParameters>() {
-            @Override
-            public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
-
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
-
-            }
-        });
+    private void addCatInFavourites() {
+//        FavoritesParameters favoritesParameters = new FavoritesParameters("3");
+//        Call<FavoritesParameters> call = service.postFavourites(favoritesParameters);
+//        call.enqueue(new Callback<FavoritesParameters>() {
+//            @Override
+//            public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
+//            }
+//        });
     }
 
 }

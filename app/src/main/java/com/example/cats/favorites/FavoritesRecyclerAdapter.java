@@ -1,6 +1,7 @@
 package com.example.cats.favorites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,16 +10,17 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cats.ImageDetails;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
-import com.example.cats.api.models.res.FavouritesImage;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>{
+public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
+        implements View.OnClickListener{
 
     private List<Favorites> dataList;
     private Context context;
@@ -27,6 +29,11 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     public FavoritesRecyclerAdapter(Context context, List<Favorites> dataList) {
         this.context = context;
         this.dataList = dataList;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     static class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -49,7 +56,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
         return new CustomViewHolder(view);
     }
 
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
         try {
             test = dataList.get(position).getImage().getUrl();
         } catch (NullPointerException e) {
@@ -62,6 +69,13 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
                 .centerCrop()
                 .error(R.drawable.image_background)
                 .into(holder.coverImage);
+
+        holder.mView.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.setClass(context, ImageDetails.class);
+            intent.putExtra("url", dataList.get(position).getImage().getUrl());
+            context.startActivity(intent);
+        });
     }
 
     @Override
