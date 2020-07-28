@@ -28,6 +28,6 @@ public interface ImagesService {
     Call<FavoritesParameters> postFavourites(@Body FavoritesParameters body);
 
     @DELETE("favourites/{favourite_id}")
-    Call<DeleteFromFavourites> deleteFromFavorites(@Path("favourite_id") DeleteFromFavourites body);
+    Call<DeleteFromFavourites> deleteFromFavorites(@Path("favourite_id") Integer body);
 
 }

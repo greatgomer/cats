@@ -9,27 +9,36 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.ImageDetails;
 import com.example.cats.R;
+import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
+import com.example.cats.api.services.ImagesService;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener, View.OnLongClickListener{
 
     AlertDialog.Builder builder;
+    private ImagesService service;
     private List<Favorites> dataList;
     private Context context;
     String test = null;
     Integer idImage;
 
-    public FavoritesRecyclerAdapter(Context context, List<Favorites> dataList) {
+    public FavoritesRecyclerAdapter(ImagesService service, Context context, List<Favorites> dataList) {
+        this.service = service;
         this.context = context;
         this.dataList = dataList;
     }
@@ -96,13 +105,23 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
         });
     }
 
-    public void dialogForFavorites(){
+    public void dialogForFavorites() {
         builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title)
                 .setPositiveButton(R.string.interface_ok, (dialog, id) -> {
-                    FavoritesFragment favoritesFragment = new FavoritesFragment();
-                    favoritesFragment.deleteFromFavourites(idImage);
+                    service.deleteFromFavorites(idImage).enqueue(new Callback<DeleteFromFavourites>() {
+                        @Override
+                        public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
+
+                        }
+                    });
+                    
                 })
                 .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }
