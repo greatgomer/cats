@@ -52,7 +52,7 @@ public class FavoritesFragment extends Fragment {
         return view;
     }
 
-    private void loadFavourites(){
+    private void loadFavourites() {
         service.getAllFavorites()
                 .enqueue(new Callback<List<Favorites>>() {
                     @Override

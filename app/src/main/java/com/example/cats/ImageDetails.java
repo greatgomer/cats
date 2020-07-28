@@ -24,4 +24,5 @@ public class ImageDetails extends AppCompatActivity {
                 .error(R.drawable.ic_launcher_background)
                 .into(imageView);
     }
+
 }

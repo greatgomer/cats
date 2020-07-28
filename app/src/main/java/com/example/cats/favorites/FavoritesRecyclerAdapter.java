@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.ImageDetails;
+import com.example.cats.MainActivity;
 import com.example.cats.R;
 import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
@@ -28,12 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
-        implements View.OnClickListener, View.OnLongClickListener{
+        implements View.OnClickListener, View.OnLongClickListener {
 
     AlertDialog.Builder builder;
     private ImagesService service;
     private List<Favorites> dataList;
     private Context context;
+    private MainActivity mainActivity;
     String test = null;
     Integer idImage;
 
@@ -41,6 +42,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
         this.service = service;
         this.context = context;
         this.dataList = dataList;
+        mainActivity = (MainActivity) context;
     }
 
     @Override
@@ -121,7 +123,8 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
 
                         }
                     });
-                    
+                    dataList.clear();
+                    mainActivity.getSupportFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).commit();
                 })
                 .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }

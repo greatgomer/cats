@@ -13,4 +13,5 @@ import dagger.Component;
 public interface AppComponent {
     void inject(CatsFragment catsFragment);
     void favourites(FavoritesFragment favoritesFragment);
+
 }

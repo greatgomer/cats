@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     final Fragment fragment1 = new CatsFragment();
-    final Fragment fragment2 = new FavoritesFragment();
+    public final Fragment fragment2 = new FavoritesFragment();
     final Fragment fragment3 = new DownloadsFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();

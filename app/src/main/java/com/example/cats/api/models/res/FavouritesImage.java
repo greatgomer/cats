@@ -14,4 +14,5 @@ public class FavouritesImage {
     public String getUrl() {
         return url;
     }
+
 }

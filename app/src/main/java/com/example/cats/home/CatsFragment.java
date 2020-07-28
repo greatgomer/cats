@@ -80,9 +80,9 @@ public class CatsFragment extends Fragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-
+        
     }
 
     private void addMoreCatsInFragment() {
