@@ -2,6 +2,8 @@ package com.example.cats;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.cats.databinding.ActivityFilterBinding;
@@ -10,7 +12,13 @@ import com.jakewharton.rxbinding4.view.RxView;
 import java.util.HashMap;
 
 public class FilterActivity extends AppCompatActivity {
-    public static HashMap<String, String> parameters = new HashMap<>();
+    public HashMap<String, String> parameters = new HashMap<>();
+    private Context context;
+
+    public FilterActivity(Context context) {
+        this.context=context;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

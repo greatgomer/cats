@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener, View.OnLongClickListener {
@@ -108,7 +109,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
                 .setTitle(R.string.dialog_title)
                 .setPositiveButton(R.string.interface_ok, (dialog, id) -> {
                     Observable<Integer> observable = Observable.just(idImage);
-                    observable.subscribe(s -> ((FavoritesFragment) mainActivity.fragment2).deleteFrom(s));
+                    observable.subscribeOn(Schedulers.io()).subscribe(s -> ((FavoritesFragment) mainActivity.fragment2).deleteFrom(s));
                 })
                 .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }
