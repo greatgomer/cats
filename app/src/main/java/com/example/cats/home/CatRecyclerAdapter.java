@@ -9,11 +9,13 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cats.MainActivity;
 import com.example.cats.R;
 import com.example.cats.ImageDetails;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.ImagesService;
+import com.example.cats.favorites.FavoritesFragment;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,11 +34,13 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     private Context context;
     public String imageId;
     public ImageView imageView;
+    private MainActivity mainActivity;
 
     public CatRecyclerAdapter(ImagesService service, Context context, List<Cat> dataList) {
         this.service = service;
         this.context = context;
         this.dataList = dataList;
+        mainActivity = (MainActivity) context;
     }
 
     @Override
@@ -94,6 +98,9 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
                 public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
                 }
             });
+            FavoritesFragment.resultFavorites.clear();
+            assert mainActivity.fragment2.getFragmentManager() != null;
+            mainActivity.fragment2.getFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).hide(mainActivity.fragment2).commit();
         });
     }
 

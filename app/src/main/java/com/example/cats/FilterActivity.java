@@ -21,7 +21,7 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityFilterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_filter);
         onButtonPressed(binding);
-        parameters.put("limit", "14");
+        parameters.put("limit", "12");
         parameters.put("page", "0");
     }
 
@@ -34,7 +34,7 @@ public class FilterActivity extends AppCompatActivity {
         RxView.clicks(binding.filterSunglasses).subscribe(aVoid-> {parameters.put("category_ids", "4"); flag = true;}).isDisposed();
         RxView.clicks(binding.filterTies).subscribe(aVoid-> {parameters.put("category_ids", "7"); flag = true;}).isDisposed();
         RxView.clicks(binding.filterReset)
-                .subscribe(aVoid-> {parameters.clear(); parameters.put("limit", "14"); parameters.put("page", "0"); flag = true;
+                .subscribe(aVoid-> {parameters.clear(); parameters.put("limit", "12"); parameters.put("page", "0"); flag = true;
                         }).isDisposed();
     }
 

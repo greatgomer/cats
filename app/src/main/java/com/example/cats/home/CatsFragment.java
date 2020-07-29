@@ -128,8 +128,7 @@ public class CatsFragment extends Fragment {
 //    }
 
     private void loadCats() {
-        FilterActivity filterActivity = new FilterActivity();
-        service.getAllCats(filterActivity.parameters)
+        service.getAllCats(FilterActivity.parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
