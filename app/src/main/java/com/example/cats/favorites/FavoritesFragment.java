@@ -38,6 +38,7 @@ public class FavoritesFragment extends Fragment {
     LinearLayoutManager mLayoutManager;
     FavoritesRecyclerAdapter adapter;
     public static List<Favorites> resultFavorites = new ArrayList<>();
+    public static List<String> favouritesAllId = new ArrayList<>();
 
     public FavoritesFragment() {}
 

@@ -2,6 +2,7 @@ package com.example.cats.favorites;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,9 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     }
 
     public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
+
+        FavoritesFragment.favouritesAllId.add(dataList.get(position).getImage().getUrl());
+
         try {
             test = dataList.get(position).getImage().getUrl();
         } catch (NullPointerException e) {

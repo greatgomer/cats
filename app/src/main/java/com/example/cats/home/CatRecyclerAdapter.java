@@ -32,7 +32,6 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     private ImagesService service;
     private List<Cat> dataList;
     private Context context;
-    public String imageId;
     public ImageView imageView;
     private MainActivity mainActivity;
 
@@ -86,21 +85,22 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
         });
 
         imageView.setOnClickListener(view -> {
-            imageId = dataList.get(position).getId();
-            FavoritesParameters favoritesParameters = new FavoritesParameters(imageId);
-            service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
-                @Override
-                public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
+            if (!FavoritesFragment.favouritesAllId.contains(dataList.get(position).getUrl())) {
+                FavoritesParameters favoritesParameters = new FavoritesParameters(dataList.get(position).getId());
+                service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
+                    @Override
+                    public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
 
-                }
+                    }
 
-                @Override
-                public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
-                }
-            });
-            FavoritesFragment.resultFavorites.clear();
-            assert mainActivity.fragment2.getFragmentManager() != null;
-            mainActivity.fragment2.getFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).hide(mainActivity.fragment2).commit();
+                    @Override
+                    public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
+                    }
+                });
+                FavoritesFragment.resultFavorites.clear();
+                assert mainActivity.fragment2.getFragmentManager() != null;
+                mainActivity.fragment2.getFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).hide(mainActivity.fragment2).commit();
+            }
         });
     }
 
