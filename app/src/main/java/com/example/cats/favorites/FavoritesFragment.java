@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
+import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.di.MyApplication;
@@ -70,8 +71,24 @@ public class FavoritesFragment extends Fragment {
 
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
-        adapter = new FavoritesRecyclerAdapter(service, getActivity(), resultFavorites);
+        adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void deleteFrom(Integer imageId){
+        service.deleteFromFavorites(imageId).enqueue(new Callback<DeleteFromFavourites>() {
+            @Override
+            public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
+
+            }
+        });
+        resultFavorites.clear();
+        loadFavourites();
     }
 
 }

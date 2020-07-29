@@ -14,32 +14,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cats.ImageDetails;
 import com.example.cats.MainActivity;
 import com.example.cats.R;
-import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
-import com.example.cats.api.services.ImagesService;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.rxjava3.core.Observable;
 
 public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener, View.OnLongClickListener {
 
     AlertDialog.Builder builder;
-    private ImagesService service;
     private List<Favorites> dataList;
     private Context context;
     private MainActivity mainActivity;
     String test = null;
     Integer idImage;
 
-    public FavoritesRecyclerAdapter(ImagesService service, Context context, List<Favorites> dataList) {
-        this.service = service;
+    public FavoritesRecyclerAdapter(Context context, List<Favorites> dataList) {
         this.context = context;
         this.dataList = dataList;
         mainActivity = (MainActivity) context;
@@ -113,19 +107,8 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title)
                 .setPositiveButton(R.string.interface_ok, (dialog, id) -> {
-                    service.deleteFromFavorites(idImage).enqueue(new Callback<DeleteFromFavourites>() {
-                        @Override
-                        public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
-
-                        }
-
-                        @Override
-                        public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
-
-                        }
-                    });
-                    dataList.clear();
-                    mainActivity.getSupportFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).commit();
+                    Observable<Integer> observable = Observable.just(idImage);
+                    observable.subscribe(s -> ((FavoritesFragment) mainActivity.fragment2).deleteFrom(s));
                 })
                 .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }
