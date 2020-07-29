@@ -58,7 +58,6 @@ public class CatsFragment extends Fragment {
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -83,7 +82,11 @@ public class CatsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        if (FilterActivity.flag) {
+            resultCats.clear();
+            loadCats();
+            FilterActivity.flag = false;
+        }
     }
 
     private void addMoreCatsInFragment() {
@@ -125,7 +128,7 @@ public class CatsFragment extends Fragment {
 //    }
 
     private void loadCats() {
-        FilterActivity filterActivity = new FilterActivity(getContext());
+        FilterActivity filterActivity = new FilterActivity();
         service.getAllCats(filterActivity.parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
