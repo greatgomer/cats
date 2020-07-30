@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cats.AuthorisationActivity;
 import com.example.cats.FilterActivity;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Cat;
@@ -54,6 +55,7 @@ public class CatsFragment extends Fragment {
     private boolean loading = true;
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
+    String email = "";
     List<Cat> resultCats = new ArrayList<>();
 
     public CatsFragment() {}
@@ -81,13 +83,17 @@ public class CatsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id != R.id.action_favorite) {
-            return super.onOptionsItemSelected(item);
+        if (id == R.id.action_filter & email != null) {
+            super.onOptionsItemSelected(item);
+            Intent intent = new Intent(getContext(), FilterActivity.class);
+            startActivity(intent);
+            return true;
+        } else {
+            super.onOptionsItemSelected(item);
+            Intent intent = new Intent(getContext(), AuthorisationActivity.class);
+            startActivity(intent);
+            return true;
         }
-        Intent intent = new Intent(getContext(), FilterActivity.class);
-        startActivity(intent);
-
-        return true;
     }
 
     @Override

@@ -5,7 +5,14 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/action_authorisation"
+        android:orderInCategory="300"
+        android:icon="@drawable/ic_baseline_vpn_key_24"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/action_filter"
         android:orderInCategory="300"
         android:icon="@drawable/ic_baseline_filter_list_24"
         app:showAsAction="ifRoom"

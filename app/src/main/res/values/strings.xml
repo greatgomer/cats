@@ -19,4 +19,6 @@
     <string name="interface_cancel">Exit</string>
     <string name="dialog_title">Delete image</string>
     <string name="dialog_message">Do you want to delete image from favourites?</string>
+    <string name="authorisation">Input your email</string>
+    <string name="apply">Apply</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,11 +91,12 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
                 service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
                     @Override
                     public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
-
+                        Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
+                        Toast.makeText(context, "Decline", Toast.LENGTH_SHORT).show();
                     }
                 });
                 FavoritesFragment.resultFavorites.clear();

@@ -81,12 +81,12 @@ public class FavoritesFragment extends Fragment {
         service.deleteFromFavorites(imageId).enqueue(new Callback<DeleteFromFavourites>() {
             @Override
             public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
-
+                Toast.makeText(getContext(), "Completed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
-
+                Toast.makeText(getContext(), "Decline", Toast.LENGTH_SHORT).show();
             }
         });
         resultFavorites.clear();

@@ -74,9 +74,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     }
 
     public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
-
         FavoritesFragment.favouritesAllId.add(dataList.get(position).getImage().getUrl());
-
         try {
             test = dataList.get(position).getImage().getUrl();
         } catch (NullPointerException e) {
