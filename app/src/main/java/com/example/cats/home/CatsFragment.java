@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cats.FilterActivity;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Cat;
+import com.example.cats.api.services.FavouritesService;
 import com.example.cats.api.services.ImagesService;
+import com.example.cats.databinding.FragmentCatsBinding;
 import com.example.cats.di.MyApplication;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,8 +41,11 @@ public class CatsFragment extends Fragment {
     @Inject
     ImagesService service;
 
+    @Inject
+    FavouritesService serviceFavourites;
+
     private CatRecyclerAdapter adapter;
-    private RecyclerView recyclerView;
+    FragmentCatsBinding binding;
     LinearLayoutManager mLayoutManager;
 
     private int previousTotal = 0;
@@ -51,13 +57,14 @@ public class CatsFragment extends Fragment {
     public CatsFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cats, container, false);
-        recyclerView = view.findViewById(R.id.catRecyclerView);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
+        View view = binding.getRoot();
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
+
         return view;
     }
 
@@ -91,8 +98,8 @@ public class CatsFragment extends Fragment {
 
     private void addMoreCatsInFragment() {
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.catRecyclerView.setLayoutManager(mLayoutManager);
+        binding.catRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -144,8 +151,8 @@ public class CatsFragment extends Fragment {
     private void generateDataList(List<Cat> photoList) {
         if (resultCats.isEmpty()) {
             resultCats = new ArrayList<>(photoList);
-            adapter = new CatRecyclerAdapter(service, getActivity(), resultCats);
-            recyclerView.setAdapter(adapter);
+            adapter = new CatRecyclerAdapter(serviceFavourites, getActivity(), resultCats);
+            binding.catRecyclerView.setAdapter(adapter);
         } else {
             resultCats.addAll(photoList);
             adapter.notifyDataSetChanged();

@@ -6,15 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
-import com.example.cats.api.services.ImagesService;
+import com.example.cats.api.services.FavouritesService;
+import com.example.cats.databinding.FragmentFavoritesBinding;
 import com.example.cats.di.MyApplication;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,9 +33,9 @@ import retrofit2.Response;
 public class FavoritesFragment extends Fragment {
 
     @Inject
-    ImagesService service;
+    FavouritesService service;
 
-    private RecyclerView recyclerView;
+    FragmentFavoritesBinding binding;
     LinearLayoutManager mLayoutManager;
     FavoritesRecyclerAdapter adapter;
     public static List<Favorites> resultFavorites = new ArrayList<>();
@@ -43,12 +44,12 @@ public class FavoritesFragment extends Fragment {
     public FavoritesFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
-        recyclerView = view.findViewById(R.id.favouritesRecyclerView);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorites, container, false);
+        View view = binding.getRoot();
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
+        binding.favouritesRecyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
 
@@ -73,7 +74,7 @@ public class FavoritesFragment extends Fragment {
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
         adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
-        recyclerView.setAdapter(adapter);
+        binding.favouritesRecyclerView.setAdapter(adapter);
     }
 
     public void deleteFrom(Integer imageId){

@@ -14,7 +14,7 @@ import com.example.cats.R;
 import com.example.cats.ImageDetails;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
-import com.example.cats.api.services.ImagesService;
+import com.example.cats.api.services.FavouritesService;
 import com.example.cats.favorites.FavoritesFragment;
 import com.squareup.picasso.Picasso;
 
@@ -29,13 +29,13 @@ import retrofit2.Response;
 public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener {
 
-    private ImagesService service;
+    private FavouritesService service;
     private List<Cat> dataList;
     private Context context;
     public ImageView imageView;
     private MainActivity mainActivity;
 
-    public CatRecyclerAdapter(ImagesService service, Context context, List<Cat> dataList) {
+    public CatRecyclerAdapter(FavouritesService service, Context context, List<Cat> dataList) {
         this.service = service;
         this.context = context;
         this.dataList = dataList;

@@ -1,20 +1,18 @@
 package com.example.cats;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+
+import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.squareup.picasso.Picasso;
 
 public class ImageDetails extends AppCompatActivity {
-
-    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_details);
-
-        imageView = findViewById(R.id.fullCat);
+        ActivityImageDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_image_details);
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -22,7 +20,7 @@ public class ImageDetails extends AppCompatActivity {
         Picasso.with(this)
                 .load(url)
                 .error(R.drawable.ic_launcher_background)
-                .into(imageView);
+                .into(binding.fullCat);
     }
 
 }

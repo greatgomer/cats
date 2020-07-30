@@ -12,10 +12,10 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class ProviderCat {
+public class NetworkProvider {
     private static Retrofit retrofit;
 
-    public ProviderCat(){
+    public NetworkProvider(){
         retrofit = createProvider();
     }
 
@@ -40,4 +40,10 @@ public class ProviderCat {
         return retrofit.create(ImagesService.class);
     }
 
+    @Singleton
+    @Provides
+    public  FavouritesService createFavouritesService(){
+
+        return retrofit.create(FavouritesService.class);
+    }
 }
