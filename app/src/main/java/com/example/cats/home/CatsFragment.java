@@ -28,6 +28,7 @@ import com.example.cats.di.MyApplication;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,6 +49,7 @@ public class CatsFragment extends Fragment {
     FragmentCatsBinding binding;
     LinearLayoutManager mLayoutManager;
 
+    public static HashMap<String, String> parameters = new HashMap<>();
     private int previousTotal = 0;
     private boolean loading = true;
     private int visibleThreshold = 5;
@@ -64,6 +66,8 @@ public class CatsFragment extends Fragment {
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
+        parameters.put("limit", "14");
+        parameters.put("page", "0");
 
         return view;
     }
@@ -91,7 +95,8 @@ public class CatsFragment extends Fragment {
         super.onResume();
         if (FilterActivity.flag) {
             resultCats.clear();
-            loadCats();
+            addMoreCatsInFragment();
+            previousTotal = 0;
             FilterActivity.flag = false;
         }
     }
@@ -135,7 +140,7 @@ public class CatsFragment extends Fragment {
 //    }
 
     private void loadCats() {
-        service.getAllCats(FilterActivity.parameters)
+        service.getAllCats(parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {

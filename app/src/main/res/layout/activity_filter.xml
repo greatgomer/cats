@@ -9,90 +9,88 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="320dp"
         tools:context=".FilterActivity">
 
-        <Button
-            android:id="@+id/filter_boxes"
+        <CheckBox
+            android:id="@+id/filterBoxes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_boxes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/filter_clothes"
+        <CheckBox
+            android:id="@+id/filterClothes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_clothes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_boxes" />
+            app:layout_constraintTop_toBottomOf="@+id/filterBoxes" />
 
-        <Button
-            android:id="@+id/filter_hats"
+        <CheckBox
+            android:id="@+id/filterHats"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_hats"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_clothes" />
+            app:layout_constraintTop_toBottomOf="@+id/filterClothes" />
 
-        <Button
-            android:id="@+id/filter_sinks"
+        <CheckBox
+            android:id="@+id/filterSinks"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_sinks"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_hats" />
+            app:layout_constraintTop_toBottomOf="@+id/filterHats" />
 
-        <Button
-            android:id="@+id/filter_space"
+        <CheckBox
+            android:id="@+id/filterSpace"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_space"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_sinks" />
+            app:layout_constraintTop_toBottomOf="@+id/filterSinks" />
 
-        <Button
-            android:id="@+id/filter_sunglasses"
+        <CheckBox
+            android:id="@+id/filterSunglasses"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_sunglasses"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_space" />
+            app:layout_constraintTop_toBottomOf="@+id/filterSpace" />
 
-        <Button
-            android:id="@+id/filter_ties"
+        <CheckBox
+            android:id="@+id/filterTies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_ties"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_sunglasses" />
+            app:layout_constraintTop_toBottomOf="@+id/filterSunglasses" />
 
         <Button
-            android:id="@+id/filter_reset"
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_apply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filterTies" />
+
+        <Button
+            android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_reset"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_ties" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_filter"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

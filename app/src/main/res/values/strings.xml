@@ -13,7 +13,8 @@
     <string name="filter_space">Space</string>
     <string name="filter_sunglasses">Sunglasses</string>
     <string name="filter_ties">Ties</string>
-    <string name="filter_reset">Reset filter</string>
+    <string name="filter_apply">Apply filter</string>
+    <string name="filter_reset">Reset filters</string>
     <string name="interface_ok">Delete</string>
     <string name="interface_cancel">Exit</string>
     <string name="dialog_title">Delete image</string>
