@@ -16,7 +16,6 @@ import com.example.cats.ui.image.ImageDetails;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;
-import com.example.cats.ui.home.MainActivity;
 import com.example.cats.ui.home.fragments.favorites.FavoritesFragment;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +34,6 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     private List<Cat> dataList;
     private Context context;
     public ImageView imageView;
-    private MainActivity mainActivity;
     SharedPreferences sharedPreferences;
     String email = "";
 
@@ -43,7 +41,6 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
         this.service = service;
         this.context = context;
         this.dataList = dataList;
-        mainActivity = (MainActivity) context;
     }
 
     @Override
@@ -104,8 +101,6 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
                         Toast.makeText(context, "Decline", Toast.LENGTH_SHORT).show();
                     }
                 });
-                FavoritesFragment.resultFavorites.clear();
-                mainActivity.fragment2.getFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).hide(mainActivity.fragment2).commit();
             }
         });
     }

@@ -11,8 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cats.ui.image.ImageDetails;
+import com.example.cats.api.models.req.DeleteFromFavourites;
+import com.example.cats.api.services.FavouritesService;
 import com.example.cats.ui.home.MainActivity;
+import com.example.cats.ui.image.ImageDetails;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
 import com.squareup.picasso.Picasso;
@@ -21,22 +23,26 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener, View.OnLongClickListener {
 
     AlertDialog.Builder builder;
+    MainActivity mainActivity;
     private List<Favorites> dataList;
     private Context context;
-    private MainActivity mainActivity;
+    private FavouritesService service;
     String test = null;
     Integer idImage;
+    FavoritesFragment favoritesFragment;
 
-    public FavoritesRecyclerAdapter(Context context, List<Favorites> dataList) {
+    public FavoritesRecyclerAdapter(FavouritesService service, Context context, List<Favorites> dataList) {
         this.context = context;
         this.dataList = dataList;
+        this.service = service;
         mainActivity = (MainActivity) context;
     }
 
@@ -105,12 +111,23 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     }
 
     public void dialogForFavorites() {
+        favoritesFragment = new FavoritesFragment();
         builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title)
                 .setPositiveButton(R.string.interface_ok, (dialog, id) -> {
-                    Observable<Integer> observable = Observable.just(idImage);
-                    observable.subscribeOn(Schedulers.io()).subscribe(s -> ((FavoritesFragment) mainActivity.fragment2).deleteFrom(s)).isDisposed();
+                    service.deleteFromFavorites(idImage).enqueue(new Callback<DeleteFromFavourites>() {
+                        @Override
+                        public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
+                            Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
+                            Toast.makeText(context, "Decline", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    mainActivity.navController.navigate(R.id.favoritesFragment);
                 })
                 .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }

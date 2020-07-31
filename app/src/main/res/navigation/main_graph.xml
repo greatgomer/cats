@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_graph"
+    app:startDestination="@id/catsFragment">
+
+    <fragment
+        android:id="@+id/catsFragment"
+        android:name="com.example.cats.ui.home.fragments.cats.CatsFragment"
+        android:label="CatsFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.cats.ui.home.fragments.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" />
+    <fragment
+        android:id="@+id/downloadsFragment"
+        android:name="com.example.cats.ui.home.fragments.downloads.DownloadsFragment"
+        android:label="DownloadsFragment" />
+</navigation>

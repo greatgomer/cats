@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.cats.R;
-import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.databinding.FragmentFavoritesBinding;
@@ -37,7 +36,7 @@ public class FavoritesFragment extends Fragment {
     FragmentFavoritesBinding binding;
     LinearLayoutManager mLayoutManager;
     FavoritesRecyclerAdapter adapter;
-    public static List<Favorites> resultFavorites = new ArrayList<>();
+    public List<Favorites> resultFavorites = new ArrayList<>();
     public static List<String> favouritesAllId = new ArrayList<>();
 
     public FavoritesFragment() {}
@@ -72,24 +71,8 @@ public class FavoritesFragment extends Fragment {
 
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
-        adapter = new FavoritesRecyclerAdapter(getActivity(), resultFavorites);
+        adapter = new FavoritesRecyclerAdapter(service, getActivity(), resultFavorites);
         binding.favouritesRecyclerView.setAdapter(adapter);
-    }
-
-    public void deleteFrom(Integer imageId){
-        service.deleteFromFavorites(imageId).enqueue(new Callback<DeleteFromFavourites>() {
-            @Override
-            public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
-                Toast.makeText(getContext(), "Completed", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
-                Toast.makeText(getContext(), "Decline", Toast.LENGTH_SHORT).show();
-            }
-        });
-        resultFavorites.clear();
-        loadFavourites();
     }
 
 }
