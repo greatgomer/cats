@@ -2,6 +2,7 @@ package com.example.cats.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
     private Context context;
     public ImageView imageView;
     private MainActivity mainActivity;
+    SharedPreferences sharedPreferences;
+    String email = "";
 
     public CatRecyclerAdapter(FavouritesService service, Context context, List<Cat> dataList) {
         this.service = service;
@@ -66,6 +69,7 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.cat_item, parent, false);
         imageView = view.findViewById(R.id.button_put_in_favourites);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
 
         return new CustomViewHolder(view);
     }
@@ -87,7 +91,8 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
 
         imageView.setOnClickListener(view -> {
             if (!FavoritesFragment.favouritesAllId.contains(dataList.get(position).getUrl())) {
-                FavoritesParameters favoritesParameters = new FavoritesParameters(dataList.get(position).getId());
+                email = sharedPreferences.getString("email", "default value");
+                FavoritesParameters favoritesParameters = new FavoritesParameters(dataList.get(position).getId(), email);
                 service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
                     @Override
                     public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
@@ -100,7 +105,6 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
                     }
                 });
                 FavoritesFragment.resultFavorites.clear();
-                assert mainActivity.fragment2.getFragmentManager() != null;
                 mainActivity.fragment2.getFragmentManager().beginTransaction().detach(mainActivity.fragment2).attach(mainActivity.fragment2).hide(mainActivity.fragment2).commit();
             }
         });

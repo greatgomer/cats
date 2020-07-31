@@ -28,12 +28,31 @@
             tools:ignore="LabelFor" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_apply"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="@string/apply"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_apply" />
+
+        <Button
+            android:id="@+id/button_show_user"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/show_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_delete" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

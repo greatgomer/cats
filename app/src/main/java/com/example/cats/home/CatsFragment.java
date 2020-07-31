@@ -1,6 +1,7 @@
 package com.example.cats.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,8 +56,9 @@ public class CatsFragment extends Fragment {
     private boolean loading = true;
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
-    String email = "";
     List<Cat> resultCats = new ArrayList<>();
+    SharedPreferences sharedPreferences;
+    String email = "";
 
     public CatsFragment() {}
 
@@ -66,6 +68,7 @@ public class CatsFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
         View view = binding.getRoot();
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
         parameters.put("limit", "14");
@@ -82,13 +85,18 @@ public class CatsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        email = sharedPreferences.getString("email", "default value");
         int id = item.getItemId();
-        if (id == R.id.action_filter & email != null) {
+        if (id == R.id.action_filter & !email.equals("")) {
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), FilterActivity.class);
             startActivity(intent);
             return true;
-        } else {
+        } else if (id == R.id.action_filter & email.equals("")) {
+            super.onOptionsItemSelected(item);
+            Toast.makeText(getActivity(), "Add user", Toast.LENGTH_LONG).show();
+            return true;
+        }{
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), AuthorisationActivity.class);
             startActivity(intent);

@@ -21,4 +21,6 @@
     <string name="dialog_message">Do you want to delete image from favourites?</string>
     <string name="authorisation">Input your email</string>
     <string name="apply">Apply</string>
+    <string name="delete_user">Delete user</string>
+    <string name="show_user">Show user</string>
 </resources>
