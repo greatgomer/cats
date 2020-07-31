@@ -1,4 +1,4 @@
-package com.example.cats.favorites;
+package com.example.cats.ui.home.fragments.favorites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -50,7 +49,7 @@ public class FavoritesFragment extends Fragment {
         View view = binding.getRoot();
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         binding.favouritesRecyclerView.setLayoutManager(mLayoutManager);
-        ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.favourites(this);
+        ((MyApplication) requireActivity().getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
 
         return view;

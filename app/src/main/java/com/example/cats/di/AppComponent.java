@@ -1,8 +1,8 @@
 package com.example.cats.di;
 
 import com.example.cats.api.services.NetworkProvider;
-import com.example.cats.favorites.FavoritesFragment;
-import com.example.cats.home.CatsFragment;
+import com.example.cats.ui.home.fragments.favorites.FavoritesFragment;
+import com.example.cats.ui.home.fragments.cats.CatsFragment;
 
 import javax.inject.Singleton;
 

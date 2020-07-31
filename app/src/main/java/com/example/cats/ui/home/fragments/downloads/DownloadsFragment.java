@@ -1,4 +1,4 @@
-package com.example.cats;
+package com.example.cats.ui.home.fragments.downloads;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cats.R;
 import com.example.cats.databinding.FragmentDownloadsBinding;
 
 import org.jetbrains.annotations.NotNull;

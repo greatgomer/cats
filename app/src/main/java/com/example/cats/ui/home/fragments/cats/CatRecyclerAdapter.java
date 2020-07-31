@@ -1,4 +1,4 @@
-package com.example.cats.home;
+package com.example.cats.ui.home.fragments.cats;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +11,13 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cats.MainActivity;
 import com.example.cats.R;
-import com.example.cats.ImageDetails;
+import com.example.cats.ui.image.ImageDetails;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;
-import com.example.cats.favorites.FavoritesFragment;
+import com.example.cats.ui.home.MainActivity;
+import com.example.cats.ui.home.fragments.favorites.FavoritesFragment;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;

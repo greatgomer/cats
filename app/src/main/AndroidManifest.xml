@@ -14,18 +14,18 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AuthorisationActivity"
+            android:name=".ui.authorisation.AuthorisationActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".FilterActivity"
+            android:name=".ui.filter.FilterActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".ImageDetails" />
+        <activity android:name=".ui.image.ImageDetails" />
 
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@menu/bottom_navigation_menu" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

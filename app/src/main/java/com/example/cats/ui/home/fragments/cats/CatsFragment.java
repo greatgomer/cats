@@ -1,4 +1,4 @@
-package com.example.cats.home;
+package com.example.cats.ui.home.fragments.cats;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,8 +18,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cats.AuthorisationActivity;
-import com.example.cats.FilterActivity;
+import com.example.cats.ui.authorisation.AuthorisationActivity;
+import com.example.cats.ui.filter.FilterActivity;
+import com.example.cats.ui.filter.FilterActivityViewModel;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;
@@ -32,7 +33,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -57,8 +57,8 @@ public class CatsFragment extends Fragment {
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     List<Cat> resultCats = new ArrayList<>();
-    SharedPreferences sharedPreferences;
-    String email = "";
+    static SharedPreferences sharedPreferences;
+    public static String email = "";
 
     public CatsFragment() {}
 
@@ -67,8 +67,8 @@ public class CatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
         View view = binding.getRoot();
-        ((MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).appComponent.inject(this);
-        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
+        ((MyApplication) requireActivity().getApplicationContext()).appComponent.inject(this);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity());
         addMoreCatsInFragment();
         setHasOptionsMenu(true);
         parameters.put("limit", "14");
@@ -104,14 +104,21 @@ public class CatsFragment extends Fragment {
         }
     }
 
+    public static void setEmail(String newEmail){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", newEmail);
+        editor.apply();
+        email = newEmail;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        if (FilterActivity.flag) {
+        if (FilterActivityViewModel.flag) {
             resultCats.clear();
             addMoreCatsInFragment();
             previousTotal = 0;
-            FilterActivity.flag = false;
+            FilterActivityViewModel.flag = false;
         }
     }
 

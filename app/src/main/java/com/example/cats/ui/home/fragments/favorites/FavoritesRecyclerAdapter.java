@@ -1,4 +1,4 @@
-package com.example.cats.favorites;
+package com.example.cats.ui.home.fragments.favorites;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cats.ImageDetails;
-import com.example.cats.MainActivity;
+import com.example.cats.ui.image.ImageDetails;
+import com.example.cats.ui.home.MainActivity;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
 import com.squareup.picasso.Picasso;
@@ -110,7 +110,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
                 .setTitle(R.string.dialog_title)
                 .setPositiveButton(R.string.interface_ok, (dialog, id) -> {
                     Observable<Integer> observable = Observable.just(idImage);
-                    observable.subscribeOn(Schedulers.io()).subscribe(s -> ((FavoritesFragment) mainActivity.fragment2).deleteFrom(s));
+                    observable.subscribeOn(Schedulers.io()).subscribe(s -> ((FavoritesFragment) mainActivity.fragment2).deleteFrom(s)).isDisposed();
                 })
                 .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }

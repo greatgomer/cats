@@ -1,4 +1,4 @@
-package com.example.cats;
+package com.example.cats.ui.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -7,9 +7,11 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 
+import com.example.cats.ui.home.fragments.downloads.DownloadsFragment;
+import com.example.cats.R;
 import com.example.cats.databinding.ActivityMainBinding;
-import com.example.cats.favorites.FavoritesFragment;
-import com.example.cats.home.CatsFragment;
+import com.example.cats.ui.home.fragments.cats.CatsFragment;
+import com.example.cats.ui.home.fragments.favorites.FavoritesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

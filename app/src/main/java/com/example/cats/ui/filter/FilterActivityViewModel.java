@@ -1,26 +1,13 @@
-package com.example.cats;
+package com.example.cats.ui.filter;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
-import android.os.Bundle;
+import androidx.lifecycle.ViewModel;
 
 import com.example.cats.databinding.ActivityFilterBinding;
-import com.example.cats.home.CatsFragment;
+import com.example.cats.ui.home.fragments.cats.CatsFragment;
 import com.jakewharton.rxbinding4.view.RxView;
 
-public class FilterActivity extends AppCompatActivity {
+public class FilterActivityViewModel extends ViewModel {
     public static boolean flag = false;
-
-    public FilterActivity(){}
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ActivityFilterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_filter);
-        onButtonPressed(binding);
-        setTitle(R.string.choose_filter);
-    }
 
     public void onButtonPressed(ActivityFilterBinding binding) {
         RxView.clicks(binding.button).subscribe(aVoid -> {
@@ -61,5 +48,4 @@ public class FilterActivity extends AppCompatActivity {
             flag = true;
         }).isDisposed();
     }
-
 }

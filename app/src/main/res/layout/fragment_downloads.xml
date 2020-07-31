@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DownloadsFragment">
+        tools:context=".ui.home.fragments.downloads.DownloadsFragment">
 
         <!-- TODO: Update blank fragment favourite_item -->
         <TextView

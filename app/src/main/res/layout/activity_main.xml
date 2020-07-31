@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/container"
         android:background="@color/colorBack"
-        tools:context=".MainActivity">
+        tools:context=".ui.home.MainActivity">
 
         <include
             layout="@layout/content_main"
