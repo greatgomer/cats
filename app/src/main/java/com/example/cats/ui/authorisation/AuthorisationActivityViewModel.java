@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.cats.databinding.ActivityAuthorisatounBinding;
 import com.example.cats.ui.home.fragments.cats.CatsFragment;
+import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
 // Used AndroidViewModel, because I use context. If we using ViewModel with context, we can get a memory leak.
@@ -19,12 +20,12 @@ public class AuthorisationActivityViewModel extends AndroidViewModel {
 
     public void onButtonsClick(ActivityAuthorisatounBinding binding) {
         Context context = getApplication();
-        RxView.clicks(binding.buttonApply).subscribe(aVoid -> CatsFragment.setEmail(binding.editTextTextPersonName.getText().toString())).isDisposed();
-        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> CatsFragment.setEmail("")).isDisposed();
+        RxView.clicks(binding.buttonApply).subscribe(aVoid -> CatsFragmentViewModel.setEmail(binding.editTextTextPersonName.getText().toString())).isDisposed();
+        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> CatsFragmentViewModel.setEmail("")).isDisposed();
         RxView.clicks(binding.buttonShowUser).subscribe(aVoid ->{
-            assert CatsFragment.email != null;
-            if (!CatsFragment.email.equals("")) {
-                Toast.makeText(context, CatsFragment.email, Toast.LENGTH_LONG).show();
+            assert CatsFragmentViewModel.email != null;
+            if (!CatsFragmentViewModel.email.equals("")) {
+                Toast.makeText(context, CatsFragmentViewModel.email, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(context, "No added user", Toast.LENGTH_LONG).show();
             }
