@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favorites;
+package com.example.cats.ui.home.fragments.favourites;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecyclerAdapter.CustomViewHolder>
+public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener, View.OnLongClickListener {
 
     AlertDialog.Builder builder;
@@ -37,9 +37,8 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     private FavouritesService service;
     String test = null;
     Integer idImage;
-    FavoritesFragment favoritesFragment;
 
-    public FavoritesRecyclerAdapter(FavouritesService service, Context context, List<Favorites> dataList) {
+    public FavouritesRecyclerAdapter(FavouritesService service, Context context, List<Favorites> dataList) {
         this.context = context;
         this.dataList = dataList;
         this.service = service;
@@ -80,7 +79,7 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     }
 
     public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
-        FavoritesFragment.favouritesAllId.add(dataList.get(position).getImage().getUrl());
+        FavouritesFragment.favouritesAllId.add(dataList.get(position).getImage().getUrl());
         try {
             test = dataList.get(position).getImage().getUrl();
         } catch (NullPointerException e) {
@@ -111,7 +110,6 @@ public class FavoritesRecyclerAdapter extends RecyclerView.Adapter<FavoritesRecy
     }
 
     public void dialogForFavorites() {
-        favoritesFragment = new FavoritesFragment();
         builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title)

@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favorites;
+package com.example.cats.ui.home.fragments.favourites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,18 +28,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavoritesFragment extends Fragment {
+public class FavouritesFragment extends Fragment {
 
     @Inject
     FavouritesService service;
 
     FragmentFavoritesBinding binding;
     LinearLayoutManager mLayoutManager;
-    FavoritesRecyclerAdapter adapter;
+    FavouritesRecyclerAdapter adapter;
     public List<Favorites> resultFavorites = new ArrayList<>();
     public static List<String> favouritesAllId = new ArrayList<>();
 
-    public FavoritesFragment() {}
+    public FavouritesFragment() {}
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -71,7 +71,7 @@ public class FavoritesFragment extends Fragment {
 
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
-        adapter = new FavoritesRecyclerAdapter(service, getActivity(), resultFavorites);
+        adapter = new FavouritesRecyclerAdapter(service, getActivity(), resultFavorites);
         binding.favouritesRecyclerView.setAdapter(adapter);
     }
 

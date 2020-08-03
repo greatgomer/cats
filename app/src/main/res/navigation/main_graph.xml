@@ -9,7 +9,7 @@
         android:label="CatsFragment" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.cats.ui.home.fragments.favorites.FavoritesFragment"
+        android:name="com.example.cats.ui.home.fragments.favourites.FavouritesFragment"
         android:label="FavoritesFragment" />
     <fragment
         android:id="@+id/downloadsFragment"
