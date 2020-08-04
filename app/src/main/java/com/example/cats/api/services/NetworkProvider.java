@@ -42,8 +42,16 @@ public class NetworkProvider {
 
     @Singleton
     @Provides
-    public  FavouritesService createFavouritesService(){
+    public  FavouritesService createFavouritesService() {
 
         return retrofit.create(FavouritesService.class);
     }
+
+    @Singleton
+    @Provides
+    public  DownloadsService createDownloadsService() {
+
+        return retrofit.create(DownloadsService.class);
+    }
+
 }

@@ -12,7 +12,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.fragments.downloadsViewModel.DownloadsFragment">
 
-        <!-- TODO: Update blank fragment favourite_item -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/downloadsRecyclerView"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
