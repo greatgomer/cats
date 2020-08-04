@@ -11,7 +11,6 @@ import com.example.cats.databinding.ActivityAuthorisatounBinding;
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
-// Used AndroidViewModel, because I use context. If we using ViewModel with context, we can get a memory leak.
 public class AuthorisationActivityViewModel extends AndroidViewModel {
     public AuthorisationActivityViewModel(@NonNull Application application) {
         super(application);

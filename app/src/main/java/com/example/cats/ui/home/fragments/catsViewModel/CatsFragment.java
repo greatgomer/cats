@@ -27,9 +27,6 @@ public class CatsFragment extends Fragment {
     FragmentCatsBinding binding;
     CatsFragmentViewModel model;
 
-
-    public CatsFragment() {}
-
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -50,4 +50,5 @@ public class DialogViewModel extends AndroidViewModel {
             MainActivity.navController.navigate(R.id.favoritesFragment);
         }).isDisposed();
     }
+
 }

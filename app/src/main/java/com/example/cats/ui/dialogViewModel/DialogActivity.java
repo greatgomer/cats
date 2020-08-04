@@ -18,4 +18,5 @@ public class DialogActivity extends AppCompatActivity {
         DialogViewModel model = ViewModelProviders.of(this).get(DialogViewModel.class);
         model.dialogViewModel(binding);
     }
+
 }
