@@ -14,8 +14,13 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.dialogViewModel.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:name=".ui.home.fragments.downloadsViewModel.dialogViewModel.DownloadsDialog"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:label="@string/downloads_dialog_message"/>
+        <activity
+            android:name=".ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:label="@string/dialog_message"/>
         <activity
             android:name=".ui.authorisationViewModel.AuthorisationActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />

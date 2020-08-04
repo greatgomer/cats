@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cats.ui.dialogViewModel.DialogActivity;
+import com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogActivity;
 import com.example.cats.ui.imageViewModel.ImageDetails;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
@@ -91,7 +91,7 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
         holder.mView.setOnLongClickListener(view -> {
             idImage = dataList.get(position).getId();
             Intent intent = new Intent();
-            intent.setClass(context, DialogActivity.class);
+            intent.setClass(context, FavouritesDialogActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 

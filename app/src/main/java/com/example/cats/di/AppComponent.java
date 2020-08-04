@@ -1,7 +1,7 @@
 package com.example.cats.di;
 
 import com.example.cats.api.services.NetworkProvider;
-import com.example.cats.ui.dialogViewModel.DialogViewModel;
+import com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogViewModel;
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.example.cats.ui.home.fragments.downloadsViewModel.DownloadsViewModel;
 import com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesFragmentViewModel;
@@ -15,7 +15,7 @@ import dagger.Component;
 public interface AppComponent {
     void inject(CatsFragmentViewModel catsFragment);
     void favourites(FavouritesFragmentViewModel favoritesFragment);
-    void favourites(DialogViewModel dialogActivity);
+    void favourites(FavouritesDialogViewModel dialogActivity);
     void downloads(DownloadsViewModel downloadsViewModel);
 
 }

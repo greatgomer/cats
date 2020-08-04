@@ -1,4 +1,4 @@
-package com.example.cats.ui.dialogViewModel;
+package com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel;
 
 import android.app.Application;
 import android.content.Context;
@@ -24,11 +24,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DialogViewModel extends AndroidViewModel {
+public class FavouritesDialogViewModel extends AndroidViewModel {
     @Inject
     FavouritesService service;
 
-    public DialogViewModel(@NonNull Application application) {
+    public FavouritesDialogViewModel(@NonNull Application application) {
         super(application);
     }
 
