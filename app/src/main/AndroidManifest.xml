@@ -17,7 +17,7 @@
             android:name=".ui.authorisation.AuthorisationActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".ui.filter.FilterActivity"
+            android:name=".ui.filterViewModel.FilterActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".ui.image.ImageDetails" />
 

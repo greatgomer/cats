@@ -1,4 +1,4 @@
-package com.example.cats.ui.filter;
+package com.example.cats.ui.filterViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

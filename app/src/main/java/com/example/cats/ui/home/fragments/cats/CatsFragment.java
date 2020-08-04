@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cats.ui.authorisation.AuthorisationActivity;
-import com.example.cats.ui.filter.FilterActivity;
-import com.example.cats.ui.filter.FilterActivityViewModel;
+import com.example.cats.ui.filterViewModel.FilterActivity;
+import com.example.cats.ui.filterViewModel.FilterActivityViewModel;
 import com.example.cats.R;
 import com.example.cats.databinding.FragmentCatsBinding;
 
