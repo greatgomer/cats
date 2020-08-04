@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cats.R;
 import com.example.cats.databinding.FragmentDownloadsBinding;
@@ -23,6 +24,13 @@ public class DownloadsFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentDownloadsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_downloads, container, false);
         View view = binding.getRoot();
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "ready", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

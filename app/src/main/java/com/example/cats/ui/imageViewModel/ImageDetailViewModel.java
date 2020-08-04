@@ -16,7 +16,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void setImage(ActivityImageDetailsBinding binding, Bundle arguments){
+    public void setImage(ActivityImageDetailsBinding binding, Bundle arguments) {
         Context context = getApplication();
         String url = (String) arguments.get("url");
         Picasso.with(context)
@@ -24,4 +24,5 @@ public class ImageDetailViewModel extends AndroidViewModel {
                 .error(R.drawable.ic_launcher_background)
                 .into(binding.fullCat);
     }
+
 }

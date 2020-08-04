@@ -48,4 +48,5 @@ public class FilterActivityViewModel extends ViewModel {
             flag = true;
         }).isDisposed();
     }
+
 }
