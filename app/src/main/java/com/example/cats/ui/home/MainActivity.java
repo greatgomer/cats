@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.page_2:
-                if (CatsFragmentViewModel.email.equals("")) {
+                if (CatsFragmentViewModel.email.equals("default value")) {
                     Toast.makeText(this, "Add user", Toast.LENGTH_LONG).show();
                 } else {
                     navController.navigate(R.id.favoritesFragment);

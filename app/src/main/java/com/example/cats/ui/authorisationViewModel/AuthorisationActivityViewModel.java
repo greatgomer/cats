@@ -19,7 +19,7 @@ public class AuthorisationActivityViewModel extends AndroidViewModel {
     public void onButtonsClick(ActivityAuthorisatounBinding binding) {
         Context context = getApplication();
         RxView.clicks(binding.buttonApply).subscribe(aVoid -> CatsFragmentViewModel.setEmail(binding.editTextTextPersonName.getText().toString())).isDisposed();
-        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> CatsFragmentViewModel.setEmail("")).isDisposed();
+        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> CatsFragmentViewModel.setEmail("default value")).isDisposed();
         RxView.clicks(binding.buttonShowUser).subscribe(aVoid ->{
             assert CatsFragmentViewModel.email != null;
             if (!CatsFragmentViewModel.email.equals("")) {

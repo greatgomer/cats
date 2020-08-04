@@ -48,7 +48,7 @@ public class CatsFragmentViewModel extends AndroidViewModel {
     public static HashMap<String, String> parameters = new HashMap<>();
 
     static SharedPreferences sharedPreferences;
-    public static String email = null;
+    public static String email = "";
 
     public List<Cat> resultCats = new ArrayList<>();
     private CatRecyclerAdapter adapter;
