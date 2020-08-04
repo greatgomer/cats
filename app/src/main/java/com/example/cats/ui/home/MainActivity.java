@@ -38,12 +38,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Add user", Toast.LENGTH_LONG).show();
                 } else {
                     navController.navigate(R.id.favoritesFragment);
-
                 }
                 return true;
 
             case R.id.page_3:
-                navController.navigate(R.id.downloadsFragment);
+                if (CatsFragmentViewModel.email.equals("default value")) {
+                    Toast.makeText(this, "Add user", Toast.LENGTH_LONG).show();
+                } else {
+                    navController.navigate(R.id.downloadsFragment);
+                }
                 return true;
         }
 
