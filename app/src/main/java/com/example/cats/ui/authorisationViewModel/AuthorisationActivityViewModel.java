@@ -1,4 +1,4 @@
-package com.example.cats.ui.authorisation;
+package com.example.cats.ui.authorisationViewModel;
 
 import android.app.Application;
 import android.content.Context;
@@ -8,8 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.cats.databinding.ActivityAuthorisatounBinding;
-import com.example.cats.ui.home.fragments.cats.CatsFragment;
-import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
 // Used AndroidViewModel, because I use context. If we using ViewModel with context, we can get a memory leak.

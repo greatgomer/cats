@@ -1,4 +1,4 @@
-package com.example.cats.ui.image;
+package com.example.cats.ui.imageViewModel;
 
 import android.app.Application;
 import android.content.Context;

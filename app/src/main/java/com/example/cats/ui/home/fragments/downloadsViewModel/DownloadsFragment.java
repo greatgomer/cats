@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.downloads;
+package com.example.cats.ui.home.fragments.downloadsViewModel;
 
 import android.os.Bundle;
 

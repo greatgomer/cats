@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.cats;
+package com.example.cats.ui.home.fragments.catsViewModel;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
-import com.example.cats.ui.home.fragments.favourites.FavouritesFragment;
-import com.example.cats.ui.image.ImageDetails;
+import com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesFragmentViewModel;
+import com.example.cats.ui.imageViewModel.ImageDetails;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;
@@ -83,13 +83,13 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
             Intent intent = new Intent();
             intent.setClass(context, ImageDetails.class);
             intent.putExtra("url", dataList.get(position).getUrl());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
         });
 
         imageView.setOnClickListener(view -> {
-            if (!FavouritesFragment.favouritesAllId.contains(dataList.get(position).getUrl())) {
+            if (!FavouritesFragmentViewModel.favouritesAllId.contains(dataList.get(position).getUrl())) {
                 email = sharedPreferences.getString("email", "default value");
                 FavoritesParameters favoritesParameters = new FavoritesParameters(dataList.get(position).getId(), email);
                 service.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {

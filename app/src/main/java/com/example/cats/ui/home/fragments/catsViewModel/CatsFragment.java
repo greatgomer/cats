@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.cats;
+package com.example.cats.ui.home.fragments.catsViewModel;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.cats.ui.authorisation.AuthorisationActivity;
+import com.example.cats.ui.authorisationViewModel.AuthorisationActivity;
 import com.example.cats.ui.filterViewModel.FilterActivity;
 import com.example.cats.ui.filterViewModel.FilterActivityViewModel;
 import com.example.cats.R;

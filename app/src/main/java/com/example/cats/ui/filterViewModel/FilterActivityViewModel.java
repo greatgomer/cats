@@ -3,7 +3,7 @@ package com.example.cats.ui.filterViewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cats.databinding.ActivityFilterBinding;
-import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
 public class FilterActivityViewModel extends ViewModel {

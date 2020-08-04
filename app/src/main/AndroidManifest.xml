@@ -14,12 +14,15 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.authorisation.AuthorisationActivity"
+            android:name=".ui.dialogViewModel.DialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".ui.authorisationViewModel.AuthorisationActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".ui.filterViewModel.FilterActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".ui.image.ImageDetails" />
+        <activity android:name=".ui.imageViewModel.ImageDetails" />
 
         <meta-data
             android:name="com.google.android.actions"

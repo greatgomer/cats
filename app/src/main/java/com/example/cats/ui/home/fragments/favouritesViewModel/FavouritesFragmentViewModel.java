@@ -1,17 +1,15 @@
-package com.example.cats.ui.home.fragments.favourites;
+package com.example.cats.ui.home.fragments.favouritesViewModel;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Context;
 import android.widget.Toast;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.databinding.FragmentFavoritesBinding;
@@ -28,30 +26,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavouritesFragment extends Fragment {
-
+public class FavouritesFragmentViewModel extends AndroidViewModel {
     @Inject
     FavouritesService service;
 
-    FragmentFavoritesBinding binding;
+    @SuppressLint("StaticFieldLeak")
+    Context context;
     LinearLayoutManager mLayoutManager;
+    FragmentFavoritesBinding binding;
+
     FavouritesRecyclerAdapter adapter;
     public List<Favorites> resultFavorites = new ArrayList<>();
     public static List<String> favouritesAllId = new ArrayList<>();
 
-    public FavouritesFragment() {}
+    public FavouritesFragmentViewModel(@NonNull Application application) {
+        super(application);
+    }
 
-    @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorites, container, false);
-        View view = binding.getRoot();
-        mLayoutManager = new GridLayoutManager(getActivity(), 2);
+    public void favouritesViewModel(FragmentFavoritesBinding binding){
+        this.binding = binding;
+        context = getApplication();
+        mLayoutManager = new GridLayoutManager(context, 2);
         binding.favouritesRecyclerView.setLayoutManager(mLayoutManager);
-        ((MyApplication) requireActivity().getApplicationContext()).appComponent.favourites(this);
+        ((MyApplication) getApplication().getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
 
-        return view;
     }
 
     private void loadFavourites() {
@@ -64,15 +63,14 @@ public class FavouritesFragment extends Fragment {
 
                     @Override
                     public void onFailure(@NotNull Call<List<Favorites>> call, @NotNull Throwable t) {
-                        Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
-        adapter = new FavouritesRecyclerAdapter(service, getActivity(), resultFavorites);
+        adapter = new FavouritesRecyclerAdapter(context, resultFavorites);
         binding.favouritesRecyclerView.setAdapter(adapter);
     }
-
 }

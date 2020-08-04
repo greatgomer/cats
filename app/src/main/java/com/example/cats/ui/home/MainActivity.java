@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.example.cats.R;
@@ -12,7 +13,8 @@ import com.example.cats.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    public NavController navController;
+    @SuppressLint("StaticFieldLeak")
+    public static NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

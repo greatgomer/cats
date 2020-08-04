@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.cats;
+package com.example.cats.ui.home.fragments.catsViewModel;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -59,12 +59,12 @@ public class CatsFragmentViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void catsViewModel(FragmentCatsBinding binding2){
+    public void catsViewModel(FragmentCatsBinding binding){
+        this.binding = binding;
         sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication().getApplicationContext());
         ((MyApplication) getApplication().getApplicationContext()).appComponent.inject(this);
         email = sharedPreferences.getString("email", "default value");
         context = getApplication();
-        binding = binding2;
         addMoreCatsInFragment();
     }
 

@@ -1,4 +1,4 @@
-package com.example.cats.ui.authorisation;
+package com.example.cats.ui.authorisationViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

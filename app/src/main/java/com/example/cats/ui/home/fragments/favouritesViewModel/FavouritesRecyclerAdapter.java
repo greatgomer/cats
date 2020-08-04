@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favourites;
+package com.example.cats.ui.home.fragments.favouritesViewModel;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cats.api.models.req.DeleteFromFavourites;
-import com.example.cats.api.services.FavouritesService;
-import com.example.cats.ui.home.MainActivity;
-import com.example.cats.ui.image.ImageDetails;
+import com.example.cats.ui.dialogViewModel.DialogActivity;
+import com.example.cats.ui.imageViewModel.ImageDetails;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
 import com.squareup.picasso.Picasso;
@@ -23,26 +20,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRecyclerAdapter.CustomViewHolder>
         implements View.OnClickListener, View.OnLongClickListener {
 
-    AlertDialog.Builder builder;
-    MainActivity mainActivity;
     private List<Favorites> dataList;
     private Context context;
-    private FavouritesService service;
     String test = null;
-    Integer idImage;
+    public static Integer idImage;
 
-    public FavouritesRecyclerAdapter(FavouritesService service, Context context, List<Favorites> dataList) {
+    public FavouritesRecyclerAdapter(Context context, List<Favorites> dataList) {
         this.context = context;
         this.dataList = dataList;
-        this.service = service;
-        mainActivity = (MainActivity) context;
     }
 
     @Override
@@ -73,13 +61,12 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.favourite_item, parent, false);
-        dialogForFavorites();
 
         return new CustomViewHolder(view);
     }
 
     public void onBindViewHolder(@NotNull CustomViewHolder holder, int position) {
-        FavouritesFragment.favouritesAllId.add(dataList.get(position).getImage().getUrl());
+        FavouritesFragmentViewModel.favouritesAllId.add(dataList.get(position).getImage().getUrl());
         try {
             test = dataList.get(position).getImage().getUrl();
         } catch (NullPointerException e) {
@@ -97,37 +84,19 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
             Intent intent = new Intent();
             intent.setClass(context, ImageDetails.class);
             intent.putExtra("url", dataList.get(position).getImage().getUrl());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
 
         holder.mView.setOnLongClickListener(view -> {
             idImage = dataList.get(position).getId();
-            builder.create()
-                    .show();
+            Intent intent = new Intent();
+            intent.setClass(context, DialogActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
             return false;
         });
-    }
-
-    public void dialogForFavorites() {
-        builder = new AlertDialog.Builder(context);
-        builder.setMessage(R.string.dialog_message)
-                .setTitle(R.string.dialog_title)
-                .setPositiveButton(R.string.interface_ok, (dialog, id) -> {
-                    service.deleteFromFavorites(idImage).enqueue(new Callback<DeleteFromFavourites>() {
-                        @Override
-                        public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
-                            Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
-                            Toast.makeText(context, "Decline", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    mainActivity.navController.navigate(R.id.favoritesFragment);
-                })
-                .setNegativeButton(R.string.interface_cancel, (dialog, id) -> dialog.cancel());
     }
 
     @Override

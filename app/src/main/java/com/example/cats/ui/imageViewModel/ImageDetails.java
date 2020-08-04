@@ -1,4 +1,4 @@
-package com.example.cats.ui.image;
+package com.example.cats.ui.imageViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
