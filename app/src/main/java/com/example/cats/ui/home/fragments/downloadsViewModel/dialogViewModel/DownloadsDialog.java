@@ -10,10 +10,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 
 import com.example.cats.R;
+import com.example.cats.api.models.req.LoadFromDownloads;
+import com.example.cats.api.services.DownloadsService;
 import com.example.cats.databinding.ActivityDownloadsDialogBinding;
+import com.example.cats.di.MyApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +25,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DownloadsDialog extends AppCompatActivity {
+    @Inject
+    DownloadsService service;
+
     public static final int PICK_IMAGE = 1;
     static final int REQUEST_IMAGE_CAPTURE = 2;
     Uri selectedImage;
@@ -33,6 +49,7 @@ public class DownloadsDialog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_downloads_dialog);
+        ((MyApplication) getApplication().getApplicationContext()).appComponent.downloads(this);
         DownloadsDialogViewModel model = ViewModelProviders.of(this).get(DownloadsDialogViewModel.class);
         model.downloadsViewModel(binding);
     }
@@ -60,6 +77,21 @@ public class DownloadsDialog extends AppCompatActivity {
             imageName = Objects.requireNonNull(selectedImage.getPath()).replaceAll("[/:]", "");
             imageName = imageName + ".jpg";
             binding.textView.setText(imageName);
+
+            File file = new File(selectedImage.getPath());
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(selectedImage.getPath(), MediaType.parse("image/*")));
+
+            service.loadImage(filePart, imageName).enqueue(new Callback<LoadFromDownloads>() {
+                @Override
+                public void onResponse(Call<LoadFromDownloads> call, Response<LoadFromDownloads> response) {
+                    Log.d("ARARARAA", String.valueOf(response));
+                }
+
+                @Override
+                public void onFailure(Call<LoadFromDownloads> call, Throwable t) {
+                    Log.d("ADADADA", String.valueOf(t));
+                }
+            });
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
             assert extras != null;
