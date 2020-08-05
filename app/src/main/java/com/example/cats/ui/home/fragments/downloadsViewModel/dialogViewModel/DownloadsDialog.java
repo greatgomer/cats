@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.cats.R;
-import com.example.cats.api.models.req.LoadFromDownloads;
 import com.example.cats.api.services.DownloadsService;
 import com.example.cats.databinding.ActivityDownloadsDialogBinding;
 import com.example.cats.di.MyApplication;
@@ -30,6 +29,7 @@ import javax.inject.Inject;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,21 +74,21 @@ public class DownloadsDialog extends AppCompatActivity {
         if (requestCode == PICK_IMAGE && null != data) {
             selectedImage = data.getData();
             binding.imageView.setImageURI(selectedImage);
-            imageName = Objects.requireNonNull(selectedImage.getPath()).replaceAll("[/:]", "");
-            imageName = imageName + ".jpg";
-            binding.textView.setText(imageName);
 
             File file = new File(selectedImage.getPath());
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(selectedImage.getPath(), MediaType.parse("image/*")));
+            Log.d("TAG", selectedImage.getPath());
 
-            service.loadImage(filePart, imageName).enqueue(new Callback<LoadFromDownloads>() {
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file",
+                    file.getName(), RequestBody.create(file, MediaType.parse(String.valueOf(selectedImage))));
+
+            service.loadImage(filePart,"test").enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<LoadFromDownloads> call, Response<LoadFromDownloads> response) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.d("ARARARAA", String.valueOf(response));
                 }
 
                 @Override
-                public void onFailure(Call<LoadFromDownloads> call, Throwable t) {
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Log.d("ADADADA", String.valueOf(t));
                 }
             });

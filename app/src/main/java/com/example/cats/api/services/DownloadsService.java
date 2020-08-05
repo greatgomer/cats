@@ -6,6 +6,7 @@ import com.example.cats.api.models.res.Downloads;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -18,6 +19,7 @@ public interface DownloadsService {
 
     @Multipart
     @POST("images/upload")
-    Call<LoadFromDownloads> loadImage(@Part MultipartBody.Part filePart, @Part ("sub_id") String sub_id);
+    Call<ResponseBody> loadImage(@Part MultipartBody.Part filePart,
+                                 @Part ("sub_id") String sub_id);
 
 }
