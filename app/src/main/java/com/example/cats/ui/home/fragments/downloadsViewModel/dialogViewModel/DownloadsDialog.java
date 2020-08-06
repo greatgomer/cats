@@ -1,17 +1,18 @@
 package com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cats.R;
 import com.example.cats.api.services.DownloadsService;
@@ -20,9 +21,9 @@ import com.example.cats.di.MyApplication;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -34,13 +35,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DownloadsDialog extends AppCompatActivity {
+public class DownloadsDialog extends AppCompatActivity{
     @Inject
     DownloadsService service;
 
     public static final int PICK_IMAGE = 1;
     static final int REQUEST_IMAGE_CAPTURE = 2;
-    Uri selectedImage;
     ActivityDownloadsDialogBinding binding;
     String imageName = "";
     Bitmap imageBitmap;
@@ -55,10 +55,8 @@ public class DownloadsDialog extends AppCompatActivity {
     }
 
     public void onDownloadsGalleryClick(View view) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), PICK_IMAGE);
+
     }
 
     public void onCameraGalleryClick(View view) {
@@ -72,24 +70,37 @@ public class DownloadsDialog extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && null != data) {
-            selectedImage = data.getData();
-            binding.imageView.setImageURI(selectedImage);
+//            Uri uri = data.getData();
+//            File photoFile = new File(uri.getPath());
+            File photoFile = null;
+            Uri selectedImageUri = data.getData();
+            // Get the path from the Uri
+            final String path = getPathFromURI(selectedImageUri);
+            if (path != null) {
+                photoFile = new File(path);
+                selectedImageUri = Uri.fromFile(photoFile);
+            }
 
-            File file = new File(selectedImage.getPath());
-            Log.d("TAG", selectedImage.getPath());
+            Log.d("EXIST", String.valueOf(photoFile.exists()));
 
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file",
-                    file.getName(), RequestBody.create(file, MediaType.parse(String.valueOf(selectedImage))));
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("sub_id", "test")
+                    .addFormDataPart("file", photoFile.getName(),
+                            RequestBody.create(photoFile, MediaType.parse("multipart/form-data")))
+                    .build();
 
-            service.loadImage(filePart,"test").enqueue(new Callback<ResponseBody>() {
+            service.loadImage(requestBody).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.d("ARARARAA", String.valueOf(response));
+
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Log.d("ADADADA", String.valueOf(t));
+
                 }
             });
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
@@ -116,5 +127,16 @@ public class DownloadsDialog extends AppCompatActivity {
         imageName = image.getAbsolutePath().replaceAll("[a-z/_.]", "");
         imageName = imageName + ".jpg";
     }
+
+    public String getPathFromURI(Uri contentUri) {
+            String[] projection = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
+            if (cursor == null) return null;
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String s=cursor.getString(column_index);
+            cursor.close();
+            return s;
+        }
 
 }

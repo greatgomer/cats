@@ -1,5 +1,7 @@
 package com.example.cats.api.models.req;
 
+import android.util.Log;
+
 import java.io.File;
 
 public class LoadFromDownloads {
