@@ -84,6 +84,7 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
             Intent intent = new Intent();
             intent.setClass(context, ImageDetails.class);
             intent.putExtra("url", dataList.get(position).getImage().getUrl());
+            intent.putExtra("id", dataList.get(position).getImage().getId());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });

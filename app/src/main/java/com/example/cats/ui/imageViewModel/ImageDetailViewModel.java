@@ -11,9 +11,11 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.cats.R;
 import com.example.cats.api.models.req.ImageVote;
+import com.example.cats.api.models.res.Image;
 import com.example.cats.api.services.ImageService;
 import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.example.cats.di.MyApplication;
+import com.example.cats.ui.home.fragments.catsViewModel.CatsFragment;
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -42,6 +44,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         Context context = getApplication();
         String url = (String) arguments.get("url");
         id = (String) arguments.get("id");
+        getImageInfo();
         onButtonsPressed();
         Picasso.with(context)
                 .load(url)
@@ -59,7 +62,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
             postVote(imageVote);
         };
         binding.imageButtonDown.setOnClickListener(down);
-        binding.imageButtonDown.setOnClickListener(up);
+        binding.imageButtonUp.setOnClickListener(up);
     }
 
     private void postVote(ImageVote imageVote) {
@@ -72,6 +75,19 @@ public class ImageDetailViewModel extends AndroidViewModel {
             @Override
             public void onFailure(@NotNull Call<ImageVote> call, @NotNull Throwable t) {
                 Log.d("BAD", String.valueOf(t));
+            }
+        });
+    }
+
+    private void getImageInfo(){
+        service.image(id).enqueue(new Callback<Image>() {
+            @Override
+            public void onResponse(Call<Image> call, Response<Image> response) {
+                Log.d("GOOOOOOOOD", String.valueOf(response));
+            }
+
+            @Override
+            public void onFailure(Call<Image> call, Throwable t) {
             }
         });
     }

@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Image {
-    @SerializedName("breeds")
-    private List breeds;
+    @SerializedName("image_id")
+    private String image_id;
 
-    public Image(List breeds) {
-        this.breeds = breeds;
+    public Image(String image_id) {
+        this.image_id = image_id;
     }
 
 }
