@@ -16,6 +16,7 @@ import com.example.cats.R;
 import com.example.cats.api.services.DownloadsService;
 import com.example.cats.databinding.ActivityDownloadsDialogBinding;
 import com.example.cats.di.MyApplication;
+import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -64,8 +65,7 @@ public class DownloadsDialog extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Uri uri = data.getData();
-        File file = new File(this.getFilesDir() + getPath(uri));
-        file.mkdir();
+        File file = new File(getPath(uri));
         Log.d("EXISTS", String.valueOf(file.exists()));
 
         RequestBody requestFile =
@@ -74,7 +74,9 @@ public class DownloadsDialog extends AppCompatActivity{
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-        service.loadImage(body, "test").enqueue(new Callback<ResponseBody>() {
+        RequestBody name = RequestBody.create(CatsFragmentViewModel.email, MediaType.parse("text/plain"));
+
+        service.loadImage(body, name).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 Log.d("TAG", String.valueOf(response));
@@ -92,7 +94,7 @@ public class DownloadsDialog extends AppCompatActivity{
         String[] projection = { MediaStore.Images.Media._ID };
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         if (cursor == null) return null;
-        int column_index =             cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
         cursor.moveToFirst();
         String s=cursor.getString(column_index);
         cursor.close();

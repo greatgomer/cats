@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,15 +21,15 @@ public class NetworkProvider {
     }
 
     private Retrofit createProvider() {
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.addInterceptor(new HeaderInterceptor());
+//        OkHttpClient.Builder client = new OkHttpClient.Builder();
+//        client.addInterceptor(new HeaderInterceptor());
 
         //LOGS
-//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        OkHttpClient.Builder client = new OkHttpClient.Builder();
-//        client.addInterceptor(new HeaderInterceptor());// add your other interceptors …
-//        client.addInterceptor(logging);  // <-- this is the important line!
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+        client.addInterceptor(new HeaderInterceptor());// add your other interceptors …
+        client.addInterceptor(logging);  // <-- this is the important line!
 
         retrofit = new Retrofit.Builder()
                 .client(client.build())
@@ -36,6 +37,7 @@ public class NetworkProvider {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
+
 
         return retrofit;
     }

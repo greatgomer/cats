@@ -94,7 +94,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
 
     private void generateData(Image response) {
         Image image = response;
-        binding.textViewDescription.setText(image.getBreeds().getDescription());
+//        binding.textViewDescription.setText(image.getBreeds().getDescription());
     }
 
 }
