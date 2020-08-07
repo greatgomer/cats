@@ -15,7 +15,6 @@ import com.example.cats.api.models.res.Image;
 import com.example.cats.api.services.ImageService;
 import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragment;
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -82,14 +81,19 @@ public class ImageDetailViewModel extends AndroidViewModel {
     private void getImageInfo(){
         service.image(id).enqueue(new Callback<Image>() {
             @Override
-            public void onResponse(Call<Image> call, Response<Image> response) {
-                Log.d("GOOOOOOOOD", String.valueOf(response));
+            public void onResponse(@NotNull Call<Image> call, @NotNull Response<Image> response) {
+                generateData(response.body());
             }
 
             @Override
-            public void onFailure(Call<Image> call, Throwable t) {
+            public void onFailure(@NotNull Call<Image> call, @NotNull Throwable t) {
+                Log.d("FAIL", String.valueOf(t));
             }
         });
     }
 
+    private void generateData(Image response){
+        Image image = response;
+        binding.textViewDescription.setText(image.getBreeds().getDescription());
+    }
 }
