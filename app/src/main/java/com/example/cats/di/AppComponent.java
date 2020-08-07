@@ -18,6 +18,5 @@ public interface AppComponent {
     void favourites(FavouritesFragmentViewModel favoritesFragment);
     void favourites(FavouritesDialogViewModel dialogActivity);
     void downloads(DownloadsViewModel downloadsViewModel);
-    void downloads(DownloadsDialog downloadsDialog);
 
 }

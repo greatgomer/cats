@@ -12,10 +12,11 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface FavouritesService {
     @GET("favourites")
-    Call<List<Favorites>> getAllFavorites();
+    Call<List<Favorites>> getAllFavorites(@Query("sub_id") String sub_id);
 
     @POST("favourites")
     Call<FavoritesParameters> postFavourites(@Body FavoritesParameters body);
