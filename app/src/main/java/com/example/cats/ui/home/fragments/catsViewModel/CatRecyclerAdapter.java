@@ -83,6 +83,7 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
             Intent intent = new Intent();
             intent.setClass(context, ImageDetails.class);
             intent.putExtra("url", dataList.get(position).getUrl());
+            intent.putExtra("id", dataList.get(position).getId());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 

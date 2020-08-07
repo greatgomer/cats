@@ -6,6 +6,7 @@ import com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogVi
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.example.cats.ui.home.fragments.downloadsViewModel.DownloadsViewModel;
 import com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesFragmentViewModel;
+import com.example.cats.ui.imageViewModel.ImageDetailViewModel;
 
 import javax.inject.Singleton;
 
@@ -18,5 +19,6 @@ public interface AppComponent {
     void favourites(FavouritesFragmentViewModel favoritesFragment);
     void favourites(FavouritesDialogViewModel dialogActivity);
     void downloads(DownloadsViewModel downloadsViewModel);
+    void votes(ImageDetailViewModel imageDetailViewModel);
 
 }

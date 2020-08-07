@@ -61,4 +61,10 @@ public class NetworkProvider {
         return retrofit.create(DownloadsService.class);
     }
 
+    @Singleton
+    @Provides
+    public  ImageService createImageService() {
+
+        return retrofit.create(ImageService.class);
+    }
 }

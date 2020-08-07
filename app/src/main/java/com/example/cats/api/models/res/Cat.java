@@ -9,7 +9,7 @@ public class Cat {
     @SerializedName("url")
     private String url;
 
-    public Cat( String id, String url) {
+    public Cat(String id, String url) {
         this.id = id;
         this.url = url;
     }
