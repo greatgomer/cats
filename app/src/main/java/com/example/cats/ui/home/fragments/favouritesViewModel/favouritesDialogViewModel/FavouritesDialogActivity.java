@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityDialogBinding;
+import com.jakewharton.rxbinding4.view.RxView;
 
 public class FavouritesDialogActivity extends AppCompatActivity {
 
@@ -16,7 +17,16 @@ public class FavouritesDialogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityDialogBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_dialog);
         FavouritesDialogViewModel model = ViewModelProviders.of(this).get(FavouritesDialogViewModel.class);
-        model.dialogViewModel(binding);
+
+        RxView.clicks(binding.buttonYes).subscribe(aVoid ->{
+            model.deleteFavourite();
+            onBackPressed();
+        }).isDisposed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 }

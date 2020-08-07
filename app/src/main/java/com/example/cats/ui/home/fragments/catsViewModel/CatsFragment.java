@@ -68,6 +68,11 @@ public class CatsFragment extends Fragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (FilterActivityViewModel.flag) {

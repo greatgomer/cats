@@ -31,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CatsFragmentViewModel extends AndroidViewModel {
+
     @Inject
     ImagesService service;
 

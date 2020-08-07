@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityFilterBinding;
+import com.jakewharton.rxbinding4.view.RxView;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -19,7 +20,21 @@ public class FilterActivity extends AppCompatActivity {
         ActivityFilterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_filter);
         FilterActivityViewModel model = ViewModelProviders.of(this).get(FilterActivityViewModel.class);
         setTitle(R.string.choose_filter);
-        model.onButtonPressed(binding);
+
+        RxView.clicks(binding.button).subscribe(aVoid -> {
+            model.onButtonApplyPressed(binding);
+            onBackPressed();
+        }).isDisposed();
+
+        RxView.clicks(binding.button2).subscribe(aVoid -> {
+            model.onButtonResetPressed(binding);
+            onBackPressed();
+        }).isDisposed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 }
