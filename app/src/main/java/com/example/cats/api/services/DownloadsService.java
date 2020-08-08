@@ -19,9 +19,8 @@ public interface DownloadsService {
     Call<List<Downloads>> getAllDownloads();
 
     @Multipart
-    @Headers("Content-Type: multipart/form-data")
+    @Headers("Content-Type: multipart/form-data;")
     @POST("images/upload")
-    Call<ResponseBody> loadImage(@Part MultipartBody.Part file,
-                                       @Part("sub_id") RequestBody sub_id);
+    Call<ResponseBody> loadImage(@Part MultipartBody.Part image, @Part("sub_id") RequestBody sub_id);
 
 }
