@@ -1,10 +1,12 @@
 package com.example.cats.ui.imageViewModel;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -31,6 +33,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
     ImageService service;
 
     ActivityImageDetailsBinding binding;
+    String noData = "No data";
     String id;
 
     public ImageDetailViewModel(@NonNull Application application) {
@@ -68,12 +71,12 @@ public class ImageDetailViewModel extends AndroidViewModel {
         service.imageVote(imageVote).enqueue(new Callback<ImageVote>() {
             @Override
             public void onResponse(@NotNull Call<ImageVote> call, @NotNull Response<ImageVote> response) {
-                Log.d("GOOD", String.valueOf(response));
+                Toast.makeText(getApplication(), "Complete", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NotNull Call<ImageVote> call, @NotNull Throwable t) {
-                Log.d("BAD", String.valueOf(t));
+                Toast.makeText(getApplication(), "Fail", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -92,9 +95,17 @@ public class ImageDetailViewModel extends AndroidViewModel {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void generateData(Image response) {
-        Image image = response;
-//        binding.textViewDescription.setText(image.getBreeds().getDescription());
+        try {
+            binding.textViewWikipediaUrl.setText("Name: " + response.getBreeds()[0].getName());
+            binding.textViewCfaUrl.setText("CfaUrl: " + response.getBreeds()[0].getCfa_url());
+            binding.textViewDescription.setText("Description: " + response.getBreeds()[0].getDescription());
+            binding.textViewTemperament.setText("Temperament: " + response.getBreeds()[0].getTemperament());
+        } catch (NullPointerException n) {
+            binding.textViewCfaUrl.setText(noData);
+        }
     }
 
 }
+
