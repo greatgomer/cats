@@ -37,7 +37,6 @@ public class NetworkProvider {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
-
         return retrofit;
     }
 
