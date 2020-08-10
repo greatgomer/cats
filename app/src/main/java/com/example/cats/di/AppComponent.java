@@ -1,6 +1,7 @@
 package com.example.cats.di;
 
 import com.example.cats.api.services.NetworkProvider;
+import com.example.cats.ui.home.fragments.downloadsViewModel.deleteViewModel.DeleteViewModel;
 import com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel.DownloadsDialog;
 import com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogViewModel;
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
@@ -20,6 +21,7 @@ public interface AppComponent {
     void favourites(FavouritesDialogViewModel dialogActivity);
     void downloads(DownloadsViewModel downloadsViewModel);
     void download(DownloadsDialog downloadsDialog);
+    void download(DeleteViewModel deleteViewModel);
     void votes(ImageDetailViewModel imageDetailViewModel);
 
 }

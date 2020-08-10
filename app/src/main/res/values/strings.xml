@@ -16,6 +16,7 @@
     <string name="filter_reset">Reset filters</string>
     <string name="dialog_title">Delete image</string>
     <string name="dialog_message">Delete from favourites?</string>
+    <string name="delete_message">Delete from downloads?</string>
     <string name="downloads_dialog_message">Load photo</string>
     <string name="authorisation">Input your email</string>
     <string name="apply">Apply</string>

@@ -5,24 +5,26 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:requestLegacyExternalStorage="true"
         android:name=".di.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:launchMode="singleTop"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.home.fragments.downloadsViewModel.deleteViewModel.DeleteDownloadActivity"
+            android:label="@string/delete_message"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity
             android:name=".ui.home.fragments.downloadsViewModel.dialogViewModel.DownloadsDialog"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:label="@string/downloads_dialog_message"/>
+            android:label="@string/downloads_dialog_message"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:label="@string/dialog_message"/>
+            android:label="@string/dialog_message"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".ui.authorisationViewModel.AuthorisationActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />

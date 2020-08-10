@@ -30,7 +30,7 @@ public class FavouritesDialogViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void deleteFavourite(){
+    public void deleteFavourite() {
         Context context = getApplication();
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourites(this);
         service.deleteFromFavorites(FavouritesRecyclerAdapter.idImage).enqueue(new Callback<DeleteFromFavourites>() {

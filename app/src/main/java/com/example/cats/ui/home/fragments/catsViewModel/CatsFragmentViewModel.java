@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import com.example.cats.api.services.FavouritesService;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.databinding.FragmentCatsBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.filterViewModel.FilterActivity;
 
 import org.jetbrains.annotations.NotNull;
 

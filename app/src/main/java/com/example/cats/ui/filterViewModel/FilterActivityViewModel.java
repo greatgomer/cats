@@ -39,7 +39,7 @@ public class FilterActivityViewModel extends ViewModel {
         }
     }
 
-    public void onButtonResetPressed(){
+    public void onButtonResetPressed() {
             CatsFragmentViewModel.parameters.clear();
             CatsFragmentViewModel.parameters.put("limit", "14");
             CatsFragmentViewModel.parameters.put("page", "0");
