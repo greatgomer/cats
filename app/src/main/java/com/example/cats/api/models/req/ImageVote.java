@@ -10,4 +10,5 @@ public class ImageVote {
         this.sub_id = sub_id;
         this.value = value;
     }
+
 }

@@ -13,14 +13,15 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface DownloadsService {
-    @GET("images/search")
-    Call<List<Downloads>> getAllDownloads();
+    @GET("images")
+    Call<List<Downloads>> getAllDownloads(@Query("sub_id") String sub_id, @Query("limit") Integer limit);
 
     @Multipart
-    @Headers("Content-Type: multipart/form-data;")
+//    @Headers("Content-Type: multipart/form-data;")
     @POST("images/upload")
-    Call<ResponseBody> loadImage(@Part MultipartBody.Part image, @Part("sub_id") RequestBody sub_id);
+    Call<ResponseBody> loadImage(@Part MultipartBody.Part file, @Part("sub_id") RequestBody sub_id);
 
 }

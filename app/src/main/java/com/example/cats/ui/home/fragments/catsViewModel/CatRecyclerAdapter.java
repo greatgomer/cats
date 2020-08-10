@@ -86,7 +86,6 @@ public class CatRecyclerAdapter extends RecyclerView.Adapter<CatRecyclerAdapter.
             intent.putExtra("id", dataList.get(position).getId());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-
         });
 
         imageView.setOnClickListener(view -> {

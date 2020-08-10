@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,12 +31,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -49,6 +50,9 @@ public class DownloadsDialog extends AppCompatActivity{
     public static final int PICK_IMAGE = 1;
     static final int REQUEST_IMAGE_CAPTURE = 2;
     ActivityDownloadsDialogBinding binding;
+    String[] name;
+    byte[] inputData;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,27 +78,49 @@ public class DownloadsDialog extends AppCompatActivity{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri uri = data.getData();
+        try {
+            uri = data.getData();
+        } catch (NullPointerException n) {
+            Log.d("TAG", String.valueOf(n));
+        }
         File file = null;
         try {
+            assert uri != null;
             file = getFile(uri);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String mimeType = getContentResolver().getType(uri);
-        Log.d("EXISTS", String.valueOf(file.exists()));
+
+        String mimeType = "image/jpeg";
+        assert file != null;
+        Log.d("EXISTS", String.valueOf(file));
+        assert mimeType != null;
         Log.d("mimeType", mimeType);
-        Log.d("file path", String.valueOf(file.getPath()));
-        Log.d("file name", String.valueOf(file.getName()));
+        Log.d("file path", file.getPath());
+        Log.d("file name", file.getName());
         Log.d("uri path", String.valueOf(uri.getPath()));
 
+        InputStream iStream = null;
+        try {
+            iStream = getContentResolver().openInputStream(uri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert iStream != null;
+            inputData = getBytes(iStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("FILE", String.valueOf(inputData.length));
+
         RequestBody requestFile =
-                RequestBody.create(file.getPath(), MediaType.parse(mimeType));
+                RequestBody.create(inputData, MediaType.parse(mimeType));
 
         MultipartBody.Part filePart =
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-        RequestBody subPart = RequestBody.create(CatsFragmentViewModel.email, MediaType.parse("text/plain"));
+        RequestBody subPart = createPartFromString(CatsFragmentViewModel.email);
 
         service.loadImage(filePart, subPart).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -110,7 +136,7 @@ public class DownloadsDialog extends AppCompatActivity{
     }
 
     public File getFile(Uri selectedImageUri) throws IOException {
-        String[] name = selectedImageUri.getPath().split("/");
+        name = Objects.requireNonNull(selectedImageUri.getPath()).split("/");
         Bitmap selectedBitmap = getBitmap(selectedImageUri);
 
         /*We can access getExternalFileDir() without asking any storage permission.*/
@@ -158,4 +184,23 @@ public class DownloadsDialog extends AppCompatActivity{
         fos.flush();
         fos.close();
     }
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(descriptionString,
+                okhttp3.MultipartBody.FORM);
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
 }

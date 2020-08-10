@@ -46,4 +46,5 @@ public class FavouritesDialogViewModel extends AndroidViewModel {
         });
         MainActivity.navController.navigate(R.id.favoritesFragment);
     }
+
 }

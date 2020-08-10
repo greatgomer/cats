@@ -56,6 +56,7 @@ public class DownloadsFragmentAdapter extends RecyclerView.Adapter<DownloadsFrag
                 .centerCrop()
                 .error(R.drawable.image_background)
                 .into(holder.coverImage);
+
     }
 
     @Override

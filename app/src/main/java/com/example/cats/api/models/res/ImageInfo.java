@@ -18,6 +18,7 @@ public class ImageInfo {
         this.temperament = temperament;
         this.name = name;
     }
+
     public String getCfa_url() {
         return cfa_url;
     }
@@ -30,6 +31,5 @@ public class ImageInfo {
     public String getName() {
         return name;
     }
-
 
 }

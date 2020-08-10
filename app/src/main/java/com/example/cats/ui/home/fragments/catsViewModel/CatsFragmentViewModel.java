@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.example.cats.api.services.FavouritesService;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.databinding.FragmentCatsBinding;
 import com.example.cats.di.MyApplication;
+import com.example.cats.ui.filterViewModel.FilterActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -99,9 +101,8 @@ public class CatsFragmentViewModel extends AndroidViewModel {
 
     }
 
-    //    private void loadCats() {
-//        FilterActivity filterActivity = new FilterActivity();
-//        service.getAllData(filterActivity.parameters)
+//        private void loadCats() {
+//        service.getAllData(parameters)
 //                .subscribe(this::generateDataList,
 //                        e -> Log.d("RETROFIT", String.valueOf(e)))
 //                .isDisposed();

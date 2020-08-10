@@ -27,7 +27,7 @@ public class FilterActivity extends AppCompatActivity {
         }).isDisposed();
 
         RxView.clicks(binding.button2).subscribe(aVoid -> {
-            model.onButtonResetPressed(binding);
+            model.onButtonResetPressed();
             onBackPressed();
         }).isDisposed();
     }

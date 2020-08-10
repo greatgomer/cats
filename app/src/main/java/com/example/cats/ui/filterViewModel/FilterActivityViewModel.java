@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cats.databinding.ActivityFilterBinding;
 import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
-import com.jakewharton.rxbinding4.view.RxView;
 
 public class FilterActivityViewModel extends ViewModel {
     public static boolean flag = false;
@@ -40,7 +39,7 @@ public class FilterActivityViewModel extends ViewModel {
         }
     }
 
-    public void onButtonResetPressed(ActivityFilterBinding binding){
+    public void onButtonResetPressed(){
             CatsFragmentViewModel.parameters.clear();
             CatsFragmentViewModel.parameters.put("limit", "14");
             CatsFragmentViewModel.parameters.put("page", "0");
