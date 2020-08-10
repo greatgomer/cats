@@ -17,7 +17,6 @@ public class Cat {
     public String getId() {
         return id;
     }
-
     public String getUrl() {
         return url;
     }

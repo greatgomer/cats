@@ -1,11 +1,9 @@
 package com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,9 +26,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -49,8 +48,12 @@ public class DownloadsDialog extends AppCompatActivity{
 
     public static final int PICK_IMAGE = 1;
     static final int REQUEST_IMAGE_CAPTURE = 2;
+    String mimeType = "image/jpeg";
     ActivityDownloadsDialogBinding binding;
-    String[] name;
+    InputStream iStream = null;
+    MultipartBody.Part filePart;
+    String currentPhotoPath;
+    RequestBody subPart;
     byte[] inputData;
     Uri uri;
 
@@ -76,113 +79,68 @@ public class DownloadsDialog extends AppCompatActivity{
     };
 
     @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
+        if (requestCode == PICK_IMAGE) {
             uri = data.getData();
-        } catch (NullPointerException n) {
-            Log.d("TAG", String.valueOf(n));
-        }
-        File file = null;
-        try {
             assert uri != null;
-            file = getFile(uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String mimeType = "image/jpeg";
-        assert file != null;
-        Log.d("EXISTS", String.valueOf(file));
-        assert mimeType != null;
-        Log.d("mimeType", mimeType);
-        Log.d("file path", file.getPath());
-        Log.d("file name", file.getName());
-        Log.d("uri path", String.valueOf(uri.getPath()));
-
-        InputStream iStream = null;
-        try {
-            iStream = getContentResolver().openInputStream(uri);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            assert iStream != null;
-            inputData = getBytes(iStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("FILE", String.valueOf(inputData.length));
-
-        RequestBody requestFile =
-                RequestBody.create(inputData, MediaType.parse(mimeType));
-
-        MultipartBody.Part filePart =
-                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-
-        RequestBody subPart = createPartFromString(CatsFragmentViewModel.email);
-
-        service.loadImage(filePart, subPart).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                Log.d("TAG", String.valueOf(response));
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                Log.d("TAG2", String.valueOf(t));
-            }
-        });
-    }
-
-    public File getFile(Uri selectedImageUri) throws IOException {
-        name = Objects.requireNonNull(selectedImageUri.getPath()).split("/");
-        Bitmap selectedBitmap = getBitmap(selectedImageUri);
-
-        /*We can access getExternalFileDir() without asking any storage permission.*/
-        File selectedImgFile = new File(
-                getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-                name[name.length-1]);
-
-        convertBitmaptoFile(selectedImgFile, selectedBitmap);
-        return selectedImgFile;
-    }
-
-    public Bitmap getBitmap(Uri imageUri) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            File file = new File(Objects.requireNonNull(uri.getPath()));
             try {
-                return ImageDecoder.decodeBitmap(
-                        ImageDecoder.createSource(
-                                this.getContentResolver(),
-                                imageUri));
+                iStream = getContentResolver().openInputStream(uri);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                assert iStream != null;
+                inputData = getBytes(iStream);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-        } else {
+            RequestBody requestFile =
+                    RequestBody.create(inputData, MediaType.parse(mimeType));
+
+            filePart =
+                    MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+            subPart = createPartFromString(CatsFragmentViewModel.email);
+            loadInDownloads();
+            onBackPressed();
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE){
+            Bundle extras = data.getExtras();
+            assert extras != null;
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            assert imageBitmap != null;
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            inputData = stream.toByteArray();
+            imageBitmap.recycle();
+
+            Log.d("SIZE", String.valueOf(inputData.length));
+
             try {
-                InputStream inputStream = this.getContentResolver().openInputStream(imageUri);
-                return BitmapFactory.decodeStream(inputStream);
-            } catch (FileNotFoundException e) {
+                createImageFile();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-        }
-        return null;
-    }
+            RequestBody requestFile =
+                    RequestBody.create(inputData, MediaType.parse("image/jpg"));
 
-    public void convertBitmaptoFile(File destinationFile, Bitmap bitmap) throws IOException {
-        //create a file to write bitmap data
-        destinationFile.createNewFile();
-        //Convert bitmap to byte array
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-        byte[] bitmapData = bos.toByteArray();
-        //write the bytes in file
-        FileOutputStream fos = new FileOutputStream(destinationFile);
-        fos.write(bitmapData);
-        fos.flush();
-        fos.close();
+            filePart =
+                    MultipartBody.Part.createFormData("file", currentPhotoPath, requestFile);
+
+            Log.d("NAME", currentPhotoPath);
+
+            subPart = createPartFromString(CatsFragmentViewModel.email);
+            loadInDownloads();
+            onBackPressed();
+        }
     }
 
     @NonNull
@@ -196,11 +154,40 @@ public class DownloadsDialog extends AppCompatActivity{
         int bufferSize = 1024;
         byte[] buffer = new byte[bufferSize];
 
-        int len = 0;
+        int len;
         while ((len = inputStream.read(buffer)) != -1) {
             byteBuffer.write(buffer, 0, len);
         }
         return byteBuffer.toByteArray();
+    }
+
+    public void loadInDownloads(){
+        service.loadImage(filePart, subPart).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                Log.d("TAG", String.valueOf(response));
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                Log.d("TAG2", String.valueOf(t));
+            }
+        });
+    }
+
+    private void createImageFile() throws IOException {
+        // Create an image file name
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
     }
 
 }

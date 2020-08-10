@@ -74,4 +74,5 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
         adapter = new FavouritesRecyclerAdapter(context, resultFavorites);
         binding.favouritesRecyclerView.setAdapter(adapter);
     }
+
 }
