@@ -1,7 +1,10 @@
 package com.example.cats;
 
+import android.util.Log;
+
 import androidx.test.runner.AndroidJUnit4;
 
+import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.models.res.Downloads;
@@ -17,12 +20,15 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertEquals;
@@ -49,6 +55,8 @@ public class ExampleInstrumentedTest {
 
     FavoritesParameters favoritesParameters = new FavoritesParameters("1ud", sub_id);
     Call<FavoritesParameters> favoritesAdd = favouritesService.postFavourites(favoritesParameters);
+
+    Call<DeleteFromFavourites> favouritesDel = favouritesService.deleteFromFavorites(1);
 
     DownloadsService downloadsService = retrofit.createDownloadsService();
     Call<List<Downloads>> downloads = downloadsService.getAllDownloads(sub_id, 10);
@@ -108,8 +116,29 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
+    public void testDelFromFavourites(){
+        assertNotNull(favouritesDel);
+    }
+
+    @Test
     public void testGetAllDownloadsData() {
         assertNotNull(downloads);
+    }
+
+    @Test
+    public void test() {
+        cats.enqueue(new Callback<List<Cat>>() {
+            @Override
+            public void onResponse(Call<List<Cat>> call, Response<List<Cat>> response) {
+                List<Cat> resultCats = new ArrayList<>(response.body());
+                assertNotNull(resultCats.get(0).getId());
+            }
+
+            @Override
+            public void onFailure(Call<List<Cat>> call, Throwable t) {
+
+            }
+        });
     }
 
 }
