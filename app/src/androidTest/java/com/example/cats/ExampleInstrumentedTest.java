@@ -1,9 +1,8 @@
 package com.example.cats;
 
-import android.util.Log;
-
 import androidx.test.runner.AndroidJUnit4;
 
+import com.example.cats.api.models.req.DeleteFromDownloads;
 import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
@@ -14,24 +13,19 @@ import com.example.cats.api.services.FavouritesService;
 import com.example.cats.api.services.ImagesService;
 import com.example.cats.api.services.NetworkProvider;
 
-import org.junit.Before;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.TestCase.assertEquals;
 
 /**
  * Instrumented image_background, which will execute on an Android device.
@@ -41,9 +35,7 @@ import static junit.framework.TestCase.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     public static HashMap<String, String> params = new HashMap<>();
-    HttpsURLConnection myConnection;
     String sub_id = "test3";
-    URL api;
 
     NetworkProvider retrofit = new NetworkProvider();
     ImagesService imagesService = retrofit.createImagesService();
@@ -56,49 +48,13 @@ public class ExampleInstrumentedTest {
     FavoritesParameters favoritesParameters = new FavoritesParameters("1ud", sub_id);
     Call<FavoritesParameters> favoritesAdd = favouritesService.postFavourites(favoritesParameters);
 
+    Call<DeleteFromFavourites> deleteFromFavouritesCall = favouritesService.deleteFromFavorites(1);
     Call<DeleteFromFavourites> favouritesDel = favouritesService.deleteFromFavorites(1);
 
     DownloadsService downloadsService = retrofit.createDownloadsService();
     Call<List<Downloads>> downloads = downloadsService.getAllDownloads(sub_id, 10);
 
-    @Before
-    public void catsConnect() throws IOException {
-        api = new URL("https://api.thecatapi.com/v1/images/search");
-        myConnection =
-                (HttpsURLConnection) api.openConnection();
-        myConnection.setRequestProperty("x-api-key", "97a76886-9a72-4bb1-81a2-e730833ffbdb");
-    }
-
-    @Test
-    public void testCatsConnect() throws IOException {
-        assertEquals(200, myConnection.getResponseCode());
-    }
-
-    @Before
-    public void favouritesConnect() throws IOException {
-        api = new URL("https://api.thecatapi.com/v1/favourites");
-        myConnection =
-                (HttpsURLConnection) api.openConnection();
-        myConnection.setRequestProperty("x-api-key", "97a76886-9a72-4bb1-81a2-e730833ffbdb");
-    }
-
-    @Test
-    public void testFavouritesConnect() throws IOException {
-        assertEquals(200, myConnection.getResponseCode());
-    }
-
-    @Before
-    public void downloadsConnect() throws IOException {
-        api = new URL("https://api.thecatapi.com/v1/downloads");
-        myConnection =
-                (HttpsURLConnection) api.openConnection();
-        myConnection.setRequestProperty("x-api-key", "97a76886-9a72-4bb1-81a2-e730833ffbdb");
-    }
-
-    @Test
-    public void testDownloadsConnect() throws IOException {
-        assertEquals(200, myConnection.getResponseCode());
-    }
+    Call<DeleteFromDownloads> deleteFromDownloadsCall = downloadsService.deleteFromDownloads("1");
 
     @Test
     public void testGetAllCatsData() {
@@ -126,16 +82,96 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void test() {
+    public void testDataFromCats() {
         cats.enqueue(new Callback<List<Cat>>() {
             @Override
-            public void onResponse(Call<List<Cat>> call, Response<List<Cat>> response) {
+            public void onResponse(@NotNull Call<List<Cat>> call, @NotNull Response<List<Cat>> response) {
+                assert response.body() != null;
                 List<Cat> resultCats = new ArrayList<>(response.body());
                 assertNotNull(resultCats.get(0).getId());
+                assertNotNull(resultCats.get(0).getUrl());
             }
 
             @Override
-            public void onFailure(Call<List<Cat>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Cat>> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    @Test
+    public void testDataFromFavourites() {
+        favourites.enqueue(new Callback<List<Favorites>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<Favorites>> call, @NotNull Response<List<Favorites>> response) {
+                assert response.body() != null;
+                List<Favorites> resultCats = new ArrayList<>(response.body());
+                assertNotNull(resultCats.get(0).getId());
+                assertNotNull(resultCats.get(0).getImage());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<Favorites>> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    @Test
+    public void testDataLoadToFavourites() {
+        favoritesAdd.enqueue(new Callback<FavoritesParameters>() {
+            @Override
+            public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
+                assertNotNull(response.body());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<FavoritesParameters> call, @NotNull Throwable t) {
+            }
+        });
+    }
+
+    @Test
+    public void testDataDeleteFromFavourites() {
+        deleteFromFavouritesCall.enqueue(new Callback<DeleteFromFavourites>() {
+            @Override
+            public void onResponse(@NotNull Call<DeleteFromFavourites> call, @NotNull Response<DeleteFromFavourites> response) {
+                assertNotNull(response.body());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<DeleteFromFavourites> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+        @Test
+    public void testDataFromDownloads() {
+        downloads.enqueue(new Callback<List<Downloads>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<Downloads>> call, @NotNull Response<List<Downloads>> response) {
+                assert response.body() != null;
+                assertNotNull(response.body());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<Downloads>> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    @Test
+    public void testDeleteFromDownloads() {
+        deleteFromDownloadsCall.enqueue(new Callback<DeleteFromDownloads>() {
+            @Override
+            public void onResponse(@NotNull Call<DeleteFromDownloads> call, @NotNull Response<DeleteFromDownloads> response) {
+                assertNotNull(response.body());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<DeleteFromDownloads> call, @NotNull Throwable t) {
 
             }
         });
