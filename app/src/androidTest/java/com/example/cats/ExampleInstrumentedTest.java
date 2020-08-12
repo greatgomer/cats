@@ -1,7 +1,5 @@
 package com.example.cats;
 
-import androidx.test.runner.AndroidJUnit4;
-
 import com.example.cats.api.models.req.DeleteFromDownloads;
 import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.models.req.FavoritesParameters;
@@ -15,7 +13,6 @@ import com.example.cats.api.services.NetworkProvider;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +29,6 @@ import static junit.framework.Assert.assertNotNull;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     public static HashMap<String, String> params = new HashMap<>();
     String sub_id = "test3";

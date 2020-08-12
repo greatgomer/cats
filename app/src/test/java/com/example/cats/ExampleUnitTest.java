@@ -1,6 +1,7 @@
 package com.example.cats;
 
 import org.junit.Test;
+import org.testng.annotations.AfterTest;
 
 import static org.junit.Assert.*;
 
