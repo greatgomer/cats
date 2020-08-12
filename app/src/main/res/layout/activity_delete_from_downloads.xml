@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        tools:context=".ui.home.fragments.downloadsViewModel.deleteViewModel.DeleteDownloadActivity">
+        tools:context=".ui.home.fragments.downloads.delete.DeleteDownloadActivity">
 
         <Button
             android:id="@+id/button_delete"

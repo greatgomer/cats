@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.downloadsViewModel.deleteViewModel;
+package com.example.cats.ui.home.fragments.downloads.delete;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

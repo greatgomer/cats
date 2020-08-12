@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.catsViewModel;
+package com.example.cats.ui.home.fragments.cats;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -47,10 +47,7 @@ public class CatsFragmentViewModel extends AndroidViewModel {
     Context context;
 
     public static HashMap<String, String> parameters = new HashMap<>();
-
-    static SharedPreferences sharedPreferences;
     public static String email = "";
-
     public List<Cat> resultCats = new ArrayList<>();
     private CatRecyclerAdapter adapter;
 
@@ -62,9 +59,7 @@ public class CatsFragmentViewModel extends AndroidViewModel {
 
     public void catsViewModel(FragmentCatsBinding binding){
         this.binding = binding;
-        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication().getApplicationContext());
         ((MyApplication) getApplication().getApplicationContext()).appComponent.inject(this);
-        email = sharedPreferences.getString("email", "default value");
         context = getApplication();
         addMoreCatsInFragment();
     }
@@ -129,13 +124,6 @@ public class CatsFragmentViewModel extends AndroidViewModel {
             resultCats.addAll(photoList);
             adapter.notifyDataSetChanged();
         }
-    }
-
-    public static void setEmail(String newEmail) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("email", newEmail);
-        editor.apply();
-        email = newEmail;
     }
 
 }

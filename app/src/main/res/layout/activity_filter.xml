@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.filterViewModel.FilterActivity">
+        tools:context=".ui.filter.FilterActivity">
 
         <CheckBox
             android:id="@+id/filterBoxes"
@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/filterSunglasses" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/apply_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_apply"
@@ -80,12 +80,12 @@
             app:layout_constraintTop_toBottomOf="@+id/filterTies" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/reset_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/filter_reset"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintStart_toStartOf="@+id/apply_filter"
+            app:layout_constraintTop_toBottomOf="@+id/apply_filter" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

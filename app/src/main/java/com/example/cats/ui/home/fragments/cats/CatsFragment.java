@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.catsViewModel;
+package com.example.cats.ui.home.fragments.cats;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.cats.ui.authorisationViewModel.AuthorisationActivity;
-import com.example.cats.ui.filterViewModel.FilterActivity;
-import com.example.cats.ui.filterViewModel.FilterActivityViewModel;
+import com.example.cats.ui.authorisation.AuthorisationActivity;
+import com.example.cats.ui.filter.FilterActivity;
+import com.example.cats.ui.filter.FilterActivityViewModel;
 import com.example.cats.R;
 import com.example.cats.databinding.FragmentCatsBinding;
 
@@ -50,12 +50,12 @@ public class CatsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_filter & !CatsFragmentViewModel.email.equals("default value")) {
+        if (id == R.id.action_filter & !CatsFragmentViewModel.email.equals("")) {
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), FilterActivity.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.action_filter & CatsFragmentViewModel.email.equals("default value")) {
+        } else if (id == R.id.action_filter & CatsFragmentViewModel.email.equals("")) {
             super.onOptionsItemSelected(item);
             Toast.makeText(getActivity(), "Add user", Toast.LENGTH_LONG).show();
             return true;
@@ -75,11 +75,11 @@ public class CatsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (FilterActivityViewModel.flag) {
+        if (FilterActivity.flag) {
             model.resultCats.clear();
             model.addMoreCatsInFragment();
             model.previousTotal = 0;
-            FilterActivityViewModel.flag = false;
+            FilterActivity.flag = false;
         }
     }
 

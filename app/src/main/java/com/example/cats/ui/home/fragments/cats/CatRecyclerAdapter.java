@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.catsViewModel;
+package com.example.cats.ui.home.fragments.cats;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
-import com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesFragmentViewModel;
-import com.example.cats.ui.imageViewModel.ImageDetails;
+import com.example.cats.ui.home.fragments.favourites.FavouritesFragmentViewModel;
+import com.example.cats.ui.image.ImageDetails;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;

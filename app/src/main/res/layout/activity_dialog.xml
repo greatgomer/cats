@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        tools:context=".ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogActivity">
+        tools:context=".ui.home.fragments.favourites.favouritesDialog.FavouritesDialogActivity">
 
         <Button
             android:id="@+id/button_yes"

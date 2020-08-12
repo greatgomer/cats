@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel;
+package com.example.cats.ui.home.fragments.downloads.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

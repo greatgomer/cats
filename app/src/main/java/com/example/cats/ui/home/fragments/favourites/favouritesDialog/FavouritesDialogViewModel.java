@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel;
+package com.example.cats.ui.home.fragments.favourites.favouritesDialog;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,7 +12,7 @@ import com.example.cats.api.models.req.DeleteFromFavourites;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.MainActivity;
-import com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesRecyclerAdapter;
+import com.example.cats.ui.home.fragments.favourites.FavouritesRecyclerAdapter;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,4 +1,4 @@
-package com.example.cats.ui.authorisationViewModel;
+package com.example.cats.ui.authorisation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityAuthorisatounBinding;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
 public class AuthorisationActivity extends AppCompatActivity {
@@ -19,10 +18,12 @@ public class AuthorisationActivity extends AppCompatActivity {
         ActivityAuthorisatounBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_authorisatoun);
         AuthorisationActivityViewModel model = ViewModelProviders.of(this).get(AuthorisationActivityViewModel.class);
         setTitle(R.string.authorisation);
-        model.onButtonsClick(binding);
+        model.onButtonsClick();
 
+        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> model.setEmail("")).isDisposed();
+        RxView.clicks(binding.buttonShowUser).subscribe(aVoid -> model.checkOnUser()).isDisposed();
         RxView.clicks(binding.buttonApply).subscribe(aVoid ->{
-            CatsFragmentViewModel.setEmail(binding.editTextTextPersonName.getText().toString());
+            model.setEmail(binding.editTextTextPersonName.getText().toString());
             onBackPressed();
         }).isDisposed();
     }

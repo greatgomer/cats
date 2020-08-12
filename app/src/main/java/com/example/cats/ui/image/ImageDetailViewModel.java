@@ -1,4 +1,4 @@
-package com.example.cats.ui.imageViewModel;
+package com.example.cats.ui.image;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -17,7 +17,7 @@ import com.example.cats.api.models.res.Image;
 import com.example.cats.api.services.ImageService;
 import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;

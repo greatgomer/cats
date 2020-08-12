@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.fragments.downloadsViewModel.DownloadsFragment">
+        tools:context=".ui.home.fragments.downloads.DownloadsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/downloadsRecyclerView"

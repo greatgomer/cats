@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.downloadsViewModel.deleteViewModel;
+package com.example.cats.ui.home.fragments.downloads.delete;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,7 +12,7 @@ import com.example.cats.api.models.req.DeleteFromDownloads;
 import com.example.cats.api.services.DownloadsService;
 import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.MainActivity;
-import com.example.cats.ui.home.fragments.downloadsViewModel.DownloadsFragmentAdapter;
+import com.example.cats.ui.home.fragments.downloads.DownloadsFragmentAdapter;
 
 import org.jetbrains.annotations.NotNull;
 

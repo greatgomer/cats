@@ -1,14 +1,13 @@
 package com.example.cats.di;
 
 import com.example.cats.api.services.NetworkProvider;
-import com.example.cats.ui.home.fragments.downloadsViewModel.deleteViewModel.DeleteViewModel;
-import com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel.DownloadsDialog;
-import com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel.DownloadsDialogViewModel;
-import com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogViewModel;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
-import com.example.cats.ui.home.fragments.downloadsViewModel.DownloadsViewModel;
-import com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesFragmentViewModel;
-import com.example.cats.ui.imageViewModel.ImageDetailViewModel;
+import com.example.cats.ui.home.fragments.downloads.delete.DeleteViewModel;
+import com.example.cats.ui.home.fragments.downloads.dialog.DownloadsDialogViewModel;
+import com.example.cats.ui.home.fragments.favourites.favouritesDialog.FavouritesDialogViewModel;
+import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.downloads.DownloadsViewModel;
+import com.example.cats.ui.home.fragments.favourites.FavouritesFragmentViewModel;
+import com.example.cats.ui.image.ImageDetailViewModel;
 
 import javax.inject.Singleton;
 

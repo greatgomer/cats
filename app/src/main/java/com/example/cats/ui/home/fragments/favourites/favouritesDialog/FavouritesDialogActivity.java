@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favouritesViewModel.favouritesDialogViewModel;
+package com.example.cats.ui.home.fragments.favourites.favouritesDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

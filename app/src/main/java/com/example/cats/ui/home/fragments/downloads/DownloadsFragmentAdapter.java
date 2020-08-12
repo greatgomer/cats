@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.downloadsViewModel;
+package com.example.cats.ui.home.fragments.downloads;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.api.models.res.Downloads;
-import com.example.cats.ui.home.fragments.downloadsViewModel.deleteViewModel.DeleteDownloadActivity;
+import com.example.cats.ui.home.fragments.downloads.delete.DeleteDownloadActivity;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;

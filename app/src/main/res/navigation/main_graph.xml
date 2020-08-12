@@ -5,14 +5,14 @@
 
     <fragment
         android:id="@+id/catsFragment"
-        android:name="com.example.cats.ui.home.fragments.catsViewModel.CatsFragment"
+        android:name="com.example.cats.ui.home.fragments.cats.CatsFragment"
         android:label="CatsFragment" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.cats.ui.home.fragments.favouritesViewModel.FavouritesFragment"
+        android:name="com.example.cats.ui.home.fragments.favourites.FavouritesFragment"
         android:label="FavoritesFragment" />
     <fragment
         android:id="@+id/downloadsFragment"
-        android:name="com.example.cats.ui.home.fragments.downloadsViewModel.DownloadsFragment"
+        android:name="com.example.cats.ui.home.fragments.downloads.DownloadsFragment"
         android:label="DownloadsFragment" />
 </navigation>

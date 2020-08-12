@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityMainBinding;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.page_2:
-                if (CatsFragmentViewModel.email.equals("default value")) {
+                if (CatsFragmentViewModel.email.equals("")) {
                     Toast.makeText(this, "Add user", Toast.LENGTH_LONG).show();
                 } else {
                     navController.navigate(R.id.favoritesFragment);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.page_3:
-                if (CatsFragmentViewModel.email.equals("default value")) {
+                if (CatsFragmentViewModel.email.equals("")) {
                     Toast.makeText(this, "Add user", Toast.LENGTH_LONG).show();
                 } else {
                     navController.navigate(R.id.downloadsFragment);

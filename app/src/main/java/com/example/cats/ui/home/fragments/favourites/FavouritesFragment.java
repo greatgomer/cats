@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favouritesViewModel;
+package com.example.cats.ui.home.fragments.favourites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

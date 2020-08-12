@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.downloadsViewModel.dialogViewModel;
+package com.example.cats.ui.home.fragments.downloads.dialog;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityDownloadsDialogBinding;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
 import java.io.ByteArrayOutputStream;

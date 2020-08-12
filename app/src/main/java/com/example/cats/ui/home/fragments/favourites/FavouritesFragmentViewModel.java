@@ -1,4 +1,4 @@
-package com.example.cats.ui.home.fragments.favouritesViewModel;
+package com.example.cats.ui.home.fragments.favourites;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -14,7 +14,7 @@ import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.databinding.FragmentFavoritesBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.catsViewModel.CatsFragmentViewModel;
+import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 
 import org.jetbrains.annotations.NotNull;
 

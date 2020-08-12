@@ -14,24 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.fragments.downloadsViewModel.deleteViewModel.DeleteDownloadActivity"
+        <activity android:name=".ui.home.fragments.downloads.delete.DeleteDownloadActivity"
             android:label="@string/delete_message"
             android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity
-            android:name=".ui.home.fragments.downloadsViewModel.dialogViewModel.DownloadsDialog"
+            android:name=".ui.home.fragments.downloads.dialog.DownloadsDialog"
             android:label="@string/downloads_dialog_message"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".ui.home.fragments.favouritesViewModel.favouritesDialogViewModel.FavouritesDialogActivity"
+            android:name=".ui.home.fragments.favourites.favouritesDialog.FavouritesDialogActivity"
             android:label="@string/dialog_message"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".ui.authorisationViewModel.AuthorisationActivity"
+            android:name=".ui.authorisation.AuthorisationActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".ui.filterViewModel.FilterActivity"
+            android:name=".ui.filter.FilterActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".ui.imageViewModel.ImageDetails" />
+        <activity android:name=".ui.image.ImageDetails" />
 
         <meta-data
             android:name="com.google.android.actions"
