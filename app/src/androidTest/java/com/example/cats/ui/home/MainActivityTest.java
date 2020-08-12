@@ -11,7 +11,6 @@ import org.junit.Test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
 
 public class MainActivityTest {
     @Rule
@@ -19,11 +18,22 @@ public class MainActivityTest {
             MainActivity.class);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @Test
-    public void onCreate() {
+    public void onButtonPage2Click() {
         onView(withId(R.id.page_2)).perform(click());
+    }
+
+    @Test
+    public void onButtonPage3Click() {
+        onView(withId(R.id.page_3)).perform(click());
+    }
+
+    @Test
+    public void onButtonChoose() {
+        onView(withId(R.id.page_3)).perform(click());
+        onView(withId(R.id.fab)).perform(click());
     }
 }
