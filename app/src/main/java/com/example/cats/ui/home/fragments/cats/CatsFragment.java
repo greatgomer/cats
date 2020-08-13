@@ -14,18 +14,33 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cats.api.models.res.Cat;
+import com.example.cats.api.services.FavouritesService;
+import com.example.cats.di.MyApplication;
 import com.example.cats.ui.authorisation.AuthorisationActivity;
 import com.example.cats.ui.filter.FilterActivity;
-import com.example.cats.ui.filter.FilterActivityViewModel;
 import com.example.cats.R;
 import com.example.cats.databinding.FragmentCatsBinding;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 public class CatsFragment extends Fragment {
     FragmentCatsBinding binding;
     CatsFragmentViewModel model;
+    private boolean loading = true;
+    private int visibleThreshold = 5;
+    LinearLayoutManager mLayoutManager;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
+    public int previousTotal = 0;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -37,8 +52,39 @@ public class CatsFragment extends Fragment {
         setHasOptionsMenu(true);
         CatsFragmentViewModel.parameters.put("limit", "14");
         CatsFragmentViewModel.parameters.put("page", "0");
+        addMoreCatsInFragment();
 
         return view;
+    }
+
+    public void addMoreCatsInFragment() {
+        mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        binding.catRecyclerView.setLayoutManager(mLayoutManager);
+        binding.catRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = recyclerView.getChildCount();
+                totalItemCount = mLayoutManager.getItemCount();
+                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
+
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false;
+                        previousTotal = totalItemCount;
+                    }
+                }
+
+                if (!loading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + visibleThreshold)) {
+                    model.loadCats();
+                    loading = true;
+                }
+            }
+        });
+        model.loadCats();
+
     }
 
     @Override
@@ -77,8 +123,8 @@ public class CatsFragment extends Fragment {
         super.onResume();
         if (FilterActivity.flag) {
             model.resultCats.clear();
-            model.addMoreCatsInFragment();
-            model.previousTotal = 0;
+            addMoreCatsInFragment();
+            previousTotal = 0;
             FilterActivity.flag = false;
         }
     }

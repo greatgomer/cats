@@ -3,14 +3,10 @@ package com.example.cats.ui.home.fragments.cats;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;
@@ -31,67 +27,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CatsFragmentViewModel extends AndroidViewModel {
-
     @Inject
     ImagesService service;
 
     @Inject
     FavouritesService serviceFavourites;
 
-    LinearLayoutManager mLayoutManager;
-    public int previousTotal = 0;
-    private boolean loading = true;
-    private int visibleThreshold = 5;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
     @SuppressLint("StaticFieldLeak")
     Context context;
 
     public static HashMap<String, String> parameters = new HashMap<>();
     public static String email = "";
-    public List<Cat> resultCats = new ArrayList<>();
     private CatRecyclerAdapter adapter;
-
+    public List<Cat> resultCats = new ArrayList<>();
     FragmentCatsBinding binding;
 
     public CatsFragmentViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void catsViewModel(FragmentCatsBinding binding){
+    public void catsViewModel(FragmentCatsBinding binding) {
         this.binding = binding;
         ((MyApplication) getApplication().getApplicationContext()).appComponent.inject(this);
+        ((MyApplication) getApplication().getApplicationContext()).appComponent.favourite(this);
         context = getApplication();
-        addMoreCatsInFragment();
-    }
-
-    public void addMoreCatsInFragment() {
-        mLayoutManager = new GridLayoutManager(context, 2);
-        binding.catRecyclerView.setLayoutManager(mLayoutManager);
-        binding.catRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                visibleItemCount = recyclerView.getChildCount();
-                totalItemCount = mLayoutManager.getItemCount();
-                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false;
-                        previousTotal = totalItemCount;
-                    }
-                }
-
-                if (!loading && (totalItemCount - visibleItemCount)
-                        <= (firstVisibleItem + visibleThreshold)) {
-                    loadCats();
-                    loading = true;
-                }
-            }
-        });
-        loadCats();
-
     }
 
 //        private void loadCats() {
@@ -101,7 +60,7 @@ public class CatsFragmentViewModel extends AndroidViewModel {
 //                .isDisposed();
 //    }
 
-    private void loadCats() {
+    public void loadCats() {
         service.getAllCats(parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override
@@ -115,7 +74,7 @@ public class CatsFragmentViewModel extends AndroidViewModel {
                 });
     }
 
-    private void generateDataList(List<Cat> photoList) {
+    public void generateDataList(List<Cat> photoList) {
         if (resultCats.isEmpty()) {
             resultCats = new ArrayList<>(photoList);
             adapter = new CatRecyclerAdapter(serviceFavourites, context, resultCats);

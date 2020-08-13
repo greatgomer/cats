@@ -3,7 +3,6 @@ package com.example.cats.ui.home.fragments.downloads;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import com.example.cats.api.services.DownloadsService;
 import com.example.cats.databinding.FragmentDownloadsBinding;
 import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
-import com.example.cats.ui.home.fragments.downloads.dialog.DownloadsDialog;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,16 +50,6 @@ public class DownloadsViewModel extends AndroidViewModel {
         binding.downloadsRecyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.downloads(this);
         loadFavourites();
-        onFabClick();
-    }
-
-    public void onFabClick(){
-        binding.fab.setOnClickListener(view -> {
-            Intent intent = new Intent();
-            intent.setClass(context, DownloadsDialog.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        });
     }
 
     private void loadFavourites() {
