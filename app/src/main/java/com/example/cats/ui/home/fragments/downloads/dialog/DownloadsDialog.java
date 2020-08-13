@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityDownloadsDialogBinding;
-import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
 
 import java.io.ByteArrayOutputStream;
@@ -82,7 +81,7 @@ public class DownloadsDialog extends AppCompatActivity{
             model.filePart =
                     MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-            model.subPart = createPartFromString(CatsFragmentViewModel.email);
+            model.subPart = createPartFromString("test");
             model.loadInDownloads();
             onBackPressed();
         } else if (requestCode == REQUEST_IMAGE_CAPTURE){
@@ -105,7 +104,7 @@ public class DownloadsDialog extends AppCompatActivity{
 
             model.filePart =
                     MultipartBody.Part.createFormData("file", model.currentPhotoPath, requestFile);
-            model.subPart = createPartFromString(CatsFragmentViewModel.email);
+            model.subPart = createPartFromString("test");
             model.loadInDownloads();
             onBackPressed();
         }

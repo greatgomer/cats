@@ -20,12 +20,12 @@ public class AuthorisationActivity extends AppCompatActivity {
         setTitle(R.string.authorisation);
         model.onButtonsClick();
 
-        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> model.setEmail("")).isDisposed();
-        RxView.clicks(binding.buttonShowUser).subscribe(aVoid -> model.checkOnUser()).isDisposed();
-        RxView.clicks(binding.buttonApply).subscribe(aVoid ->{
-            model.setEmail(binding.editTextTextPersonName.getText().toString());
-            onBackPressed();
-        }).isDisposed();
+//        RxView.clicks(binding.buttonDelete).subscribe(aVoid -> model.setEmail("")).isDisposed();
+//        RxView.clicks(binding.buttonShowUser).subscribe(aVoid -> model.checkOnUser()).isDisposed();
+//        RxView.clicks(binding.buttonApply).subscribe(aVoid ->{
+//            model.setEmail(binding.editTextTextPersonName.getText().toString());
+//            onBackPressed();
+//        }).isDisposed();
     }
 
     @Override

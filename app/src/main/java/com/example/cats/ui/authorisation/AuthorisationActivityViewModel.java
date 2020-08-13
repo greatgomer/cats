@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 
 public class AuthorisationActivityViewModel extends AndroidViewModel {
     static SharedPreferences sharedPreferences;
@@ -24,20 +23,20 @@ public class AuthorisationActivityViewModel extends AndroidViewModel {
         context = getApplication();
     }
 
-    public void checkOnUser() {
-        assert CatsFragmentViewModel.email != null;
-        if (!CatsFragmentViewModel.email.equals("")) {
-            Toast.makeText(context, CatsFragmentViewModel.email, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, "Add user", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void setEmail(String newEmail) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("email", newEmail);
-        editor.apply();
-        CatsFragmentViewModel.email = newEmail;
-    }
+//    public void checkOnUser() {
+//        assert CatsFragmentViewModel.email != null;
+//        if (!CatsFragmentViewModel.email.equals("")) {
+//            Toast.makeText(context, CatsFragmentViewModel.email, Toast.LENGTH_LONG).show();
+//        } else {
+//            Toast.makeText(context, "Add user", Toast.LENGTH_LONG).show();
+//        }
+//    }
+//
+//    public void setEmail(String newEmail) {
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("email", newEmail);
+//        editor.apply();
+//        CatsFragmentViewModel.email = newEmail;
+//    }
 
 }

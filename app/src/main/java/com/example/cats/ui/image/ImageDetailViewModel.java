@@ -17,7 +17,6 @@ import com.example.cats.api.models.res.Image;
 import com.example.cats.api.services.ImageService;
 import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.cats.CatsFragmentViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -56,11 +55,11 @@ public class ImageDetailViewModel extends AndroidViewModel {
 
     private void onButtonsPressed() {
         View.OnClickListener down = view -> {
-            ImageVote imageVote = new ImageVote(id, CatsFragmentViewModel.email, 0);
+            ImageVote imageVote = new ImageVote(id, "test", 0);
             postVote(imageVote);
         };
         View.OnClickListener up = view -> {
-            ImageVote imageVote = new ImageVote(id, CatsFragmentViewModel.email, 1);
+            ImageVote imageVote = new ImageVote(id, "test", 1);
             postVote(imageVote);
         };
         binding.imageButtonDown.setOnClickListener(down);
