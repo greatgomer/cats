@@ -21,13 +21,10 @@ public class CatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentCatsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
         CatsViewModel model = ViewModelProviders.of(this).get(CatsViewModel.class);
+        View view = binding.getRoot();
+        model.onCatsViewModel(binding);
 
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
+        return view;
     }
 
 }

@@ -1,12 +1,17 @@
 package com.example.cats.ui.home.fragments.cats;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
-import android.util.Log;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.ImagesService;
+import com.example.cats.databinding.FragmentCatsBinding;
 import com.example.cats.di.MyApplication;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,12 +30,29 @@ public class CatsViewModel extends AndroidViewModel {
     @Inject
     ImagesService service;
 
+    @SuppressLint("StaticFieldLeak")
+    Context context;
+    LinearLayoutManager mLayoutManager;
+
+    FragmentCatsBinding binding;
     public static HashMap<String, String> parameters = new HashMap<>();
+    private CatsAdapter adapter;
     public List<Cat> resultCats = new ArrayList<>();
 
     public CatsViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public void onCatsViewModel(FragmentCatsBinding binding) {
+        this.binding = binding;
+        context = getApplication();
+        mLayoutManager = new GridLayoutManager(context, 2);
+        binding.catRecyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.inject(this);
+        loadCats();
+    }
+
+    public void loadCats() {
         parameters.put("limit", "20");
         service.getAllCats(parameters)
                 .enqueue(new Callback<List<Cat>>() {
@@ -46,12 +68,9 @@ public class CatsViewModel extends AndroidViewModel {
     }
 
     public void generateDataList(List<Cat> photoList) {
-        if (resultCats.isEmpty()) {
-            resultCats = new ArrayList<>(photoList);
-        } else {
-            resultCats.addAll(photoList);
-        }
-        Log.d("TAGG", String.valueOf(resultCats.size()));
+        resultCats.addAll(photoList);
+        adapter = new CatsAdapter(context, resultCats);
+        binding.catRecyclerView.setAdapter(adapter);
     }
 
 }
