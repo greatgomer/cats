@@ -2,7 +2,6 @@ package com.example.cats.ui.home.fragments.cats.authorisation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.widget.Toast;

@@ -32,7 +32,6 @@ public class CatsViewModel extends AndroidViewModel {
     public void onCatsViewModel(FragmentCatsBinding binding) {
         this.binding = binding;
         ((MyApplication) getApplication().getApplicationContext()).appComponent.inject(this);
-
         ItemDataSourceFactory itemDataSourceFactory = new ItemDataSourceFactory(service);
         liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
 
@@ -41,8 +40,7 @@ public class CatsViewModel extends AndroidViewModel {
                         .setEnablePlaceholders(false)
                         .setPageSize(PAGE_SIZE).build();
 
-        catPagedList = (new LivePagedListBuilder(itemDataSourceFactory, pagedListConfig))
-                .build();
+        catPagedList = (new LivePagedListBuilder(itemDataSourceFactory, pagedListConfig)).build();
     }
 
 }

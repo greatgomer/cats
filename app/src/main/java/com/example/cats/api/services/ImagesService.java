@@ -11,7 +11,6 @@ import retrofit2.http.QueryMap;
 
 public interface ImagesService {
     @GET("images/search")
-//    Observable<List<Cat>> getAllData(@QueryMap Map<String, String> parameters);
     Call<List<Cat>> getAllCats(@QueryMap Map<String, String> parameters);
 
 }

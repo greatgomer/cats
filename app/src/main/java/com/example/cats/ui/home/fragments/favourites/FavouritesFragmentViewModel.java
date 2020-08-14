@@ -51,7 +51,6 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
         binding.favouritesRecyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
-
     }
 
     private void loadFavourites() {

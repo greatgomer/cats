@@ -17,8 +17,6 @@ import com.example.cats.ui.home.fragments.downloads.dialog.DownloadsDialog;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class DownloadsFragment extends Fragment {
     FragmentDownloadsBinding binding;
 

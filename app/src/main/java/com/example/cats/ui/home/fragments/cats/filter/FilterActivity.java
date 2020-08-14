@@ -14,7 +14,7 @@ public class FilterActivity extends AppCompatActivity {
     ActivityFilterBinding binding;
     public static boolean flag = false;
 
-    public FilterActivity(){}
+    public FilterActivity() {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
