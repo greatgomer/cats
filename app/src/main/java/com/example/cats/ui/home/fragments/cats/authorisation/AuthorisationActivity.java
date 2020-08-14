@@ -1,4 +1,4 @@
-package com.example.cats.ui.authorisation;
+package com.example.cats.ui.home.fragments.cats.authorisation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityAuthorisatounBinding;
-import com.jakewharton.rxbinding4.view.RxView;
 
 public class AuthorisationActivity extends AppCompatActivity {
 

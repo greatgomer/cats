@@ -1,10 +1,9 @@
-package com.example.cats.ui.authorisation;
+package com.example.cats.ui.home.fragments.cats.authorisation;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;

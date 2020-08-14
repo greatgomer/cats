@@ -1,32 +1,40 @@
 package com.example.cats.ui.home.fragments.cats;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
 import com.example.cats.databinding.FragmentCatsBinding;
+import com.example.cats.ui.home.MainActivity;
+import com.example.cats.ui.home.fragments.cats.filter.FilterActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 
 public class CatsFragment extends Fragment {
     private CatsAdapter adapter;
+    CatsViewModel model;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentCatsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
-        CatsViewModel model = ViewModelProviders.of(this).get(CatsViewModel.class);
+        model = ViewModelProviders.of(this).get(CatsViewModel.class);
         RecyclerView recyclerView = binding.catRecyclerView;
+        setHasOptionsMenu(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new CatsAdapter(getActivity());
@@ -41,6 +49,41 @@ public class CatsFragment extends Fragment {
         binding.catRecyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_cat_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_filter & !CatsFragmentViewModel.email.equals("")) {
+            super.onOptionsItemSelected(item);
+            Intent intent = new Intent(getContext(), FilterActivity.class);
+            startActivity(intent);
+            return true;
+//        } else if (id == R.id.action_filter & CatsFragmentViewModel.email.equals("")) {
+//            super.onOptionsItemSelected(item);
+//            Toast.makeText(getActivity(), "Add user", Toast.LENGTH_LONG).show();
+//            return true;
+//        }{
+//            super.onOptionsItemSelected(item);
+//            Intent intent = new Intent(getContext(), AuthorisationActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (FilterActivity.flag) {
+            MainActivity.navController.navigate(R.id.catsFragment);
+            FilterActivity.flag = false;
+        }
     }
 
 }
