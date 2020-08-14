@@ -59,22 +59,10 @@ public class CatsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_filter & !CatsFragmentViewModel.email.equals("")) {
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), FilterActivity.class);
             startActivity(intent);
             return true;
-//        } else if (id == R.id.action_filter & CatsFragmentViewModel.email.equals("")) {
-//            super.onOptionsItemSelected(item);
-//            Toast.makeText(getActivity(), "Add user", Toast.LENGTH_LONG).show();
-//            return true;
-//        }{
-//            super.onOptionsItemSelected(item);
-//            Intent intent = new Intent(getContext(), AuthorisationActivity.class);
-//            startActivity(intent);
-//            return true;
-//        }
     }
 
     @Override

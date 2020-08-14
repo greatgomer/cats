@@ -2,7 +2,6 @@ package com.example.cats.ui.home.fragments.cats.filter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -13,7 +12,6 @@ import com.jakewharton.rxbinding4.view.RxView;
 
 public class FilterActivity extends AppCompatActivity {
     ActivityFilterBinding binding;
-    FilterActivityViewModel model;
     public static boolean flag = false;
 
     public FilterActivity(){}
@@ -22,7 +20,6 @@ public class FilterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter);
-        model = ViewModelProviders.of(this).get(FilterActivityViewModel.class);
         setTitle(R.string.choose_filter);
 
         RxView.clicks(binding.applyFilter).subscribe(aVoid -> {
@@ -73,7 +70,9 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     public void onButtonResetPressed() {
-        model.onButtonPressed();
+        CatDataSource.parameters.clear();
+        CatDataSource.parameters.put("limit", "14");
+        CatDataSource.parameters.put("page", "0");
         flag = true;
     }
 
