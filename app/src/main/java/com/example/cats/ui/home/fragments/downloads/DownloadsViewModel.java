@@ -14,6 +14,7 @@ import com.example.cats.api.models.res.Downloads;
 import com.example.cats.api.services.DownloadsService;
 import com.example.cats.databinding.FragmentDownloadsBinding;
 import com.example.cats.di.MyApplication;
+import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +53,7 @@ public class DownloadsViewModel extends AndroidViewModel {
     }
 
     private void loadFavourites() {
-        service.getAllDownloads("test", 20)
+        service.getAllDownloads(AuthorisationActivity.userName, 20)
                 .enqueue(new Callback<List<Downloads>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Downloads>> call, @NotNull Response<List<Downloads>> response) {

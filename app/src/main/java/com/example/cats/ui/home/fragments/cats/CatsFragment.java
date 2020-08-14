@@ -18,15 +18,22 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
+import com.example.cats.api.services.FavouritesService;
 import com.example.cats.databinding.FragmentCatsBinding;
+import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.MainActivity;
 import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.example.cats.ui.home.fragments.cats.filter.FilterActivity;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
 
 public class CatsFragment extends Fragment {
+    @Inject
+    FavouritesService service;
+
     private CatsAdapter adapter;
     CatsViewModel model;
 
@@ -34,12 +41,13 @@ public class CatsFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentCatsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
+        ((MyApplication) getActivity().getApplication().getApplicationContext()).appComponent.favourite(this);
         model = ViewModelProviders.of(this).get(CatsViewModel.class);
         RecyclerView recyclerView = binding.catRecyclerView;
         setHasOptionsMenu(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        adapter = new CatsAdapter(getActivity());
+        adapter = new CatsAdapter(service, getActivity());
         model.onCatsViewModel(binding);
         View view = binding.getRoot();
 

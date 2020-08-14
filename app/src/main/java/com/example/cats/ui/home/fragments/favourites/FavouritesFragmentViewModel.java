@@ -14,6 +14,7 @@ import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.databinding.FragmentFavoritesBinding;
 import com.example.cats.di.MyApplication;
+import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +55,7 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
     }
 
     private void loadFavourites() {
-        service.getAllFavorites("test")
+        service.getAllFavorites(AuthorisationActivity.userName)
                 .enqueue(new Callback<List<Favorites>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Favorites>> call, @NotNull Response<List<Favorites>> response) {
