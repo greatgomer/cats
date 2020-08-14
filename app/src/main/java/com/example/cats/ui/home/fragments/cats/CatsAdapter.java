@@ -2,6 +2,7 @@ package com.example.cats.ui.home.fragments.cats;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.cats.api.models.res.Cat;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.example.cats.ui.home.fragments.favourites.FavouritesFragmentViewModel;
+import com.example.cats.ui.image.ImageDetails;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -70,6 +72,15 @@ public class CatsAdapter extends PagedListAdapter<Cat, CatsAdapter.ItemViewHolde
                 .error(R.drawable.image_background)
                 .into(holder.coverImage);
 
+        holder.mView.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.setClass(context, ImageDetails.class);
+            intent.putExtra("url", cat.getUrl());
+            intent.putExtra("id", cat.getId());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
+
         imageView.setOnClickListener(view -> {
             if (!FavouritesFragmentViewModel.favouritesAllId.contains(cat.getId())) {
                 FavoritesParameters favoritesParameters = new FavoritesParameters(cat.getId(), AuthorisationActivity.userName);
@@ -95,9 +106,11 @@ public class CatsAdapter extends PagedListAdapter<Cat, CatsAdapter.ItemViewHolde
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView coverImage;
+        View mView;
 
         public ItemViewHolder(View view) {
             super(view);
+            mView = view;
             coverImage = view.findViewById(R.id.cat_image);
             imageView = view.findViewById(R.id.button_put_in_favourites);
         }

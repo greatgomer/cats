@@ -41,7 +41,7 @@ public class CatsFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentCatsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
-        ((MyApplication) getActivity().getApplication().getApplicationContext()).appComponent.favourite(this);
+        ((MyApplication) requireActivity().getApplication().getApplicationContext()).appComponent.favourite(this);
         model = ViewModelProviders.of(this).get(CatsViewModel.class);
         RecyclerView recyclerView = binding.catRecyclerView;
         setHasOptionsMenu(true);
