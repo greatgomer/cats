@@ -16,7 +16,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = NetworkProvider.class)
 public interface AppComponent {
-    void inject(CatsViewModel catsFragment);
+    void inject(CatsViewModel catsViewModel);
     void favourites(FavouritesFragmentViewModel favoritesFragment);
 //    void favourite(CatsFragmentViewModel catsFragmentViewModel);
     void favourites(FavouritesDialogViewModel dialogActivity);

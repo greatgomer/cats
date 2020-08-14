@@ -1,11 +1,14 @@
 package com.example.cats.ui.home.fragments.cats;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cats.R;
@@ -14,50 +17,55 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class CatsAdapter extends RecyclerView.Adapter<CatsAdapter.CustomViewHolder> {
-    private List<Cat> dataList;
+public class CatsAdapter extends PagedListAdapter<Cat, CatsAdapter.ItemViewHolder> {
     private Context context;
 
-    public CatsAdapter(Context context, List<Cat> dataList) {
+    private static DiffUtil.ItemCallback<Cat> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<Cat>() {
+                @Override
+                public boolean areItemsTheSame(Cat oldItem, Cat newItem) {
+                    return oldItem.getId().equals(newItem.getId());
+                }
+
+                @SuppressLint("DiffUtilEquals")
+                @Override
+                public boolean areContentsTheSame(Cat oldItem, @NotNull Cat newItem) {
+                    return oldItem.equals(newItem);
+                }
+            };
+
+    public CatsAdapter(Context context) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.dataList = dataList;
-    }
-
-    static class CustomViewHolder extends RecyclerView.ViewHolder {
-
-        public final View mView;
-        private ImageView coverImage;
-
-        CustomViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-            coverImage = mView.findViewById(R.id.cat_image);
-        }
     }
 
     @NotNull
     @Override
-    public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.cat_item, parent, false);
 
-        return new CustomViewHolder(view);
+        return new ItemViewHolder(view);
     }
 
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
+        Cat cat = getItem(position);
+        assert cat != null;
         Picasso.with(context)
-                .load(dataList.get(position).getUrl())
+                .load(cat.getUrl())
                 .resize(500, 500)
                 .centerCrop()
                 .error(R.drawable.image_background)
                 .into(holder.coverImage);
     }
 
-    @Override
-    public int getItemCount() {
-        return dataList.size();
+    class ItemViewHolder extends RecyclerView.ViewHolder {
+        ImageView coverImage;
+
+        public ItemViewHolder(View view) {
+            super(view);
+            coverImage = view.findViewById(R.id.cat_image);
+        }
     }
 
 }
