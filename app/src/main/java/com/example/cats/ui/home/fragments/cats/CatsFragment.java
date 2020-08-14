@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cats.R;
 import com.example.cats.databinding.FragmentCatsBinding;
 import com.example.cats.ui.home.MainActivity;
+import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.example.cats.ui.home.fragments.cats.filter.FilterActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +49,6 @@ public class CatsFragment extends Fragment {
         });
 
         binding.catRecyclerView.setAdapter(adapter);
-
         return view;
     }
 
@@ -59,10 +60,19 @@ public class CatsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_authorisation) {
+            super.onOptionsItemSelected(item);
+            Intent intent = new Intent(getContext(), AuthorisationActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_filter & !AuthorisationActivity.userName.equals("")) {
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), FilterActivity.class);
             startActivity(intent);
-            return true;
+        } else {
+            Toast.makeText(getActivity(), "Add user", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
     @Override

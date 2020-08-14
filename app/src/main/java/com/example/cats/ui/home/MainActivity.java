@@ -2,6 +2,7 @@ package com.example.cats.ui.home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,6 +11,7 @@ import androidx.navigation.Navigation;
 
 import com.example.cats.R;
 import com.example.cats.databinding.ActivityMainBinding;
+import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,11 +34,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.page_2:
-                navController.navigate(R.id.favoritesFragment);
+                if (AuthorisationActivity.userName.equals("")){
+                    Toast.makeText(this, "Add user", Toast.LENGTH_SHORT).show();
+                } else {
+                    navController.navigate(R.id.favoritesFragment);
+                }
                 return true;
 
             case R.id.page_3:
-                navController.navigate(R.id.downloadsFragment);
+                if (AuthorisationActivity.userName.equals("")){
+                    Toast.makeText(this, "Add user", Toast.LENGTH_SHORT).show();
+                } else {
+                    navController.navigate(R.id.downloadsFragment);
+                }
                 return true;
         }
 
