@@ -7,12 +7,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.FavouritesService;
-import com.example.cats.databinding.FragmentFavoritesBinding;
 import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 
@@ -33,22 +32,17 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     Context context;
-    LinearLayoutManager mLayoutManager;
-    FragmentFavoritesBinding binding;
 
-    FavouritesRecyclerAdapter adapter;
     public List<Favorites> resultFavorites = new ArrayList<>();
+    public MutableLiveData<List<Favorites>> resultFavoritesList = new MutableLiveData<>();
     public static List<String> favouritesAllId = new ArrayList<>();
 
     public FavouritesFragmentViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void favouritesViewModel(FragmentFavoritesBinding binding){
-        this.binding = binding;
+    public void favouritesViewModel(){
         context = getApplication();
-        mLayoutManager = new GridLayoutManager(context, 2);
-        binding.favouritesRecyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourites(this);
         loadFavourites();
     }
@@ -68,10 +62,17 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
                 });
     }
 
+    public LiveData<List<Favorites>> getResultFavoritesList() {
+        if (resultFavoritesList == null) {
+            resultFavoritesList = new MutableLiveData<>();
+            loadFavourites();
+        }
+        return resultFavoritesList;
+    }
+
     private void generateDataList(List<Favorites> photoList) {
         resultFavorites.addAll(photoList);
-        adapter = new FavouritesRecyclerAdapter(context, resultFavorites);
-        binding.favouritesRecyclerView.setAdapter(adapter);
+        resultFavoritesList.setValue(resultFavorites);
     }
 
 }

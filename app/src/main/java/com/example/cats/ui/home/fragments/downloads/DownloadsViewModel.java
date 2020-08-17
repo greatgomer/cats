@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.cats.api.models.res.Downloads;
 import com.example.cats.api.services.DownloadsService;
@@ -33,26 +33,21 @@ public class DownloadsViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     Context context;
-    LinearLayoutManager mLayoutManager;
-    FragmentDownloadsBinding binding;
 
-    DownloadsFragmentAdapter adapter;
     public List<Downloads> downloads = new ArrayList<>();
+    public MutableLiveData<List<Downloads>> resultDownloadsList = new MutableLiveData<>();
 
     public DownloadsViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void downloadsViewModel(FragmentDownloadsBinding binding){
-        this.binding = binding;
         context = getApplication();
-        mLayoutManager = new GridLayoutManager(context, 2);
-        binding.downloadsRecyclerView.setLayoutManager(mLayoutManager);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.downloads(this);
-        loadFavourites();
+        loadDownloads();
     }
 
-    private void loadFavourites() {
+    private void loadDownloads() {
         service.getAllDownloads(AuthorisationActivity.userName, 20)
                 .enqueue(new Callback<List<Downloads>>() {
                     @Override
@@ -67,10 +62,17 @@ public class DownloadsViewModel extends AndroidViewModel {
                 });
     }
 
+    public LiveData<List<Downloads>> getResultDownloadsList() {
+        if (resultDownloadsList == null) {
+            resultDownloadsList = new MutableLiveData<>();
+            loadDownloads();
+        }
+        return resultDownloadsList;
+    }
+
     private void generateDataList(List<Downloads> photoList) {
         downloads.addAll(photoList);
-        adapter = new DownloadsFragmentAdapter(context, downloads);
-        binding.downloadsRecyclerView.setAdapter(adapter);
+        resultDownloadsList.setValue(downloads);
     }
 
 }
