@@ -8,24 +8,24 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:context=".ui.home.fragments.downloads.dialog.DownloadsDialog">
 
         <Button
-            android:onClick="onDownloadsGalleryClick"
             android:id="@+id/downloads_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onDownloadsGalleryClick"
             android:text="@string/downloads_dialog_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:onClick="onCameraGalleryClick"
             android:id="@+id/downloads_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onCameraGalleryClick"
             android:text="@string/downloads_dialog_photo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/downloads_gallery" />
