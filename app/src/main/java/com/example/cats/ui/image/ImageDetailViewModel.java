@@ -3,6 +3,7 @@ package com.example.cats.ui.image;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,7 +20,6 @@ import com.example.cats.api.services.FavouritesService;
 import com.example.cats.api.services.ImageService;
 import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.example.cats.ui.home.fragments.favourites.FavouritesFragmentViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +41,8 @@ public class ImageDetailViewModel extends AndroidViewModel {
     public MutableLiveData<String> resultCfaUrl = new MutableLiveData<>();
     public MutableLiveData<String> resultDescription = new MutableLiveData<>();
     public MutableLiveData<String> resultTemperament = new MutableLiveData<>();
+    SharedPreferences sharedPreferences;
+    public String userName = "";
     String id;
 
     public ImageDetailViewModel(@NonNull Application application) {
@@ -50,6 +52,8 @@ public class ImageDetailViewModel extends AndroidViewModel {
     public void setImage(ActivityImageDetailsBinding binding, Bundle arguments) {
         ((MyApplication) getApplication().getApplicationContext()).appComponent.votes(this);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourite(this);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication());
+        userName = sharedPreferences.getString("userName", "");
         Context context = getApplication();
         String url = (String) arguments.get("url");
         id = (String) arguments.get("id");
@@ -63,7 +67,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
 
     public void postVote() {
         if (!FavouritesFragmentViewModel.favouritesAllId.contains(id)) {
-            FavoritesParameters favoritesParameters = new FavoritesParameters(id, AuthorisationActivity.userName);
+            FavoritesParameters favoritesParameters = new FavoritesParameters(id, userName);
             serviceFavourite.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
                 @Override
                 public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
@@ -96,6 +100,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         if (resultName == null) {
             resultName = new MutableLiveData<>();
         }
+
         return resultName;
     }
 
@@ -103,6 +108,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         if (resultCfaUrl == null) {
             resultCfaUrl = new MutableLiveData<>();
         }
+
         return resultCfaUrl;
     }
 
@@ -110,6 +116,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         if (resultDescription == null) {
             resultDescription = new MutableLiveData<>();
         }
+
         return resultDescription;
     }
 
@@ -117,6 +124,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         if (resultTemperament == null) {
             resultTemperament = new MutableLiveData<>();
         }
+
         return resultTemperament;
     }
 

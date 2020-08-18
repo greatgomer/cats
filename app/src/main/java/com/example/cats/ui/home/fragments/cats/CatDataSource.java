@@ -26,7 +26,7 @@ public class CatDataSource extends PageKeyedDataSource<Integer, Cat> {
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, Cat> callback) {
-        parameters.put("limit", "20");
+        parameters.put("limit", "14");
         service.getAllCats(parameters)
                 .enqueue(new Callback<List<Cat>>() {
                     @Override

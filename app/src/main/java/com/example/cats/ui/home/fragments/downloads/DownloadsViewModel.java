@@ -3,6 +3,7 @@ package com.example.cats.ui.home.fragments.downloads;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,6 @@ import com.example.cats.api.models.res.Downloads;
 import com.example.cats.api.services.DownloadsService;
 import com.example.cats.databinding.FragmentDownloadsBinding;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +36,8 @@ public class DownloadsViewModel extends AndroidViewModel {
 
     public List<Downloads> downloads = new ArrayList<>();
     public MutableLiveData<List<Downloads>> resultDownloadsList = new MutableLiveData<>();
+    SharedPreferences sharedPreferences;
+    public String userName = "";
 
     public DownloadsViewModel(@NonNull Application application) {
         super(application);
@@ -44,11 +46,13 @@ public class DownloadsViewModel extends AndroidViewModel {
     public void downloadsViewModel(FragmentDownloadsBinding binding){
         context = getApplication();
         ((MyApplication) getApplication().getApplicationContext()).appComponent.downloads(this);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication());
+        userName = sharedPreferences.getString("userName", "");
         loadDownloads();
     }
 
     private void loadDownloads() {
-        service.getAllDownloads(AuthorisationActivity.userName, 20)
+        service.getAllDownloads(userName, 20)
                 .enqueue(new Callback<List<Downloads>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Downloads>> call, @NotNull Response<List<Downloads>> response) {

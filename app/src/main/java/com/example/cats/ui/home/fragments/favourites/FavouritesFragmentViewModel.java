@@ -3,6 +3,7 @@ package com.example.cats.ui.home.fragments.favourites;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.cats.api.models.res.Favorites;
 import com.example.cats.api.services.FavouritesService;
 import com.example.cats.di.MyApplication;
-import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +36,8 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
     public List<Favorites> resultFavorites = new ArrayList<>();
     public MutableLiveData<List<Favorites>> resultFavoritesList = new MutableLiveData<>();
     public static List<String> favouritesAllId = new ArrayList<>();
+    SharedPreferences sharedPreferences;
+    public String userName = "";
 
     public FavouritesFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -44,11 +46,13 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
     public void favouritesViewModel(){
         context = getApplication();
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourites(this);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication());
+        userName = sharedPreferences.getString("userName", "");
         loadFavourites();
     }
 
     private void loadFavourites() {
-        service.getAllFavorites(AuthorisationActivity.userName)
+        service.getAllFavorites(userName)
                 .enqueue(new Callback<List<Favorites>>() {
                     @Override
                     public void onResponse(@NotNull Call<List<Favorites>> call, @NotNull Response<List<Favorites>> response) {

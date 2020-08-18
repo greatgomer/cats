@@ -1,6 +1,7 @@
 package com.example.cats.ui.home.fragments.cats;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +27,8 @@ import com.example.cats.ui.home.fragments.cats.filter.FilterActivity;
 import org.jetbrains.annotations.NotNull;
 
 public class CatsFragment extends Fragment {
+    SharedPreferences sharedPreferences;
+    public String userName = "";
     private CatsAdapter adapter;
     CatsViewModel model;
 
@@ -33,8 +36,10 @@ public class CatsFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentCatsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cats, container, false);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity());
         model = ViewModelProviders.of(this).get(CatsViewModel.class);
         RecyclerView recyclerView = binding.catRecyclerView;
+        userName = sharedPreferences.getString("userName", "");
         setHasOptionsMenu(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -64,7 +69,7 @@ public class CatsFragment extends Fragment {
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), AuthorisationActivity.class);
             startActivity(intent);
-        } else if (id == R.id.action_filter & !AuthorisationActivity.userName.equals("")) {
+        } else if (id == R.id.action_filter & !userName.equals("")) {
             super.onOptionsItemSelected(item);
             Intent intent = new Intent(getContext(), FilterActivity.class);
             startActivity(intent);

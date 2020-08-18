@@ -24,7 +24,6 @@ public class ImageDetails extends AppCompatActivity {
         assert arguments != null;
         model.setImage(binding, arguments);
         contentImageDetails();
-
     }
 
     @SuppressLint("SetTextI18n")

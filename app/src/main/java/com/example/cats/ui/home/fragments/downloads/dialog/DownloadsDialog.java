@@ -1,6 +1,7 @@
 package com.example.cats.ui.home.fragments.downloads.dialog;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class DownloadsDialog extends AppCompatActivity{
+    SharedPreferences sharedPreferences;
+    public String userName = "";
     DownloadsDialogViewModel model;
     public static final int PICK_IMAGE = 1;
     static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -39,6 +42,8 @@ public class DownloadsDialog extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_downloads_dialog);
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        userName = sharedPreferences.getString("userName", "");
         model = ViewModelProviders.of(this).get(DownloadsDialogViewModel.class);
         model.downloadsViewModel(binding);
 
@@ -113,7 +118,7 @@ public class DownloadsDialog extends AppCompatActivity{
 
     @NonNull
     private RequestBody createPartFromString() {
-        return RequestBody.create(AuthorisationActivity.userName, okhttp3.MultipartBody.FORM);
+        return RequestBody.create(userName, okhttp3.MultipartBody.FORM);
     }
 
 }
