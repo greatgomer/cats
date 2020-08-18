@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Downloads;
 import com.example.cats.ui.home.fragments.downloads.delete.DeleteDownloadActivity;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,11 +59,9 @@ public class DownloadsFragmentAdapter extends RecyclerView.Adapter<DownloadsFrag
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        Picasso.with(context)
+        Glide.with(context)
                 .load(dataList.get(position).getUrl())
-                .resize(500, 500)
                 .centerCrop()
-                .error(R.drawable.image_background)
                 .into(holder.coverImage);
 
         holder.mView.setOnLongClickListener(view -> {

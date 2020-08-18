@@ -10,11 +10,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cats.ui.home.fragments.favourites.favouritesDialog.FavouritesDialogActivity;
 import com.example.cats.ui.image.ImageDetails;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Favorites;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -73,11 +73,9 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
             Toast.makeText(context, "No images", Toast.LENGTH_LONG).show();
         }
 
-        Picasso.with(context)
+        Glide.with(context)
                 .load(test)
-                .resize(500, 500)
                 .centerCrop()
-                .error(R.drawable.image_background)
                 .into(holder.coverImage);
 
         holder.mView.setOnClickListener(view -> {

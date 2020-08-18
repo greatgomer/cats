@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.bumptech.glide.Glide;
 import com.example.cats.R;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Image;
@@ -21,7 +22,6 @@ import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.example.cats.ui.home.fragments.favourites.FavouritesFragmentViewModel;
 import com.jakewharton.rxbinding4.view.RxView;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +36,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
     ImageService service;
 
     @Inject
-    FavouritesService service2;
+    FavouritesService serviceFavourite;
 
     ActivityImageDetailsBinding binding;
     String noData = "No data";
@@ -55,9 +55,10 @@ public class ImageDetailViewModel extends AndroidViewModel {
         id = (String) arguments.get("id");
         getImageInfo();
         onButtonsPressed();
-        Picasso.with(context)
+
+        Glide.with(context)
                 .load(url)
-                .error(R.drawable.ic_launcher_background)
+                .centerCrop()
                 .into(binding.fullCat);
     }
 
@@ -70,7 +71,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
     private void postVote() {
         if (!FavouritesFragmentViewModel.favouritesAllId.contains(id)) {
             FavoritesParameters favoritesParameters = new FavoritesParameters(id, AuthorisationActivity.userName);
-            service2.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
+            serviceFavourite.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
                 @Override
                 public void onResponse(@NotNull Call<FavoritesParameters> call, @NotNull Response<FavoritesParameters> response) {
                     Toast.makeText(getApplication().getApplicationContext(), "Completed", Toast.LENGTH_SHORT).show();

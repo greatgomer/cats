@@ -12,10 +12,10 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cats.R;
 import com.example.cats.api.models.res.Cat;
 import com.example.cats.ui.image.ImageDetails;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,11 +53,10 @@ public class CatsAdapter extends PagedListAdapter<Cat, CatsAdapter.ItemViewHolde
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Cat cat = getItem(position);
         assert cat != null;
-        Picasso.with(context)
+
+        Glide.with(context)
                 .load(cat.getUrl())
-                .resize(500, 500)
                 .centerCrop()
-                .error(R.drawable.image_background)
                 .into(holder.coverImage);
 
         holder.mView.setOnClickListener(view -> {
