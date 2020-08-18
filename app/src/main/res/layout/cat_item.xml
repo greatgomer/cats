@@ -33,16 +33,6 @@
                     android:layout_height="170dp"
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:id="@+id/button_put_in_favourites"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="end"
-                    android:clickable="true"
-                    app:srcCompat="@drawable/ic_baseline_star_border_24"
-                    tools:ignore="ContentDescription" />
-
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 

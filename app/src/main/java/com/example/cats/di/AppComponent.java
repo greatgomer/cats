@@ -19,7 +19,7 @@ import dagger.Component;
 public interface AppComponent {
     void inject(CatsViewModel catsViewModel);
     void favourites(FavouritesFragmentViewModel favoritesFragment);
-    void favourite(CatsFragment catsFragment);
+    void favourite(ImageDetailViewModel imageDetailViewModel);
     void favourites(FavouritesDialogViewModel dialogActivity);
     void downloads(DownloadsViewModel downloadsViewModel);
     void download(DownloadsDialogViewModel downloadsDialogViewModel);
