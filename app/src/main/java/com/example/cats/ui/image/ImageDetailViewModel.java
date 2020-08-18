@@ -5,14 +5,14 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.bumptech.glide.Glide;
-import com.example.cats.R;
 import com.example.cats.api.models.req.FavoritesParameters;
 import com.example.cats.api.models.res.Image;
 import com.example.cats.api.services.FavouritesService;
@@ -21,7 +21,6 @@ import com.example.cats.databinding.ActivityImageDetailsBinding;
 import com.example.cats.di.MyApplication;
 import com.example.cats.ui.home.fragments.cats.authorisation.AuthorisationActivity;
 import com.example.cats.ui.home.fragments.favourites.FavouritesFragmentViewModel;
-import com.jakewharton.rxbinding4.view.RxView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,8 +37,10 @@ public class ImageDetailViewModel extends AndroidViewModel {
     @Inject
     FavouritesService serviceFavourite;
 
-    ActivityImageDetailsBinding binding;
-    String noData = "No data";
+    public MutableLiveData<String> resultName = new MutableLiveData<>();
+    public MutableLiveData<String> resultCfaUrl = new MutableLiveData<>();
+    public MutableLiveData<String> resultDescription = new MutableLiveData<>();
+    public MutableLiveData<String> resultTemperament = new MutableLiveData<>();
     String id;
 
     public ImageDetailViewModel(@NonNull Application application) {
@@ -49,12 +50,10 @@ public class ImageDetailViewModel extends AndroidViewModel {
     public void setImage(ActivityImageDetailsBinding binding, Bundle arguments) {
         ((MyApplication) getApplication().getApplicationContext()).appComponent.votes(this);
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourite(this);
-        this.binding = binding;
         Context context = getApplication();
         String url = (String) arguments.get("url");
         id = (String) arguments.get("id");
         getImageInfo();
-        onButtonsPressed();
 
         Glide.with(context)
                 .load(url)
@@ -62,13 +61,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
                 .into(binding.fullCat);
     }
 
-    private void onButtonsPressed() {
-        View.OnClickListener down = view -> {};
-        RxView.clicks(binding.imageButtonUp).subscribe(aVoid -> postVote()).isDisposed();
-        binding.imageButtonDown.setOnClickListener(down);
-    }
-
-    private void postVote() {
+    public void postVote() {
         if (!FavouritesFragmentViewModel.favouritesAllId.contains(id)) {
             FavoritesParameters favoritesParameters = new FavoritesParameters(id, AuthorisationActivity.userName);
             serviceFavourite.postFavourites(favoritesParameters).enqueue(new Callback<FavoritesParameters>() {
@@ -99,16 +92,42 @@ public class ImageDetailViewModel extends AndroidViewModel {
         });
     }
 
+    public LiveData<String> getResultName() {
+        if (resultName == null) {
+            resultName = new MutableLiveData<>();
+        }
+        return resultName;
+    }
+
+    public LiveData<String> getResultCfaUrl() {
+        if (resultCfaUrl == null) {
+            resultCfaUrl = new MutableLiveData<>();
+        }
+        return resultCfaUrl;
+    }
+
+    public LiveData<String> getResultDescription() {
+        if (resultDescription == null) {
+            resultDescription = new MutableLiveData<>();
+        }
+        return resultDescription;
+    }
+
+    public LiveData<String> getResultTemperament() {
+        if (resultTemperament == null) {
+            resultTemperament = new MutableLiveData<>();
+        }
+        return resultTemperament;
+    }
+
     @SuppressLint("SetTextI18n")
     private void generateData(Image response) {
         try {
-            binding.textViewWikipediaUrl.setText("Name: " + response.getBreeds()[0].getName());
-            binding.textViewCfaUrl.setText("CfaUrl: " + response.getBreeds()[0].getCfa_url());
-            binding.textViewDescription.setText("Description: " + response.getBreeds()[0].getDescription());
-            binding.textViewTemperament.setText("Temperament: " + response.getBreeds()[0].getTemperament());
-        } catch (NullPointerException n) {
-            binding.textViewCfaUrl.setText(noData);
-        }
+            resultName.setValue(response.getBreeds()[0].getName());
+            resultCfaUrl.setValue(response.getBreeds()[0].getCfa_url());
+            resultDescription.setValue(response.getBreeds()[0].getDescription());
+            resultTemperament.setValue(response.getBreeds()[0].getTemperament());
+        } catch (NullPointerException ignored) {}
     }
 
 }
