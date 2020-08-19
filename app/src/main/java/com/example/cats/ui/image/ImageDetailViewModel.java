@@ -2,9 +2,12 @@ package com.example.cats.ui.image;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -43,6 +46,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
     public MutableLiveData<String> resultTemperament = new MutableLiveData<>();
     SharedPreferences sharedPreferences;
     public String userName = "";
+    String url;
     String id;
 
     public ImageDetailViewModel(@NonNull Application application) {
@@ -55,7 +59,7 @@ public class ImageDetailViewModel extends AndroidViewModel {
         sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication());
         userName = sharedPreferences.getString("userName", "");
         Context context = getApplication();
-        String url = (String) arguments.get("url");
+        url = (String) arguments.get("url");
         id = (String) arguments.get("id");
         getImageInfo();
 
@@ -136,6 +140,21 @@ public class ImageDetailViewModel extends AndroidViewModel {
             resultDescription.setValue(response.getBreeds()[0].getDescription());
             resultTemperament.setValue(response.getBreeds()[0].getTemperament());
         } catch (NullPointerException ignored) {}
+    }
+
+    public void downloadImage() {
+        String fileName = url.substring(url.lastIndexOf('/') + 1);
+        DownloadManager downloadManager = (DownloadManager) getApplication().getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri Download_Uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setAllowedOverRoaming(false);
+        request.setTitle(fileName);
+        request.setDescription(fileName);
+        request.setVisibleInDownloadsUi(true);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+
+        long refid = downloadManager.enqueue(request);
     }
 
 }

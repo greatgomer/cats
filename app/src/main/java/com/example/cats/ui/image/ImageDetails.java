@@ -28,6 +28,7 @@ public class ImageDetails extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void contentImageDetails() {
+        RxView.clicks(binding.imageButtonDown).subscribe(aVoid -> model.downloadImage()).isDisposed();
         RxView.clicks(binding.imageButtonUp).subscribe(aVoid -> model.postVote()).isDisposed();
         model.getResultName().observe(this, name -> binding.textViewWikipediaUrl.setText("Name: " + name));
         model.getResultCfaUrl().observe(this, cfa -> binding.textViewCfaUrl.setText("Name: " + cfa));
