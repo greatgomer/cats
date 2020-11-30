@@ -43,7 +43,7 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void favouritesViewModel(){
+    public void favouritesViewModel() {
         context = getApplication();
         ((MyApplication) getApplication().getApplicationContext()).appComponent.favourites(this);
         sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication());
@@ -75,8 +75,10 @@ public class FavouritesFragmentViewModel extends AndroidViewModel {
     }
 
     private void generateDataList(List<Favorites> photoList) {
-        resultFavorites.addAll(photoList);
-        resultFavoritesList.setValue(resultFavorites);
+        if (photoList != null) {
+            resultFavorites.addAll(photoList);
+            resultFavoritesList.setValue(resultFavorites);
+        }
     }
 
 }

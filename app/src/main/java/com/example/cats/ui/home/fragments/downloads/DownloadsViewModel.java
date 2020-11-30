@@ -43,7 +43,7 @@ public class DownloadsViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void downloadsViewModel(FragmentDownloadsBinding binding){
+    public void downloadsViewModel(FragmentDownloadsBinding binding) {
         context = getApplication();
         ((MyApplication) getApplication().getApplicationContext()).appComponent.downloads(this);
         sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplication());
@@ -75,8 +75,10 @@ public class DownloadsViewModel extends AndroidViewModel {
     }
 
     private void generateDataList(List<Downloads> photoList) {
-        downloads.addAll(photoList);
-        resultDownloadsList.setValue(downloads);
+        if (photoList != null) {
+            downloads.addAll(photoList);
+            resultDownloadsList.setValue(downloads);
+        }
     }
 
 }
